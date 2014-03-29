@@ -12,6 +12,20 @@
 
 ## Development
 
+Install [node-webkit](https://github.com/rogerwang/node-webkit) and make an [alias](https://github.com/rogerwang/node-webkit/wiki/How-to-run-apps) to it:
+
+```sh
+$ alias nw="/Applications/node-webkit.app/Contents/MacOS/node-webkit"
+```
+
+Run node-webkit from the root directory with `--debug` to enable debugging mode like so:
+
+```sh
+$ nw . --debug
+```
+
+## Tasks
+
 We use [Grunt](http://gruntjs.com/), a task-runner in [Node](http://nodejs.org/), to automate things.
 
 To install it, run:
