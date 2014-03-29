@@ -1,0 +1,28 @@
+body {
+    background-image: url(../img/bg.png);
+    font-size: 13px;
+    line-height: 18px;
+    color: #333;
+    overflow-x: hidden;
+}
+
+/** =========================================================================
+    Splash
+    ========================================================================= */
+
+#yeoman-splash {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -250px 0 0 -200px;
+    -webkit-animation: splash-in .3s ease-out forwards,
+                       splash-out .5s 1s ease-out forwards;
+}
+
+@-webkit-keyframes splash-in {
+    to { margin-top: -225px; }
+}
+
+@-webkit-keyframes splash-out {
+    to { opacity: 0; }
+}
