@@ -1,4 +1,6 @@
-# Yeoman App [![Build Status](https://secure.travis-ci.org/zenorocha/yeoman-app.png?branch=master)](https://travis-ci.org/zenorocha/yeoman-app) [![NPM version](https://badge.fury.io/js/yeoman-app.png)](http://badge.fury.io/js/yeoman-app) [![Dependency Status](https://david-dm.org/zenorocha/yeoman-app.png)](https://david-dm.org/zenorocha/yeoman-app)
+# Yeoman App
+
+<!-- [![Build Status](https://secure.travis-ci.org/zenorocha/yeoman-app.png?branch=master)](https://travis-ci.org/zenorocha/yeoman-app) [![NPM version](https://badge.fury.io/js/yeoman-app.png)](http://badge.fury.io/js/yeoman-app) [![Dependency Status](https://david-dm.org/zenorocha/yeoman-app.png)](https://david-dm.org/zenorocha/yeoman-app) -->
 
 > An app made with [Node Webkit](https://github.com/rogerwang/node-webkit) that scaffolds projects using [Yeoman](https://github.com/yeoman/yeoman).
 
@@ -10,7 +12,31 @@
 
 ## Development
 
-TODO: Describe the installation process
+We use [Grunt](http://gruntjs.com/), a task-runner in [Node](http://nodejs.org/), to automate things.
+
+To install it, run:
+
+```sh
+$ npm install -g grunt-cli
+```
+
+To install local dependencies, run:
+
+```sh
+$ npm install
+```
+
+To build package for development purposes on Mac OSx, run:
+
+```sh
+$ grunt build
+```
+
+To build packages for release purposes on Mac OSx/Window/Linux, run:
+
+```sh
+$ grunt release
+```
 
 ## Contributing
 

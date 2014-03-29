@@ -1,24 +1,27 @@
 {
-  "name": "yeoman-app",
-  "version": "0.0.0",
-  "description": "An app made with Node Webkit that scaffolds projects using Yeoman",
-  "main": "index.html",
-  "scripts": {
-    "test": "mocha"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/zenorocha/yeoman-app"
-  },
-  "keywords": [
-    "yeoman",
-    "yo",
-    "scaffold"
-  ],
-  "author": "",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/zenorocha/yeoman-app/issues"
-  },
-  "homepage": "https://github.com/zenorocha/yeoman-app"
+    "name": "yeoman-app",
+    "version": "0.0.0",
+    "description": "An app made with Node Webkit that scaffolds projects using Yeoman",
+    "license": "MIT",
+    "main": "index.html",
+    "author": "Zeno Rocha <hi@zenorocha.com>",
+    "contributors": [
+        "Bruno Coelho <bcs.cin@gmail.com>",
+        "Henrique Vicente <henriquevicente@gmail.com>"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/zenorocha/yeoman-app"
+    },
+    "bugs": {
+        "url": "https://github.com/zenorocha/yeoman-app/issues"
+    },
+    "keywords": [
+        "yeoman",
+        "yo",
+        "scaffold"
+    ],
+    "devDependencies": {
+        "grunt-node-webkit-builder": "0.1.18"
+    }
 }

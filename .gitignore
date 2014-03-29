@@ -1,3 +1,4 @@
-node_modules
+node_modules/
+cache/
+releases/
 .DS_Store
-app.nw
