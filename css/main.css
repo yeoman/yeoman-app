@@ -31,6 +31,39 @@ section {
     font-size: 1.5em;
 }
 
+.hi {
+    width: 500px;
+    margin: 0 auto;
+    height: 270px;
+}
+
+.yeoman-hi {
+    float: left;
+}
+
+h1 {
+    font-family: 'Ubuntu Mono';
+    text-align: center;
+    font-size: 24px;
+    letter-spacing: 2px;
+    line-height: 24px;
+    font-weight: 400;
+    margin: 20px 0 20px;
+    text-transform: uppercase;
+    padding-top: 30px;
+}
+
+p {
+    font-family: 'Droid Sans', sans-serif;
+    letter-spacing: 0px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+    font-weight: 300;
+    margin: 20px 0 0 170px;
+}
+
 /** =========================================================================
     Splash
     ========================================================================= */
