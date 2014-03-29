@@ -2,6 +2,8 @@
 
 <!-- [![Build Status](https://secure.travis-ci.org/zenorocha/yeoman-app.png?branch=master)](https://travis-ci.org/zenorocha/yeoman-app) [![NPM version](https://badge.fury.io/js/yeoman-app.png)](http://badge.fury.io/js/yeoman-app) [![Dependency Status](https://david-dm.org/zenorocha/yeoman-app.png)](https://david-dm.org/zenorocha/yeoman-app) -->
 
+![](http://f.cl.ly/items/0I1t1S1e0v3s1u421y1X/Screen%20Shot%202014-03-29%20at%208.07.06%20PM.png)
+
 > An app made with [Node Webkit](https://github.com/rogerwang/node-webkit) that scaffolds projects using [Yeoman](https://github.com/yeoman/yeoman).
 
 ## Download
