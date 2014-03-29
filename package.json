@@ -23,5 +23,15 @@
     ],
     "devDependencies": {
         "grunt-node-webkit-builder": "0.1.18"
+    },
+    "window": {
+        "title": "Yeoman",
+        "toolbar": false,
+        "frame": true,
+        "width": 850,
+        "height": 535,
+        "min_width": 850,
+        "min_height": 535,
+        "resizable": true
     }
 }
