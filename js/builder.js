@@ -12,7 +12,7 @@ module.exports = (function exports() {
     /**
      *
      * @param args passed to yo (i.e., ['jquery'])
-     * @param questions (array of objects containing name and value)
+     * @param questions (array of objects containing name, message, and value)
      * @param errorCallback
      * @param endCallback
      * @param debugWriteStream stream.Writable object (optional)
@@ -29,7 +29,7 @@ module.exports = (function exports() {
         for (q in questions) {
             if (questions.hasOwnProperty(q)) {
                 el = questions[q];
-                s.on(new RegExp(escapeRegexp(el.name + ':'))).respond(el.value + '\n');
+                s.on(new RegExp(escapeRegexp(el.message + ':'))).respond(el.value + '\n');
             }
         }
 
