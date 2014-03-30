@@ -35,9 +35,9 @@
         "toolbar": false,
         "frame": true,
         "width": 850,
-        "height": 580,
+        "height": 635,
         "min_width": 850,
-        "min_height": 580,
+        "min_height": 635,
         "resizable": true
     }
 }
