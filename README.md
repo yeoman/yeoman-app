@@ -70,6 +70,11 @@ Yeoman App is maintained by these guys and some awesome [contributors](https://g
 --- | --- | --- | ---
 [Zeno Rocha](https://github.com/zenorocha/) | [Henrique Vicente](https://github.com/henvic/) | [Bruno Coelho](https://github.com/brunocoelho/)
 
+## Credits
+
+* 3D Grid Effect by [Codrops](http://tympanus.net/codrops/2014/03/27/3d-grid-effect/);
+* Graphite CSS UI Kit by [CSSFlow](http://www.cssflow.com/ui-kits/graphite).
+
 ## History
 
 For detailed changelog, check [Releases](https://github.com/zenorocha/yeoman-app/releases).
