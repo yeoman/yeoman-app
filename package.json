@@ -21,6 +21,12 @@
         "yo",
         "scaffold"
     ],
+    "dependencies": {
+        "yo": "1.1.2",
+        "suppose": "0.3.0",
+        "generator-jquery": "0.0.9",
+        "escape-regexp": "0.0.1"
+    },
     "devDependencies": {
         "grunt-node-webkit-builder": "0.1.18"
     },
