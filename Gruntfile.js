@@ -16,7 +16,10 @@ module.exports = function(grunt) {
                     linux64: false,
                     version: '0.9.2'
                 },
-                src: ['index.html', 'package.json', './css/*', './img/*']
+                src: [
+                    'index.html', 'package.json', './css/*', './fonts/**/*',
+                    './img/**/*', './js/*'
+                ]
             },
             dist: {
                 options: {
@@ -30,7 +33,10 @@ module.exports = function(grunt) {
                     linux64: true,
                     version: '0.9.2'
                 },
-                src: ['index.html', 'package.json', './css/*', './img/*']
+                src: [
+                    'index.html', 'package.json', './css/*', './fonts/**/*',
+                    './img/*', './js/*'
+                ]
             }
         }
     });

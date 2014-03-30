@@ -169,7 +169,7 @@ body {
     overflow: hidden;
     height: 0;
     opacity: 0;
-    background: #fff;
+    background-image: url(../img/bg.png);
 }
 
 .content > div.show {
