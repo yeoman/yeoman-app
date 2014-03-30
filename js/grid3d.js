@@ -39,8 +39,6 @@
         this.close = this.contentEl.querySelector( 'span.close-content' );
         // loading indicator
         this.loader = this.contentEl.querySelector( 'span.loading' );
-        // support: support for pointer events, transitions and 3d transforms
-        this.support = support.pointerevents && support.csstransitions && support.csstransforms3d;
         // init events
         this._initEvents();
     };
@@ -60,23 +58,21 @@
             self._hideContent();
         } );
 
-        if( this.support ) {
-            // window resize
-            window.addEventListener( 'resize', function() { self._resizeHandler(); } );
+        // window resize
+        window.addEventListener( 'resize', function() { self._resizeHandler(); } );
 
-            // trick to prevent scrolling when animation is running (opening only)
-            // this prevents that the back of the placeholder does not stay positioned in a wrong way
-            window.addEventListener( 'scroll', function() {
-                if ( self.isAnimating ) {
-                    window.scrollTo( self.scrollPosition ? self.scrollPosition.x : 0, self.scrollPosition ? self.scrollPosition.y : 0 );
-                }
-                else {
-                    self.scrollPosition = { x : window.pageXOffset || docElem.scrollLeft, y : window.pageYOffset || docElem.scrollTop };
-                    // change the grid perspective origin as we scroll the page
-                    self._scrollHandler();
-                }
-            });
-        }
+        // trick to prevent scrolling when animation is running (opening only)
+        // this prevents that the back of the placeholder does not stay positioned in a wrong way
+        window.addEventListener( 'scroll', function() {
+            if ( self.isAnimating ) {
+                window.scrollTo( self.scrollPosition ? self.scrollPosition.x : 0, self.scrollPosition ? self.scrollPosition.y : 0 );
+            }
+            else {
+                self.scrollPosition = { x : window.pageXOffset || docElem.scrollLeft, y : window.pageYOffset || docElem.scrollTop };
+                // change the grid perspective origin as we scroll the page
+                self._scrollHandler();
+            }
+        });
     };
 
     // creates placeholder and animates it to fullscreen
@@ -104,12 +100,6 @@
                 classie.addClass( document.body, 'noscroll' );
                 self.isAnimating = false;
             };
-
-        // if no support just load the content (simple fallback - no animation at all)
-        if( !this.support ) {
-            loadContent();
-            return false;
-        }
 
         var currentItem = this.gridItems[ pos ],
             itemContent = currentItem.innerHTML;
@@ -152,8 +142,6 @@
         classie.removeClass( this.contentEl, 'show' );
         // without the timeout there seems to be some problem in firefox
         setTimeout( function() { classie.removeClass( document.body, 'noscroll' ); }, 25 );
-        // that's it for no support..
-        if( !this.support ) return false;
 
         classie.removeClass( this.gridWrap, 'view-full' );
 
