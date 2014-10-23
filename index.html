@@ -24,13 +24,7 @@
                     <p>We are here to improve your workflow and help you develop modern webapps. No more copy & paste.</p>
                     <p>Go ahead and choose any of the options below to scaffold your next amazing application!</p>
                 </div>
-                <div class="grid">
-                    <figure><img src="img/generators/jquery.png"></figure>
-                    <figure><img src="img/generators/ember.png"></figure>
-                    <figure><img src="img/generators/polymer.png"></figure>
-                    <figure><img src="img/generators/angular.png"></figure>
-                    <figure><img src="img/generators/backbone.png"></figure>
-                    <figure><img src="img/generators/gulp.png"></figure>
+                <div id="generators-grid" class="grid">
                 </div>
             </div><!-- /grid-wrap -->
             <div class="content">
@@ -136,9 +130,11 @@
         </section>
     </div><!-- /container -->
 
-    <script src="js/ui/classie.js"></script>
+    <script src="js/ui/vendor/classie.js"></script>
+    <script src="js/ui/vendor/grid3d.js"></script>
+
     <script src="js/ui/helper.js"></script>
-    <script src="js/ui/grid3d.js"></script>
+    <script src="js/ui/official-generators-grid.js"></script>
 
     <script>
         new grid3D(document.getElementById('grid3d'));
