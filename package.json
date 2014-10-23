@@ -22,7 +22,13 @@
         "scaffold"
     ],
     "dependencies": {
-        "generator-jquery": "0.0.9"
+        "inquirer": "0.8.0",
+        "yeoman-environment": "1.0.2",
+        "generator-angular": "0.9.8",
+        "generator-backbone": "0.3.3",
+        "generator-ember": "0.8.5",
+        "generator-gulp-webapp": "0.1.0",
+        "generator-polymer": "0.5.1"
     },
     "devDependencies": {
         "grunt-node-webkit-builder": "0.1.18"
