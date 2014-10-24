@@ -22,7 +22,6 @@
         "scaffold"
     ],
     "dependencies": {
-        "inquirer": "0.8.0",
         "yeoman-environment": "1.0.2",
         "generator-angular": "0.9.8",
         "generator-backbone": "0.3.3",
@@ -31,11 +30,11 @@
         "generator-polymer": "0.5.1"
     },
     "devDependencies": {
-        "grunt-node-webkit-builder": "0.1.18"
+        "grunt-node-webkit-builder": "0.2.2"
     },
     "window": {
         "title": "Yeoman",
-        "toolbar": false,
+        "toolbar": true,
         "frame": true,
         "width": 850,
         "height": 635,

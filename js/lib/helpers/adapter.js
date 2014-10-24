@@ -1,20 +1,40 @@
 'use strict';
 
 var logger = require('yeoman-environment/lib/util/log');
-var inquirer = require('inquirer');
 
 function GUIPrompt(q) {
+    this.answer = null;
     this.question = q;
 }
 
 GUIPrompt.prototype.run = function (cb) {
     // we should get the answer from the front-end before calling cb
-    //cb(answerReceived || this.question.default);
+    cb(this.answer || this.question.default);
 };
 
 function GUIAdapter() {
 
-    this.prompt = inquirer.createPromptModule();
+    function promptModule(questions, allDone) {
+        console.log('new promptModule');
+        console.log(questions);
+    }
+
+    promptModule.prompts = {
+        list: {},
+        input: {},
+        confirm: {},
+        rawlist: {},
+        expand: {},
+        checkbox: {},
+        password: {}
+    };
+
+    promptModule.registerPrompt = function (name, Prompt) {
+        this.prompts[name] = Prompt;
+        return this;
+    };
+
+    this.prompt = promptModule;
 
     Object.keys(this.prompt.prompts).forEach(function (promptName) {
         this.prompt.registerPrompt(promptName, GUIPrompt);
