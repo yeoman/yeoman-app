@@ -15,8 +15,8 @@ GUIPrompt.prototype.run = function (cb) {
 function GUIAdapter() {
 
     function promptModule(questions, allDone) {
-        console.log('new promptModule');
-        console.log(questions);
+        // return user's answers here
+        allDone({});
     }
 
     promptModule.prompts = {
