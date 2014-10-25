@@ -31,7 +31,7 @@
     function onQuestionPrompt(questions) {
         promptForm.create('question', questions,
             function onAnswer(form) {
-                yo.adapter.answers(form.getAnswers());
+                yo.setAnswers(form.getAnswers());
             });
     }
 
