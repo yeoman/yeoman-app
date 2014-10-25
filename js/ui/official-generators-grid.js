@@ -2,8 +2,9 @@
 
     'use strict';
 
+    var EventEmitter = require('events').EventEmitter;
+    var events = new EventEmitter();
     var generatorsData = require('./js/lib/generators-data');
-    var yo = require('./js/lib/yo-connector');
     var document = window.document;
 
     // Build home grid displaying official generators
@@ -19,11 +20,15 @@
 
         // Adds event handler for capturing click on element and calling yo
         figure.name = item.name;
-        figure.addEventListener('click', function() {
-            yo.connect(this.name);
+        figure.addEventListener('click', function onFigureClick() {
+            events.emit('gridElementSelected', this.name);
         }.bind(figure));
 
     });
+
+    window.officialGeneratorsGrid = {
+        events: events
+    };
 
 })(window);
 

@@ -3,15 +3,26 @@
 var yo = require('yeoman-environment');
 var GUIAdapter = require('./helpers/adapter');
 
-function connect(generatorName) {
+var gen;
 
-    var env = yo.createEnv([], {}, new GUIAdapter());
-    var gen = env.instantiate(require(generatorName));
 
+function connect(generatorName, targetDir) {
+
+    var opts = { cwd: targetDir };
+    var env = yo.createEnv([], opts, new GUIAdapter());
+
+    gen = env.instantiate(require(generatorName));
+
+    return gen;
+}
+
+function run() {
     gen.run();
 }
 
+
 module.exports = {
-    connect: connect
+    connect: connect,
+    run: run
 };
 

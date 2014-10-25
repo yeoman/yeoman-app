@@ -79,11 +79,7 @@ form {
 }
 
 form input {
-    float: right;
-}
-
-form h1 {
-    margin: 0;
+    margin: 10px 0px;
 }
 
 form input[type=file] {
@@ -92,6 +88,20 @@ form input[type=file] {
 
 form button {
     width: 100%;
+}
+
+form label {
+    display: block;
+}
+
+form .action-bar {
+    border-top: 1px solid #CCC;
+}
+
+form .action-bar .submit {
+    margin-left: 10px;
+    color: #135078;
+    border-color: #70A3C4 #4F89B0 #2D6991;
 }
 
 /** =========================================================================
