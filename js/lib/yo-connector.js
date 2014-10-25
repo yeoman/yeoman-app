@@ -6,14 +6,12 @@ var GUIAdapter = require('./helpers/adapter');
 var gen;
 
 
-function connect(generatorName, targetDir) {
+function connect(generatorName, targetDir, callback) {
 
     var opts = { cwd: targetDir };
-    var env = yo.createEnv([], opts, new GUIAdapter());
+    var env = yo.createEnv([], opts, new GUIAdapter(callback));
 
     gen = env.instantiate(require(generatorName));
-
-    return gen;
 }
 
 function run() {

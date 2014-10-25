@@ -23,9 +23,16 @@
                 ]
             }
         ], function onDefineCwd(form) {
-            yo.connect(generatorName, form.getElemValue('cwd'));
+            yo.connect(generatorName, form.getElemValue('cwd'), onQuestionPrompt);
             yo.run();
         });
+    }
+
+    function onQuestionPrompt(questions) {
+        promptForm.create('question', questions,
+            function onAnswer(form) {
+                yo.adapter.answers(form.getAnswers());
+            });
     }
 
 

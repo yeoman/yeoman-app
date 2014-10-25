@@ -6,7 +6,7 @@ var _ = require('lodash');
 var logger = require('yeoman-environment/lib/util/log');
 
 
-function GUIAdapter() {
+function GUIAdapter(questionsCallback) {
 
     var callback;
 
@@ -14,7 +14,7 @@ function GUIAdapter() {
 
 
     this.prompt = function (questions, allDone) {
-        this.emit(questions);
+        questionsCallback(questions);
         callback = allDone;
     };
 

@@ -2,6 +2,8 @@
 
     'use strict';
 
+    var questionsHelper = require('./js/lib/helpers/questions');
+
     var document = window.document;
     var contentElem = document.getElementById('content');
 
@@ -12,14 +14,19 @@
         var label = document.createElement('label');
         var input = document.createElement('input');
 
+        questionsHelper.convertToHtmlType(question);
+
         label.textContent = question.message;
         input.name = question.name;
         input.type = question.type;
 
-        question.extraAttrs.forEach(function (attr) {
-            var key = Object.keys(attr)[0];
-            input.setAttribute(key, attr[key]);
-        });
+        // Inject extra attributes on input tag
+        if (question.extraAttrs) {
+            question.extraAttrs.forEach(function (attr) {
+                var key = Object.keys(attr)[0];
+                input.setAttribute(key, attr[key]);
+            });
+        }
 
         p.appendChild(label);
         p.appendChild(input);
@@ -68,6 +75,15 @@
             return elemsArr.filter(function (item) {
                 return item.name === elemName;
             }).shift().value;
+        };
+
+        formElem.getAnswers = function () {
+            var elemsArr = [].slice.call(this.elements);
+            return elemsArr.filter(function (item) {
+                return item.name;
+            }).map(function (item) {
+                return { name: item.name, value: item.value };
+            });
         };
 
         formElem.addEventListener('submit', function onSubmitForm(e) {
