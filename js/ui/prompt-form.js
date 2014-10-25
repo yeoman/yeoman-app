@@ -6,6 +6,7 @@
 
     var document = window.document;
     var contentElem = document.getElementById('content');
+    var currentForm;
 
 
     function createInputElement(question) {
@@ -60,7 +61,11 @@
 
         var formElem = document.createElement('form');
 
-        formElem.id = _id;
+        if (currentForm) {
+            removeForm(currentForm);
+        }
+
+        currentForm = formElem.id = _id;
 
         questions.forEach(function (item) {
             formElem.appendChild(
@@ -86,11 +91,19 @@
             });
         };
 
-        formElem.addEventListener('submit', function onSubmitForm(e) {
+        formElem.onSubmitForm = function (e) {
             e.preventDefault();
             callback(this);
             return false;
-        }.bind(formElem));
+        };
+
+        formElem.addEventListener('submit', formElem.onSubmitForm);
+    }
+
+    function removeForm(formName) {
+        var form = document.getElementById(formName);
+        form.removeEventListener('submit', form.onSubmitForm);
+        contentElem.removeChild(form);
     }
 
 
