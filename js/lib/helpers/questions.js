@@ -4,15 +4,17 @@ var _ = require('lodash');
 
 
 var htmlTypes = {
-    confirm: {
-        type: 'checkbox',
-        extraAttrs: [
-            { checked: true }
-        ]
-    }
+    file: { htmlType: 'file' },
+    input: { htmlType: 'input' },
+    password: { htmlType: 'password' },
+    confirm: { htmlType: 'checkbox' },
+    list: { htmlType: 'select', optType: 'option' },
+    rawlist: { htmlType: 'div', optType: 'radio' },
+    expand: { htmlType: 'div', optType: 'radio' },
+    checkbox: { htmlType: 'div', optType: 'checkbox' }
 };
 
-function convertToHtmlType(originalQuestion) {
+function convertToHtml(originalQuestion) {
     if (originalQuestion.type in htmlTypes) {
         return _.merge(originalQuestion, htmlTypes[originalQuestion.type]);
     }
@@ -20,6 +22,6 @@ function convertToHtmlType(originalQuestion) {
 
 
 module.exports = {
-    convertToHtmlType: convertToHtmlType
+    convertToHtml: convertToHtml
 };
 
