@@ -2,6 +2,7 @@
 
     'use strict';
 
+    var questionsHelper = require('./js/lib/helpers/questions');
     var yo = require('./js/lib/yo-connector');
 
     var officialGeneratorsGrid;
@@ -13,23 +14,17 @@
     }
 
     function requestCwd(generatorName) {
-        promptForm.create('cwd-prompt', [
-            {
-                message: 'Please specify a folder to be used to generate the project',
-                name: 'cwd',
-                type: 'file',
-                extraAttrs: [
-                    { 'nwdirectory': true }
-                ]
-            }
-        ], function onDefineCwd(form) {
-            yo.connect(generatorName, form.getElemValue('cwd'), onQuestionPrompt);
-            yo.run();
-        });
+        promptForm.create('cwd-prompt',
+            questionsHelper.convertToHtml(questionsHelper.getFolderPrompt),
+            function onDefineCwd(form) {
+                yo.connect(generatorName, form.getAnswers().cwd, onQuestionPrompt);
+                yo.run();
+            });
     }
 
     function onQuestionPrompt(questions) {
-        promptForm.create('question', questions,
+        promptForm.create('question',
+            questionsHelper.convertToHtml(questions),
             function onAnswer(form) {
                 yo.setAnswers(form.getAnswers());
             });
