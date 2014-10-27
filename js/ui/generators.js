@@ -17,8 +17,12 @@
         promptForm.create('cwd-prompt',
             questionsHelper.convertToHtml(questionsHelper.getFolderPrompt),
             function onDefineCwd(form) {
-                yo.connect(generatorName, form.getAnswers().cwd, onQuestionPrompt);
-                yo.run();
+                yo.connect(
+                    generatorName,
+                    form.getAnswers().cwd,
+                    onQuestionPrompt,
+                    onGeneratorDone
+                );
             });
     }
 
@@ -28,6 +32,10 @@
             function onAnswer(form) {
                 yo.setAnswers(form.getAnswers());
             });
+    }
+
+    function onGeneratorDone() {
+        window.grid._hideContent();
     }
 
 

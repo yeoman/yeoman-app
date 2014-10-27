@@ -24,6 +24,8 @@
     "dependencies": {
         "lodash": "^2.4.1",
         "yeoman-environment": "1.0.2",
+        "generator-karma": ">=0.8.2",
+        "generator-mocha": "https://github.com/ruyadorno/generator-mocha/archive/patch-1.tar.gz",
         "generator-angular": "0.9.8",
         "generator-backbone": "0.3.3",
         "generator-ember": "0.8.5",

@@ -33,6 +33,8 @@
 
         var formElem = document.createElement('form');
 
+        window.classie.addClass(formElem, 'show');
+
         if (currentForm) {
             removeForm(currentForm);
         }
@@ -62,6 +64,8 @@
 
         formElem.onSubmitForm = function (e) {
             e.preventDefault();
+            window.classie.removeClass(formElem, 'show');
+            window.classie.addClass(formElem, 'hide');
             callback(this);
             return false;
         };
