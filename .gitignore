@@ -1,4 +1,7 @@
-node_modules/
-cache/
-releases/
 .DS_Store
+.*.swp
+.swp
+out
+node_modules
+.idea
+app/bower_components
