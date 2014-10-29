@@ -4,38 +4,71 @@ var yo = require('yeoman-environment');
 var GUIAdapter = require('./helpers/adapter');
 var pkgData = require('../../package');
 
+var ipc = require('ipc');
+var generatorsData = require('./generators-data');
+var dialogs = require('./helpers/dialogs');
+
 var env;
 
 
-function connect(generatorName, targetDir, questionCallback, done) {
+function connect(client, generatorName, targetDir) {
 
-    var opts = { cwd: targetDir };
-    var name = generatorName.split('generator-')[1];
+  console.log('connect');
+  console.log(client);
+  console.log(generatorName);
+  console.log(targetDir);
 
-    process.chdir(targetDir);
+  var opts = { cwd: targetDir };
+  var name = generatorName.split('generator-')[1];
+  var questionCallback = function (questions) {
+    client.send('question-prompt', questions);
+  };
+  var done = function () {
+    client.send('generator-done');
+  };
 
-    env = yo.createEnv([], opts, new GUIAdapter(questionCallback));
+  process.chdir(targetDir);
 
-    env.lookup(function () {
-        // Register all local generators
-        Object.keys(pkgData.dependencies)
-            .filter(function (depName) {
-                return depName.indexOf('generator-') === 0;
-            }).forEach(function (depName) {
-                env.register(depName);
-            });
+  env = yo.createEnv([], opts, new GUIAdapter(questionCallback));
 
-        env.run(name, done);
-    });
+  env.lookup(function () {
+    // Register all local generators
+    Object.keys(pkgData.dependencies)
+      .filter(function (depName) {
+        return depName.indexOf('generator-') === 0;
+      }).forEach(function (depName) {
+        env.register(depName);
+      });
+
+    env.run(name, done);
+  });
 }
 
 function setAnswers(answers) {
-    return env.adapter.answers(answers);
+  return env.adapter.answers(answers);
+}
+
+function start(browserWindow, client) {
+
+  client.on('did-finish-load', function () {
+
+    client.send('generators-data', generatorsData.getOfficialGenerators());
+
+    ipc.on('connect', function (event, generatorName, cwd) {
+      connect(client, generatorName, cwd);
+    });
+
+    ipc.on('set-answers', function (event, answers) {
+      setAnswers(answers);
+    });
+
+  });
+
+  dialogs.start(browserWindow, client);
 }
 
 
 module.exports = {
-    connect: connect,
-    setAnswers: setAnswers
+  start: start
 };
 

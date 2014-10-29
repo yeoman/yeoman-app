@@ -8,22 +8,22 @@ var logger = require('yeoman-environment/lib/util/log');
 
 function GUIAdapter(questionsCallback) {
 
-    var callback;
+  var callback;
 
-    _.extend(this, events.EventEmitter.prototype);
+  _.extend(this, events.EventEmitter.prototype);
 
 
-    this.prompt = function (questions, allDone) {
-        questionsCallback(questions);
-        callback = allDone;
-    };
+  this.prompt = function (questions, allDone) {
+    questionsCallback(questions);
+    callback = allDone;
+  };
 
-    this.answers = function (answers) {
-        callback(answers);
-    };
+  this.answers = function (answers) {
+    callback(answers);
+  };
 
-    this.diff = function () {};
-    this.log = logger();
+  this.diff = function () {};
+  this.log = logger();
 }
 
 

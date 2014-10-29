@@ -1,56 +1,56 @@
 (function (window) {
 
-    'use strict';
+  'use strict';
 
-    var questionsHelper = require('./js/lib/helpers/questions');
-    var yo = require('./js/lib/yo-connector');
+  var ipc = require('ipc');
 
-    var officialGeneratorsGrid;
-    var promptForm;
-
-
-    function onGridElementSelected(generatorName) {
-        requestCwd(generatorName);
-    }
-
-    function requestCwd(generatorName) {
-        promptForm.create('cwd-prompt',
-            questionsHelper.convertToHtml(questionsHelper.getFolderPrompt),
-            function onDefineCwd(form) {
-                yo.connect(
-                    generatorName,
-                    form.getAnswers().cwd,
-                    onQuestionPrompt,
-                    onGeneratorDone
-                );
-            });
-    }
-
-    function onQuestionPrompt(questions) {
-        promptForm.create('question',
-            questionsHelper.convertToHtml(questions),
-            function onAnswer(form) {
-                yo.setAnswers(form.getAnswers());
-            });
-    }
-
-    function onGeneratorDone() {
-        window.grid._hideContent();
-    }
+  var officialGeneratorsGrid;
+  var promptForm;
 
 
-    function start() {
-        // get references here to make sure they are already created
-        officialGeneratorsGrid = window.officialGeneratorsGrid;
-        promptForm = window.promptForm;
+  function onGridElementSelected(generatorName) {
+    requestCwd(generatorName);
+  }
 
-        officialGeneratorsGrid.events.on('gridElementSelected', onGridElementSelected);
-    }
+  function requestCwd(generatorName) {
+    promptForm.create('cwd-prompt',
+      window.helpersPrompts.addHtmlData(
+        window.helpersPrompts.getFolderPrompt),
+      function onDefineCwd(form) {
+        ipc.send('connect', generatorName, form.getAnswers().cwd);
+      });
+  }
+
+  function onQuestionPrompt(questions) {
+    promptForm.create('question',
+      window.helpersPrompts.addHtmlData(questions),
+      function onAnswer(form) {
+        ipc.send('set-answers', form.getAnswers());
+      });
+  }
+
+  function onGeneratorDone() {
+    window.grid._hideContent();
+  }
 
 
-    window.generators = {
-        start: start
-    };
+  function start() {
+    // get references here to make sure they are already created
+    officialGeneratorsGrid = window.officialGeneratorsGrid;
+    promptForm = window.promptForm;
+
+    ipc.on('question-prompt', onQuestionPrompt);
+    ipc.on('generator-done', onGeneratorDone);
+
+    ipc.on('generators-data', function (officialGenerators) {
+      window.officialGeneratorsGrid.start(officialGenerators, onGridElementSelected);
+    });
+  }
+
+
+  window.generators = {
+    start: start
+  };
 
 })(window);
 

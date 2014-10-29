@@ -30,7 +30,7 @@ module.exports = function (grunt) {
     },
     shell: {
       mac: {
-        command: outDir + '/Atom.app/Contents/MacOS/Atom app'
+        command: outDir + '/Atom.app/Contents/MacOS/Atom --debug app'
       },
       linux: {
         command: [
