@@ -4,15 +4,16 @@
   "description": "An app made with Node Webkit that scaffolds projects using Yeoman",
   "author": "The Yeoman Team",
   "dependencies": {
-    "lodash": "^2.4.1",
-    "yeoman-environment": "1.0.2",
-    "generator-karma": ">=0.8.2",
-    "generator-mocha": "https://github.com/ruyadorno/generator-mocha/archive/patch-1.tar.gz",
     "generator-angular": "0.9.8",
     "generator-backbone": "0.3.3",
     "generator-ember": "0.8.5",
     "generator-gulp-webapp": "0.1.0",
-    "generator-polymer": "0.5.1"
+    "generator-karma": ">=0.8.2",
+    "generator-mocha": "https://github.com/ruyadorno/generator-mocha/archive/patch-1.tar.gz",
+    "generator-polymer": "0.5.1",
+    "lodash": "^2.4.1",
+    "react": "^0.12.0",
+    "yeoman-environment": "1.0.2"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
