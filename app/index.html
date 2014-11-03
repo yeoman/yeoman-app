@@ -13,9 +13,6 @@
     <script src="http://localhost:35729/livereload.js"></script>
 </head>
 <body>
-    <!-- <div class="splash">
-        <img class="yeoman-splash" src="img/yeoman-splash.png" alt="Yeoman">
-    </div> -->
     <div class="container">
         <section class="grid3d vertical" id="grid3d">
             <div class="grid-wrap">
@@ -35,20 +32,13 @@
         </section>
     </div><!-- /container -->
 
+    <script src="scripts/vendor/JSXTransformer.js"></script>
     <script src="scripts/vendor/classie.js"></script>
     <script src="scripts/vendor/grid3d.js"></script>
 
     <script src="scripts/helper.js"></script>
-    <script src="scripts/helpers/prompts.js"></script>
-    <script src="scripts/generators.js"></script>
-    <script src="scripts/official-generators-grid.js"></script>
-    <script src="scripts/prompt-form.js"></script>
-    <script src="scripts/prompts/input.js"></script>
-    <script src="scripts/prompts/checkbox.js"></script>
-    <script src="scripts/prompts/checkbox-list.js"></script>
-    <script src="scripts/prompts/folder.js"></script>
-    <script src="scripts/prompts/radio-list.js"></script>
-    <script src="scripts/prompts/select.js"></script>
+
+    <script type="text/jsx" src="scripts/app.jsx"></script>
 
     <script>
         window.generators.start();
