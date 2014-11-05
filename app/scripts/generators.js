@@ -1,6 +1,5 @@
 'use strict';
 
-var ipc = require('ipc');
 
 var officialGeneratorsGrid;
 var promptForm;
@@ -26,27 +25,4 @@ function onQuestionPrompt(questions) {
       ipc.send('set-answers', form.getAnswers());
     });
 }
-
-function onGeneratorDone() {
-  window.grid._hideContent();
-}
-
-
-function start() {
-  // get references here to make sure they are already created
-  officialGeneratorsGrid = window.officialGeneratorsGrid;
-  promptForm = window.promptForm;
-
-  ipc.on('question-prompt', onQuestionPrompt);
-  ipc.on('generator-done', onGeneratorDone);
-
-  ipc.on('generators-data', function (officialGenerators) {
-    window.officialGeneratorsGrid.start(officialGenerators, onGridElementSelected);
-  });
-}
-
-
-module.exports = {
-  start: start
-};
 

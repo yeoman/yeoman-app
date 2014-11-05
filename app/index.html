@@ -32,16 +32,16 @@
         </section>
     </div><!-- /container -->
 
-    <script src="scripts/vendor/JSXTransformer.js"></script>
     <script src="scripts/vendor/classie.js"></script>
     <script src="scripts/vendor/grid3d.js"></script>
 
     <script src="scripts/helper.js"></script>
 
-    <script type="text/jsx" src="scripts/app.jsx"></script>
-
     <script>
-        window.generators.start();
+      // Allows .jsx files on CommonJS environment
+      require('node-jsx').install({extension: '.jsx'});
+      // React entry-point
+      require('./scripts/app.jsx');
     </script>
 </body>
 </html>
