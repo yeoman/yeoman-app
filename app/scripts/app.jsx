@@ -2,7 +2,7 @@
 
 var React = require('react');
 
-var Grid = require('./grid.jsx');
+var Grid = require('./components/grid.jsx');
 // Starts communication channel with atom-shell browser side
 require('./utils/browser-utils');
 // Export React so the devtools can find it

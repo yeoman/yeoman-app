@@ -2,7 +2,7 @@
 
 var React = require('react');
 
-var GeneratorStore = require('./stores/generator-store');
+var GeneratorStore = require('../stores/generator-store');
 
 
 var GridItem = React.createClass({
