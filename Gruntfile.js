@@ -4,7 +4,7 @@ module.exports = function (grunt) {
 
   require('load-grunt-tasks')(grunt);
 
-  var atomShellVersion = '0.18.2';
+  var atomShellVersion = '0.19.1';
   var outDir = 'out';
 
   // Project configuration.
