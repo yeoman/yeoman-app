@@ -14,6 +14,7 @@ var GeneratorStore = merge(EventEmitter.prototype, {
 
       VIEW_ACTION: {
         'grid-item-selected': function (action) {
+          GeneratorStore.emit('grid-item-selected');
         }
       },
 

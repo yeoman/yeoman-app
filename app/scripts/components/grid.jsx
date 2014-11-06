@@ -3,16 +3,21 @@
 var React = require('react');
 
 var GeneratorStore = require('../stores/generator-store');
+var GridActions = require('../actions/grid-actions');
 
 
 var GridItem = React.createClass({
+
+  _onClick: function () {
+    GridActions.gridItemSelected(this.props.name);
+  },
 
   render: function () {
 
     var filename = 'img/' + this.props.name + '.png';
 
     return (
-      <figure>
+      <figure onClick={this._onClick}>
         <img src={filename} />
       </figure>
     );
