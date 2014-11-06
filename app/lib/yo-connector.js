@@ -1,61 +1,59 @@
 'use strict';
 
-var path = require('path');
-var yo = require('yeoman-environment');
-var GUIAdapter = require('./helpers/adapter');
-
+var fs = require('fs');
+var _ = require('lodash');
+var findup = require('findup-sync');
 var ipc = require('ipc');
-var generatorsData = require('./generators-data');
+var GUIAdapter = require('./helpers/adapter');
+var yoEnvironment = require('./yo-env');
 var dialogs = require('./helpers/dialogs');
-
-var win32 = process.platform === 'win32';
 var env;
 
-function connect(client, generatorName, targetDir) {
+function init(client, cb) {
 
-  var opts = { cwd: targetDir };
-  var name = generatorName.split('generator-')[1];
   var questionCallback = function (questions) {
     client.send('question-prompt', questions);
   };
+  var adapter = new GUIAdapter(questionCallback);
+  yoEnvironment(adapter, cb);
+}
+
+function getGeneratorsData() {
+   var generatorsMeta = env.store.getGeneratorsMeta();
+
+   // Remove sub generators from list
+   var list = _.filter(generatorsMeta, function(item) {
+    return item.namespace.split(':')[1] === 'app';
+  });
+
+   list = list.map(function(item) {
+    var pkgPath = findup('package.json', {cwd: item.resolved});
+    if (pkgPath) {
+      var pkg = JSON.parse(fs.readFileSync(pkgPath));
+
+      // Indicator to verify official generators
+      pkg.officialGenerator = false;
+      if (pkg.repository && pkg.repository.url) {
+        pkg.officialGenerator = pkg.repository.url.indexOf('github.com/yeoman/') > -1;
+      }
+
+      return _.pick(pkg, 'name', 'version', 'description', 'officialGenerator');
+    }
+    return null;
+  });
+  return _.compact(list);
+}
+
+function connect(client, generatorName, targetDir) {
+
+  var name = generatorName.split('generator-')[1];
   var done = function () {
     client.send('generator-done');
   };
 
   process.chdir(targetDir);
 
-  env = yo.createEnv([], opts, new GUIAdapter(questionCallback));
-
-  // TODO:
-  // Consider a better approach to get the npm pahts.
-  // Perhapps the original getNpmPaths method needs to
-  // be extend with functonality.
-  // https://github.com/yeoman/environment/blob/8cf0c657e0edbbfd1e64d98f58d912dab1910720/lib/resolver.js#L101
-  env.getNpmPaths = function() {
-
-    if (process.env.NODE_PATH) {
-      return process.env.NODE_PATH.split(path.delimiter);
-    }
-
-    // Get the npm path from the user env variables.
-    var paths = process.env.PATH.split(path.delimiter).map(function(item) {
-      return path.join(item, '..', 'lib', 'node_modules');
-    });
-
-    // Default paths for each system
-    if (win32) {
-      paths.push(path.join(process.env.APPDATA, 'npm/node_modules'));
-    } else {
-      paths.push('/usr/lib/node_modules');
-    }
-
-    return paths.reverse();
-  };
-
-  env.lookup(function () {
-    console.log(env.store.namespaces());
-    env.run(name, done);
-  });
+  env.run(name, done);
 }
 
 function setAnswers(answers) {
@@ -66,21 +64,23 @@ function start(browserWindow, client) {
 
   client.on('did-finish-load', function () {
 
-    client.send('generators-data', generatorsData.getOfficialGenerators());
+    init(client, function(err, _env) {
+      env = _env;
+      var generators = getGeneratorsData();
+      client.send('generators-data', generators);
 
-    ipc.on('connect', function (event, generatorName, cwd) {
-      connect(client, generatorName, cwd);
+      ipc.on('connect', function (event, generatorName, cwd) {
+        connect(client, generatorName, cwd);
+      });
+
+      ipc.on('set-answers', function (event, answers) {
+        setAnswers(answers);
+      });
     });
-
-    ipc.on('set-answers', function (event, answers) {
-      setAnswers(answers);
-    });
-
   });
 
   dialogs.start(browserWindow, client);
 }
-
 
 module.exports = {
   start: start
