@@ -74,7 +74,7 @@ p {
 
 form {
     width: 300px;
-    margin: 0px auto 30px;
+    margin: 100px auto 30px;
     text-align: left;
 }
 
@@ -102,6 +102,14 @@ form .action-bar .submit {
     margin-left: 10px;
     color: #135078;
     border-color: #70A3C4 #4F89B0 #2D6991;
+}
+
+form button.selected-folder {
+  width: 120px;
+}
+
+form span.selected-folder {
+  font-size: 12px;
 }
 
 form.hide {

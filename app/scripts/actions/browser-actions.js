@@ -11,6 +11,13 @@ var BrowserActions = {
       actionType: 'generators-data',
       generators: data
     });
+  },
+
+  folderSelected: function (data) {
+    AppDispatcher.handleBrowserAction({
+      actionType: 'folder-selected',
+      cwd: data
+    });
   }
 };
 

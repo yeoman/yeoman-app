@@ -5,7 +5,7 @@ var EventEmitter = require('events').EventEmitter;
 var AppDispatcher = require('../dispatcher/app-dispatcher');
 
 
-var GeneratorStore = {
+var PromptStore = {
 
   events: new EventEmitter(),
 
@@ -14,19 +14,14 @@ var GeneratorStore = {
     var handlers = {
 
       VIEW_ACTION: {
-        'grid-item-selected': function () {
-          var questions = [{
-            message: 'Please specify a folder to be used to generate the project',
-            name: 'cwd',
-            type: 'folder'
-          }];
-          GeneratorStore.events.emit('grid-item-selected', questions);
+        'select-folder': function () {
+          PromptStore.events.emit('select-folder');
         }
       },
 
       BROWSER_ACTION: {
-        'generators-data': function (action) {
-          GeneratorStore.events.emit('generator-data', action.generators);
+        'folder-selected': function (action) {
+          PromptStore.events.emit('folder-selected', action.cwd);
         }
       }
     };
@@ -41,5 +36,5 @@ var GeneratorStore = {
 };
 
 
-module.exports = GeneratorStore;
+module.exports = PromptStore;
 

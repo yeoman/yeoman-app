@@ -5,10 +5,17 @@ var AppDispatcher = require('../dispatcher/app-dispatcher');
 
 var PromptFormActions = {
 
-  submitForm: function(name) {
+  submitForm: function (answers) {
+    console.log(answers[0].answer);
     AppDispatcher.handleViewAction({
-      actionType: 'grid-item-selected',
-      name: name
+      actionType: 'submit-form',
+      answers: answers
+    });
+  },
+
+  selectFolder: function () {
+    AppDispatcher.handleViewAction({
+      actionType: 'select-folder'
     });
   }
 };
