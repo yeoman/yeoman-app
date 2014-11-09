@@ -33,17 +33,25 @@ var Grid = React.createClass({
   },
 
   componentDidMount: function () {
-    GeneratorStore.events.on('generator-data', this._onGeneratorData);
+    GeneratorStore.events.on('generators-data', this._onGeneratorData);
+    GeneratorStore.events.on('generator-done', this._onGeneratorDone);
   },
 
   componentWillUnmount: function () {
-    GeneratorStore.events.removeListener('generator-data', this._onGeneratorData);
+    GeneratorStore.events.removeListener('generator-done', this._onGeneratorDone);
   },
 
   _onGeneratorData: function (data) {
     this.setState({
       officialGenerators: data
     });
+
+    // TODO: Replace grid3d library in favor of paper elements
+    window.grid = new grid3D(document.getElementById('grid3d'));
+  },
+
+  _onGeneratorDone: function () {
+    window.grid._hideContent();
   },
 
   render: function () {
@@ -53,10 +61,6 @@ var Grid = React.createClass({
         <GridItem key={item.name} name={item.name} />
       );
     });
-
-    if (items.length) {
-      new grid3D(document.getElementById('grid3d'));
-    }
 
     return (
       <div className="grid">

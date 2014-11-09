@@ -27,6 +27,8 @@ var App = React.createClass({
       .on('grid-item-selected', this._onItemSelected);
     GeneratorStore.events
       .on('question-prompt', this._onQuestionPrompt);
+    GeneratorStore.events
+      .on('generator-done', this._onGeneratorDone);
   },
 
   componentWillUnmount: function () {
@@ -34,6 +36,8 @@ var App = React.createClass({
       .removeListener('grid-item-selected', this._onItemSelected);
     GeneratorStore.events
       .removeListener('question-prompt', this._onQuestionPrompt);
+    GeneratorStore.events
+      .removeListener('generator-done', this._onGeneratorDone);
   },
 
   _onItemSelected: function (generatorName, questions) {
@@ -48,6 +52,14 @@ var App = React.createClass({
     this.setState({
       actualFormType: 'prompt',
       questions: questions
+    });
+  },
+
+  _onGeneratorDone: function () {
+    this.setState({
+      actualFormType: '',
+      questions: [],
+      selectedGeneratorName: ''
     });
   },
 

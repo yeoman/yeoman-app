@@ -32,7 +32,7 @@ var GeneratorStore = {
 
       BROWSER_ACTION: {
         'generators-data': function (action) {
-          GeneratorStore.events.emit('generator-data', action.generators);
+          GeneratorStore.events.emit('generators-data', action.generators);
         },
         'question-prompt': function (action) {
           GeneratorStore.events.emit('question-prompt', action.questions);
