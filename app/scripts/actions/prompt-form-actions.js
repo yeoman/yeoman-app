@@ -5,8 +5,7 @@ var AppDispatcher = require('../dispatcher/app-dispatcher');
 
 var PromptFormActions = {
 
-  submitForm: function (answers) {
-    console.log(answers[0].answer);
+  submitForm: function (generatorName, answers) {
     AppDispatcher.handleViewAction({
       actionType: 'submit-form',
       answers: answers
@@ -16,6 +15,14 @@ var PromptFormActions = {
   selectFolder: function () {
     AppDispatcher.handleViewAction({
       actionType: 'select-folder'
+    });
+  },
+
+  submitSelectedFolder: function (generatorName, answers) {
+    AppDispatcher.handleViewAction({
+      actionType: 'submit-selected-folder',
+      generatorName: generatorName,
+      answers: answers
     });
   }
 };

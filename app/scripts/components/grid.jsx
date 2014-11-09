@@ -37,7 +37,7 @@ var Grid = React.createClass({
   },
 
   componentWillUnmount: function () {
-    GeneratorStore.events.removeEventListener('generator-data', this._onGeneratorData);
+    GeneratorStore.events.removeListener('generator-data', this._onGeneratorData);
   },
 
   _onGeneratorData: function (data) {

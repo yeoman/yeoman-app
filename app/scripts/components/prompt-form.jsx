@@ -4,71 +4,95 @@ var React = require('react');
 
 var PromptFormActions = require('../actions/prompt-form-actions');
 var CheckboxPrompt = require('./prompts/checkbox.jsx');
+var ConfirmPrompt = require('./prompts/confirm.jsx');
 var FolderPrompt = require('./prompts/folder.jsx');
-var GeneratorStore = require('../stores/generator-store');
+var InputPrompt = require('./prompts/input.jsx');
+var ListPrompt = require('./prompts/list.jsx');
 
 
 var PromptForm = React.createClass({
 
+  propTypes: {
+    generatorName: React.PropTypes.string.isRequired,
+    type: React.PropTypes.string.isRequired,
+    questions: React.PropTypes.arrayOf(React.PropTypes.object)
+  },
+
   getInitialState: function () {
     return {
-      questions: [],
-      visibility: 'hide'
+      visibility: 'show'
     };
   },
 
-  componentDidMount: function () {
-    GeneratorStore.events
-      .on('grid-item-selected', this._onItemSelected);
-  },
-
-  componentWillUnmount: function () {
-    GeneratorStore.events
-      .removeEventListener('grid-item-selected', this._onItemSelected);
-  },
-
-  _onItemSelected: function (questions) {
-    this.setState({
-      questions: questions,
-      visibility: 'show'
-    });
+  getDefaultProps: function () {
+    return {
+      questions: []
+    };
   },
 
   _onSubmit: function (e) {
 
+    var answers = {};
     var refs = this.refs;
+    var callback = this.props.type === 'cwd' ?
+      PromptFormActions.submitSelectedFolder :
+      PromptFormActions.submitForm;
 
-    function mapAnswers(question) {
-      return {
-        value: question.name,
-        answer: refs[question.name].state.answer
-      };
-    }
+    this.props.questions.forEach(function mapAnswers(question) {
+      answers[question.name] = refs[question.name].state.answer;
+    });
 
-    PromptFormActions.submitForm(
-      this.state.questions.map(mapAnswers)
+    callback(
+      this.props.generatorName,
+      answers
     );
     e.preventDefault();
   },
 
   render: function () {
 
-    var questions = this.state.questions;
+    var questions = this.props.questions;
 
-    if (this.state.questions.length === 0) {
+    if (questions.length === 0) {
       return null;
     }
 
     // Factory to create new prompts
     function createPrompt(question) {
+
+      var input = function () {
+        return <InputPrompt
+          key={question.name}
+          ref={question.name}
+          name={question.name}
+          type={question.type}
+          message={question.message}
+          defaultAnswer={question.default}
+        />;
+      };
+
+      var list = function () {
+        return <ListPrompt
+          key={question.name}
+          ref={question.name}
+          name={question.name}
+          choices={question.choices}
+          message={question.message}
+          defaultAnswer={question.default}
+        />;
+      };
+
       var promptsByType = {
-        checkbox: function createCheckbox() {
-          return <CheckboxPrompt
+        input: input,
+        password: input,
+        confirm: function createConfirm() {
+          return <ConfirmPrompt
             key={question.name}
             ref={question.name}
             name={question.name}
             message={question.message}
-            defaultAnswer={question.default} />;
+            defaultAnswer={question.default}
+          />;
         },
         folder: function createFolder() {
           return <FolderPrompt
@@ -76,9 +100,24 @@ var PromptForm = React.createClass({
             ref={question.name}
             name={question.name}
             message={question.message}
-            defaultAnswer={question.default} />;
+            defaultAnswer={question.default}
+          />;
+        },
+        list: list,
+        rawlist: list,
+        expand: list,
+        checkbox: function createCheckbox() {
+          return <CheckboxPrompt
+            key={question.name}
+            ref={question.name}
+            name={question.name}
+            choices={question.choices}
+            message={question.message}
+            defaultAnswer={question.default}
+          />;
         }
       };
+
       return promptsByType[question.type]();
     }
 

@@ -13,6 +13,19 @@ var BrowserActions = {
     });
   },
 
+  questionPrompt: function (data) {
+    AppDispatcher.handleBrowserAction({
+      actionType: 'question-prompt',
+      questions: data
+    });
+  },
+
+  generatorDone: function () {
+    AppDispatcher.handleBrowserAction({
+      actionType: 'generator-done'
+    });
+  },
+
   folderSelected: function (data) {
     AppDispatcher.handleBrowserAction({
       actionType: 'folder-selected',

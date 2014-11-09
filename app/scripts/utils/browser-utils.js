@@ -11,8 +11,18 @@ function onSelectFolder() {
   ipc.send('prompts.folder.getFolder');
 }
 
+function onSubmitForm(answers) {
+  ipc.send('set-answers', answers);
+}
+
+function onSubmitSelectedFolder(generatorName, answers){
+  ipc.send('connect', generatorName, answers.cwd);
+}
+
 // Sets user generated events to trigger browser actions
 PromptStore.events.on('select-folder', onSelectFolder);
+GeneratorStore.events.on('submit-form', onSubmitForm);
+GeneratorStore.events.on('submit-selected-folder', onSubmitSelectedFolder);
 
 
 // List events to listen from browser and broadcast to view

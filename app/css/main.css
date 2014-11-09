@@ -112,6 +112,10 @@ form span.selected-folder {
   font-size: 12px;
 }
 
+form .list {
+  display: block;
+}
+
 form.hide {
     opacity: 0;
 }

@@ -5,7 +5,7 @@ var React = require('react');
 var PromptMixin = require('./prompt-mixin');
 
 
-var ConfirmPrompt = React.createClass({
+var InputPrompt = React.createClass({
 
   mixins: [PromptMixin],
 
@@ -17,7 +17,7 @@ var ConfirmPrompt = React.createClass({
 
   _onChange: function (event) {
     this.setState({
-      answer: event.target.checked
+      answer: event.target.value
     });
   },
 
@@ -26,9 +26,9 @@ var ConfirmPrompt = React.createClass({
       <p>
         <label htmlFor={this.props.name}>{this.props.message}</label>
         <input
-          type="checkbox"
+          type={this.props.type}
           name={this.props.name}
-          checked={this.state.answer}
+          value={this.state.answer}
           onChange={this._onChange}
         />
       </p>
@@ -38,5 +38,5 @@ var ConfirmPrompt = React.createClass({
 });
 
 
-module.exports = ConfirmPrompt;
+module.exports = InputPrompt;
 

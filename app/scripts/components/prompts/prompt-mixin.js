@@ -3,7 +3,7 @@
 var React = require('react');
 
 
-var InputMixin = {
+var PromptMixin = {
 
   propTypes: {
     name: React.PropTypes.string.isRequired,
@@ -22,5 +22,5 @@ var InputMixin = {
 };
 
 
-module.exports = InputMixin;
+module.exports = PromptMixin;
 

@@ -13,11 +13,6 @@ var env;
 
 function connect(client, generatorName, targetDir) {
 
-  console.log('connect');
-  console.log(client);
-  console.log(generatorName);
-  console.log(targetDir);
-
   var opts = { cwd: targetDir };
   var name = generatorName.split('generator-')[1];
   var questionCallback = function (questions) {

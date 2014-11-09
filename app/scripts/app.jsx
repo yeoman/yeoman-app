@@ -4,6 +4,7 @@ var React = require('react');
 
 var Grid = require('./components/grid.jsx');
 var PromptForm = require('./components/prompt-form.jsx');
+var GeneratorStore = require('./stores/generator-store');
 
 // Starts communication channel with atom-shell browser side
 require('./utils/browser-utils');
@@ -12,6 +13,43 @@ require('./utils/browser-utils');
 
 
 var App = React.createClass({
+
+  getInitialState: function () {
+    return {
+      actualFormType: '',
+      questions: [],
+      selectedGeneratorName: ''
+    };
+  },
+
+  componentDidMount: function () {
+    GeneratorStore.events
+      .on('grid-item-selected', this._onItemSelected);
+    GeneratorStore.events
+      .on('question-prompt', this._onQuestionPrompt);
+  },
+
+  componentWillUnmount: function () {
+    GeneratorStore.events
+      .removeListener('grid-item-selected', this._onItemSelected);
+    GeneratorStore.events
+      .removeListener('question-prompt', this._onQuestionPrompt);
+  },
+
+  _onItemSelected: function (generatorName, questions) {
+    this.setState({
+      actualFormType: 'cwd',
+      questions: questions,
+      selectedGeneratorName: generatorName
+    });
+  },
+
+  _onQuestionPrompt: function (questions) {
+    this.setState({
+      actualFormType: 'prompt',
+      questions: questions
+    });
+  },
 
   render: function () {
     return (
@@ -28,7 +66,11 @@ var App = React.createClass({
           </div>
         </div>
         <div className="content">
-          <PromptForm />
+          <PromptForm
+            generatorName={this.state.selectedGeneratorName}
+            questions={this.state.questions}
+            type={this.state.actualFormType}
+          />
           <span className="loading"></span>
           <span className="icon close-content"></span>
         </div>
