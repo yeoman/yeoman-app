@@ -2,16 +2,16 @@
 
 var React = require('react');
 
-var InputMixin = require('./input.jsx');
+var PromptMixin = require('./prompt-mixin');
 
 
-var CheckboxPrompt = React.createClass({
+var ConfirmPrompt = React.createClass({
 
-  mixins: [InputMixin],
+  mixins: [PromptMixin],
 
   getInitialState: function () {
     return {
-      answer: this.prop.defaultAnswer
+      answer: this.props.defaultAnswer
     };
   },
 
@@ -24,12 +24,13 @@ var CheckboxPrompt = React.createClass({
   render: function () {
     return (
       <p>
-        <label>{this.prop.message}</label>
+        <label>{this.props.message}</label>
         <input
           type="checkbox"
-          name={this.prop.name}
+          name={this.props.name}
           checked={this.state.answer}
-          onChange={this._onChange} />
+          onChange={this._onChange}
+        />
       </p>
     );
   }
@@ -37,5 +38,5 @@ var CheckboxPrompt = React.createClass({
 });
 
 
-module.exports = CheckboxPrompt;
+module.exports = ConfirmPrompt;
 
