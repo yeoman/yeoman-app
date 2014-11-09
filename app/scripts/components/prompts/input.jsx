@@ -8,7 +8,7 @@ var InputMixin = {
   propTypes: {
     name: React.PropTypes.string.isRequired,
     message: React.PropTypes.string.isRequired,
-    defaultAnswer: React.PropTypes.node,
+    defaultAnswer: React.PropTypes.any,
     filter: React.PropTypes.func,
     choices: React.PropTypes.arrayOf(React.PropTypes.object)
   },
