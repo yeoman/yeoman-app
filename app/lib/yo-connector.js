@@ -47,13 +47,39 @@ function getGeneratorsData() {
 function connect(client, generatorName, targetDir) {
 
   var name = generatorName.split('generator-')[1];
-  var done = function () {
-    client.send('generator-done');
+  var doneCounter = 0;
+  var doneCalled = false;
+
+  var done = function(err) {
+    if (doneCalled) return;
+
+    if (err) {
+      doneCalled = true;
+      return client.send('generator-error', err);
+    }
+
+    if (doneCounter === 0) {
+      doneCalled = true;
+      client.send('generator-done');
+    }
+  };
+
+  var increaseDoneCounter = function() {
+    doneCounter++;
+  };
+
+  var decreaseDoneCounter = function() {
+    doneCounter--;
+    done();
   };
 
   process.chdir(targetDir);
 
-  env.run(name, done);
+  env.run(name, done)
+    .on('npmInstall', increaseDoneCounter)
+    .on('bowerInstall', increaseDoneCounter)
+    .on('npmInstall:end', decreaseDoneCounter)
+    .on('bowerInstall:end', decreaseDoneCounter);
 }
 
 function setAnswers(answers) {
