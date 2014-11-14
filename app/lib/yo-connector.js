@@ -75,6 +75,9 @@ function connect(client, generatorName, targetDir) {
 
   process.chdir(targetDir);
 
+  // TODO:
+  // Optimize done handling for yeoman-generators >= 0.17
+  // https://github.com/yeoman/yeoman-app/issues/10#issuecomment-62968879
   env.run(name, done)
     .on('npmInstall', increaseDoneCounter)
     .on('bowerInstall', increaseDoneCounter)
