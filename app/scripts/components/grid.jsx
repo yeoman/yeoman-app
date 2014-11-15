@@ -45,13 +45,10 @@ var Grid = React.createClass({
     this.setState({
       officialGenerators: data
     });
-
-    // TODO: Replace grid3d library in favor of paper elements
-    window.grid = new grid3D(document.getElementById('grid3d'));
   },
 
   _onGeneratorDone: function () {
-    window.grid._hideContent();
+    // TODO: go back to grid state
   },
 
   render: function () {

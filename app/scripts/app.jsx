@@ -65,7 +65,7 @@ var App = React.createClass({
 
   render: function () {
     return (
-      <section className="grid3d vertical" id="grid3d">
+      <section>
         <div className="grid-wrap">
           <div className="hi">
             <img className="yeoman-hi" src="img/yeoman-hi.png" />
