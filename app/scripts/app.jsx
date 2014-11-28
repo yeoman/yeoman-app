@@ -67,12 +67,6 @@ var App = React.createClass({
     return (
       <section>
         <div className="grid-wrap">
-          <div className="hi">
-            <img className="yeoman-hi" src="img/yeoman-hi.png" />
-            <h1>Welcome to Yeoman, ladies and gentleman!</h1>
-            <p>We are here to improve your workflow and help you develop modern webapps. No more copy and paste.</p>
-            <p>Go ahead and choose any of the options below to scaffold your next amazing application!</p>
-          </div>
           <div id="generators-grid" className="grid">
             <Grid />
           </div>
