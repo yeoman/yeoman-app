@@ -8,7 +8,7 @@
     "findup-sync": "^0.1.3",
     "less": "^2.1.0",
     "lodash": "^2.4.1",
-    "material-ui": "^0.3.0",
+    "material-ui": "git+https://github.com/callemall/material-ui.git#f8a07bde441b98ec743405e9dc173dd18c61b238",
     "node-jsx": "^0.12.0",
     "react": "^0.12.0",
     "yeoman-environment": "1.1.1",
