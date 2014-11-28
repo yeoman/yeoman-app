@@ -1,0 +1,50 @@
+// requires bootstrap utils
+@import "../../node_modules/bootstrap/less/mixins/clearfix.less";
+
+
+@grid-item-width: 300px;
+@grid-item-height: 329px;
+@grid-item-img-height: 265px;
+
+.grid {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.grid-bg {
+  position: absolute;
+  width: @grid-item-width;
+  height: @grid-item-img-height;
+  background-image: url(../img/grid-item-bg.png);
+}
+
+.grid-item {
+  width: @grid-item-width;
+  height: @grid-item-height;
+  margin-bottom: 50px;
+  position: relative;
+}
+
+.grid-img {
+  width: @grid-item-width;
+  height: @grid-item-img-height;
+  margin: 0;
+  padding: 0;
+  background-position: center;
+  z-index: 1;
+  position: absolute;
+}
+
+.grid-item-heading {
+  .mui-font-style-title;
+  background-color: @grey-200;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  width: @grid-item-width;
+  top: @grid-item-img-height;
+  line-height: @desktop-keyline-increment;
+}
+

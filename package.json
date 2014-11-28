@@ -12,7 +12,8 @@
     "node-jsx": "^0.12.0",
     "react": "^0.12.0",
     "yeoman-environment": "1.1.1",
-    "bootstrap": "^3.0.0"
+    "bootstrap": "^3.0.0",
+    "material-colors": "^0.3.0"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
