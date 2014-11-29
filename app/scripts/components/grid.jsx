@@ -3,26 +3,11 @@
 var _ = require('lodash');
 var React = require('react');
 var Paper = require('material-ui/src/js/paper.jsx');
-var materialColors = require('material-colors/dist/colors.json');
 var classSet = require('react/addons').addons.classSet;
 
 var GeneratorStore = require('../stores/generator-store');
 var GridActions = require('../actions/grid-actions');
-
-
-// Stores an array with all material colors to be used on grid render
-var colors = (function getAvailableColors(fromColors) {
-
-  var arr = [];
-
-  Object.keys(fromColors).forEach(function (key) {
-    Object.keys(fromColors[key]).forEach(function (colorKey) {
-      arr.push(fromColors[key][colorKey]);
-    });
-  });
-
-  return arr;
-})(materialColors);
+var colors = require('../utils/colors');
 
 
 var GridItem = React.createClass({
