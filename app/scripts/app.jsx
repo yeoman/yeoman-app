@@ -68,7 +68,7 @@ var App = React.createClass({
       <section>
         <div className="grid-wrap">
           <div id="generators-grid" className="grid">
-            <Grid />
+            <Grid selectedGenerator={this.state.selectedGeneratorName} />
           </div>
         </div>
         <div className="content">

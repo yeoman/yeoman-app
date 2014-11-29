@@ -4,6 +4,7 @@ var _ = require('lodash');
 var React = require('react');
 var Paper = require('material-ui/src/js/paper.jsx');
 var materialColors = require('material-colors/dist/colors.json');
+var classSet = require('react/addons').addons.classSet;
 
 var GeneratorStore = require('../stores/generator-store');
 var GridActions = require('../actions/grid-actions');
@@ -52,10 +53,14 @@ var GridItem = React.createClass({
   render: function () {
 
     var filename = 'img/' + this.props.name + '.png';
+    var classes = classSet({
+      'grid-item': true,
+      'active': this.props.active
+    });
 
     return (
       <Paper
-        className="grid-item"
+        className={classes}
         zDepth={this.state.zDepth}
         onMouseOver={this._onMouseOver}
         onMouseOut={this._onMouseOut}
@@ -102,9 +107,9 @@ var Grid = React.createClass({
 
     var items = this.state.officialGenerators.map(function (item) {
       return (
-        <GridItem key={item.name} name={item.name} />
+        <GridItem key={item.name} name={item.name} active={item.name === this.props.selectedGenerator} />
       );
-    });
+    }.bind(this));
 
     return (
       <div className="grid">
