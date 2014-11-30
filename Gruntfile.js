@@ -112,7 +112,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('init', 'init...', [
     'download-atom-shell',
-    'test',
     'parallel'
   ]);
 
