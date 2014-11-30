@@ -83,7 +83,9 @@ module.exports = function (grunt) {
       },
       all: [
         'Gruntfile.js',
-        'app/scripts/**/*.js'
+        'app/lib/**/*.js',
+        'app/scripts/**/*.{js,jsx}',
+        '!app/scripts/vendor/**/*'
       ]
     }
   });
@@ -110,9 +112,10 @@ module.exports = function (grunt) {
 
   grunt.registerTask('init', 'init...', [
     'download-atom-shell',
-    'jshint',
+    'test',
     'parallel'
   ]);
 
+  grunt.registerTask('test', ['jshint']);
   grunt.registerTask('default', ['menu']);
 };
