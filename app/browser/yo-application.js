@@ -23,6 +23,7 @@ module.exports = YoApplication= function(){
   var windowOptions = {
     width: windowWidth,
     height: windowHeight,
+    show: false // Hide window while app is initializing
   };
 
   this.mainWindow = new BrowserWindow(windowOptions);
@@ -34,6 +35,9 @@ module.exports = YoApplication= function(){
 
     this.setupConnector();
     this.handleEvents();
+
+    // The app is ready to use, light on.
+    this.mainWindow.show();
   }.bind(this));
 };
 
