@@ -25,9 +25,9 @@ var getNpmPaths = function() {
   return paths.reverse();
 };
 
-module.exports = function (adapter, cb) {
+module.exports = function (args, opts, adapter) {
 
-  var env = yo.createEnv([], {}, adapter);
+  var env = yo.createEnv(args, opts, adapter);
 
   // TODO:
   // Consider a better approach to get the npm pahts.
@@ -36,8 +36,5 @@ module.exports = function (adapter, cb) {
   // https://github.com/yeoman/environment/blob/8cf0c657e0edbbfd1e64d98f58d912dab1910720/lib/resolver.js#L101
   env.getNpmPaths = getNpmPaths;
 
-  env.lookup(function(err) {
-    if (err) return cb(err);
-    cb(null, env);
-  });
+  return env;
 };
