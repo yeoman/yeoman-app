@@ -1,6 +1,8 @@
 'use strict';
 
 var React = require('react');
+var Paper = require('material-ui/src/js/paper.jsx');
+var classSet = require('react/addons').addons.classSet;
 
 var PromptFormActions = require('../actions/prompt-form-actions');
 var CheckboxPrompt = require('./prompts/checkbox.jsx');
@@ -20,7 +22,7 @@ var PromptForm = React.createClass({
 
   getInitialState: function () {
     return {
-      visibility: 'show'
+      visibility: true
     };
   },
 
@@ -123,15 +125,21 @@ var PromptForm = React.createClass({
 
     // Builds required prompts from active questions
     var prompts = questions.map(createPrompt);
+    var classes = classSet({
+      'prompt': true,
+      'show': this.state.visibility
+    });
 
     return (
-      <form className={this.state.visibility} onSubmit={this._onSubmit}>
-        <div>{prompts}</div>
-        <div className="action-bar">
-          <input className="button" type="reset" value="Reset" />
-          <input className="button submit" type="submit" value="Next" />
-        </div>
-      </form>
+      <Paper className={classes}>
+        <form onSubmit={this._onSubmit}>
+          <div>{prompts}</div>
+          <div className="action-bar">
+            <input className="button" type="reset" value="Reset" />
+            <input className="button submit" type="submit" value="Next" />
+          </div>
+        </form>
+      </Paper>
     );
   }
 

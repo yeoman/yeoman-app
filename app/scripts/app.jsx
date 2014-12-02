@@ -77,8 +77,6 @@ var App = React.createClass({
             questions={this.state.questions}
             type={this.state.actualFormType}
           />
-          <span className="loading"></span>
-          <span className="icon close-content"></span>
         </div>
       </section>
     );
