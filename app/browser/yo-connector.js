@@ -15,18 +15,18 @@ var env;
 var Connector = module.exports = function Connector(browserWindow) {
   events.EventEmitter.call(this);
 
-  var client = browserWindow.webContents;
+  var webContents = browserWindow.webContents;
 
-  this.init(client, function(err, _env) {
+  this.init(webContents, function(err, _env) {
     env = _env;
     var generators = this.getGeneratorsData();
-    client.send('generators-data', generators);
+    webContents.send('generators-data', generators);
 
     ipc.on('connect', function (event, generatorName, cwd) {
       debug('Event: connect');
       debug('Run generator %s in %s', generatorName, cwd);
 
-      this.connect(client, generatorName, cwd);
+      this.connect(webContents, generatorName, cwd);
     }.bind(this));
 
     ipc.on('set-answers', function (event, answers) {
@@ -34,17 +34,13 @@ var Connector = module.exports = function Connector(browserWindow) {
     });
   }.bind(this));
 
-  dialogs.start(browserWindow, client);
+  dialogs.start(browserWindow, webContents);
 };
 
 util.inherits(Connector, events.EventEmitter);
 
-Connector.prototype.init = function(client, cb) {
-
-  var questionCallback = function (questions) {
-    client.send('question-prompt', questions);
-  };
-  var adapter = new GUIAdapter(questionCallback);
+Connector.prototype.init = function(webContents, cb) {
+  var adapter = new GUIAdapter(webContents);
   var env = yoEnvironment([], {}, adapter);
   env.lookup(function(err) {
     if (err) return cb(err);
@@ -78,7 +74,7 @@ Connector.prototype.getGeneratorsData = function() {
   return _.compact(list);
 };
 
-Connector.prototype.connect = function(client, generatorName, targetDir) {
+Connector.prototype.connect = function(webContents, generatorName, targetDir) {
 
   var name = generatorName.split('generator-')[1];
   var doneCounter = 0;
@@ -89,12 +85,12 @@ Connector.prototype.connect = function(client, generatorName, targetDir) {
 
     if (err) {
       doneCalled = true;
-      return client.send('generator-error', err);
+      return webContents.send('generator-error', err);
     }
 
     if (doneCounter === 0) {
       doneCalled = true;
-      client.send('generator-done');
+      webContents.send('generator-done');
     }
   };
 

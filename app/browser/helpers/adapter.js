@@ -1,31 +1,28 @@
 'use strict';
 
-var events = require('events');
-
-var _ = require('lodash');
+var debug = require('debug')('yoapp:adapter');
 var logger = require('yeoman-environment/lib/util/log');
 
+var GUIAdapter = module.exports = function GUIAdapter(webContents) {
+  this.webContents = webContents;
+};
 
-function GUIAdapter(questionsCallback) {
+GUIAdapter.prototype.prompt = function (questions, callback) {
+  debug('IPC: Send question-prompt with %o', questions);
 
-  var callback;
+  this.webContents.send('question-prompt', questions);
+  this.callback = callback;
+};
 
-  _.extend(this, events.EventEmitter.prototype);
+GUIAdapter.prototype.answers = function (answers) {
+  debug('Set answers: %s', answers);
 
+  this.callback(answers);
+};
 
-  this.prompt = function (questions, allDone) {
-    questionsCallback(questions);
-    callback = allDone;
-  };
+GUIAdapter.prototype.diff = function () {
+  //TODO: Implement diff
+};
 
-  this.answers = function (answers) {
-    callback(answers);
-  };
-
-  this.diff = function () {};
-  this.log = logger();
-}
-
-
-module.exports = GUIAdapter;
-
+//TODO: Implement logger
+GUIAdapter.prototype.log = logger();
