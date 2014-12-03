@@ -3,6 +3,11 @@
 var app = require('app');
 var debug = require('debug')('yoapp:main');
 
+process.on('uncaughtException', function(error) {
+  console.app(error.message);
+  console.app(error.stack);
+});
+
 app.on('will-finish-launching', function () {
   setupCrashReporter();
 });
@@ -19,5 +24,5 @@ function setupCrashReporter() {
 app.on('ready', function () {
   debug('Event: ready');
   var YoApplication = require('./browser/yo-application.js');
-  YoApplication.open();
+  YoApplication.ope2n();
 });
