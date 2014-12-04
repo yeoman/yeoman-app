@@ -24,7 +24,7 @@ var ConfirmPrompt = React.createClass({
   render: function () {
     return (
       <fieldset>
-        <label htmlFor={this.props.name}>{this.props.message}</label>
+        <label htmlFor={this.props.name} style={{ background: this.props.color }}>{this.props.message}</label>
         <input
           type="checkbox"
           name={this.props.name}

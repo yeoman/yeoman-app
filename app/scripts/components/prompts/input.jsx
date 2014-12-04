@@ -24,7 +24,7 @@ var InputPrompt = React.createClass({
   render: function () {
     return (
       <fieldset>
-        <label htmlFor={this.props.name}>{this.props.message}</label>
+        <label htmlFor={this.props.name} style={{ background: this.props.color }}>{this.props.message}</label>
         <input
           type={this.props.type}
           name={this.props.name}

@@ -41,7 +41,7 @@ var FolderPrompt = React.createClass({
   render: function () {
     return (
       <fieldset>
-        <label>{this.props.message}</label>
+        <label style={{ background: this.props.color }}>{this.props.message}</label>
         <button
           className="select-folder"
           onClick={this._onClick}

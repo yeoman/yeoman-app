@@ -4,6 +4,7 @@
   "description": "An app made with Node Webkit that scaffolds projects using Yeoman",
   "author": "The Yeoman Team",
   "dependencies": {
+    "color": "^0.7.3",
     "flux": "^2.0.1",
     "findup-sync": "^0.1.3",
     "less": "^2.1.0",

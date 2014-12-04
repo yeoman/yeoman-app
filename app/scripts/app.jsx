@@ -18,7 +18,7 @@ var App = React.createClass({
     return {
       actualFormType: '',
       questions: [],
-      selectedGeneratorName: ''
+      selectedGenerator: {}
     };
   },
 
@@ -40,11 +40,11 @@ var App = React.createClass({
       .removeListener('generator-done', this._onGeneratorDone);
   },
 
-  _onItemSelected: function (generatorName, questions) {
+  _onItemSelected: function (generator, questions) {
     this.setState({
       actualFormType: 'cwd',
       questions: questions,
-      selectedGeneratorName: generatorName
+      selectedGenerator: generator
     });
   },
 
@@ -59,7 +59,7 @@ var App = React.createClass({
     this.setState({
       actualFormType: '',
       questions: [],
-      selectedGeneratorName: ''
+      selectedGenerator: {}
     });
   },
 
@@ -68,12 +68,12 @@ var App = React.createClass({
       <section>
         <div className="grid-wrap">
           <div id="generators-grid" className="grid">
-            <Grid selectedGenerator={this.state.selectedGeneratorName} />
+            <Grid selectedGenerator={this.state.selectedGenerator} />
           </div>
         </div>
         <div className="content">
           <PromptForm
-            generatorName={this.state.selectedGeneratorName}
+            generator={this.state.selectedGenerator}
             questions={this.state.questions}
             type={this.state.actualFormType}
           />

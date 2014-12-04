@@ -15,7 +15,7 @@ var ListPrompt = require('./prompts/list.jsx');
 var PromptForm = React.createClass({
 
   propTypes: {
-    generatorName: React.PropTypes.string.isRequired,
+    generator: React.PropTypes.object.isRequired,
     type: React.PropTypes.string.isRequired,
     questions: React.PropTypes.arrayOf(React.PropTypes.object)
   },
@@ -35,8 +35,7 @@ var PromptForm = React.createClass({
   _onSubmit: function (e) {
 
     var answers = {};
-    var refs = this.refs;
-    var callback = this.props.type === 'cwd' ?
+    var refs = this.refs; var callback = this.props.type === 'cwd' ?
       PromptFormActions.submitSelectedFolder :
       PromptFormActions.submitForm;
 
@@ -45,7 +44,7 @@ var PromptForm = React.createClass({
     });
 
     callback(
-      this.props.generatorName,
+      this.props.generator.name,
       answers
     );
     e.preventDefault();
@@ -54,6 +53,7 @@ var PromptForm = React.createClass({
   render: function () {
 
     var questions = this.props.questions;
+    var color = this.props.generator.color;
 
     if (questions.length === 0) {
       return null;
@@ -70,6 +70,7 @@ var PromptForm = React.createClass({
           type={question.type}
           message={question.message}
           defaultAnswer={question.default}
+          color={color}
         />;
       };
 
@@ -81,6 +82,7 @@ var PromptForm = React.createClass({
           choices={question.choices}
           message={question.message}
           defaultAnswer={question.default}
+          color={color}
         />;
       };
 
@@ -94,6 +96,7 @@ var PromptForm = React.createClass({
             name={question.name}
             message={question.message}
             defaultAnswer={question.default}
+            color={color}
           />;
         },
         folder: function createFolder() {
@@ -103,6 +106,7 @@ var PromptForm = React.createClass({
             name={question.name}
             message={question.message}
             defaultAnswer={question.default}
+            color={color}
           />;
         },
         list: list,
@@ -116,6 +120,7 @@ var PromptForm = React.createClass({
             choices={question.choices}
             message={question.message}
             defaultAnswer={question.default}
+            color={color}
           />;
         }
       };

@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var React = require('react');
+var color = require('color');
 var Paper = require('material-ui/src/js/paper.jsx');
 var classSet = require('react/addons').addons.classSet;
 
@@ -20,7 +21,10 @@ var GridItem = React.createClass({
   },
 
   _onClick: function () {
-    GridActions.gridItemSelected(this.props.name);
+    GridActions.gridItemSelected({
+      name: this.props.name,
+      color: color(this.state.color).darken(0.2).hexString()
+    });
   },
 
   _onMouseOver: function() {
@@ -92,7 +96,7 @@ var Grid = React.createClass({
 
     var items = this.state.officialGenerators.map(function (item) {
       return (
-        <GridItem key={item.name} name={item.name} active={item.name === this.props.selectedGenerator} />
+        <GridItem key={item.name} name={item.name} active={item.name === this.props.selectedGenerator.name} />
       );
     }.bind(this));
 

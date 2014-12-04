@@ -20,7 +20,7 @@ var GeneratorStore = {
             name: 'cwd',
             type: 'folder'
           }];
-          GeneratorStore.events.emit('grid-item-selected', action.name, questions);
+          GeneratorStore.events.emit('grid-item-selected', action.generator, questions);
         },
         'submit-selected-folder': function (action) {
           GeneratorStore.events.emit('submit-selected-folder', action.generatorName, action.answers);

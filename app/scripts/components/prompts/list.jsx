@@ -44,7 +44,7 @@ var ListPrompt = React.createClass({
 
     return (
       <fieldset>
-        <label>{this.props.message}</label>
+        <label style={{ background: this.props.color }}>{this.props.message}</label>
         {choices}
       </fieldset>
     );
