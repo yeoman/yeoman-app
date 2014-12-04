@@ -23,7 +23,7 @@ var ConfirmPrompt = React.createClass({
 
   render: function () {
     return (
-      <p>
+      <fieldset>
         <label htmlFor={this.props.name}>{this.props.message}</label>
         <input
           type="checkbox"
@@ -31,7 +31,7 @@ var ConfirmPrompt = React.createClass({
           checked={this.state.answer}
           onChange={this._onChange}
         />
-      </p>
+      </fieldset>
     );
   }
 

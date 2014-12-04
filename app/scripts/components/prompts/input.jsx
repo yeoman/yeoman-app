@@ -23,7 +23,7 @@ var InputPrompt = React.createClass({
 
   render: function () {
     return (
-      <p>
+      <fieldset>
         <label htmlFor={this.props.name}>{this.props.message}</label>
         <input
           type={this.props.type}
@@ -31,7 +31,7 @@ var InputPrompt = React.createClass({
           value={this.state.answer}
           onChange={this._onChange}
         />
-      </p>
+      </fieldset>
     );
   }
 

@@ -43,10 +43,10 @@ var ListPrompt = React.createClass({
     });
 
     return (
-      <p>
+      <fieldset>
         <label>{this.props.message}</label>
         {choices}
-      </p>
+      </fieldset>
     );
   }
 

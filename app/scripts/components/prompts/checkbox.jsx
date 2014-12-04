@@ -95,10 +95,10 @@ var CheckboxPrompt = React.createClass({
     }, this);
 
     return (
-      <p>
+      <fieldset>
         <label>{this.props.message}</label>
         {choices}
-      </p>
+      </fieldset>
     );
   }
 
