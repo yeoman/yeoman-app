@@ -1,66 +1,79 @@
 'use strict';
 
-var debug = require('debug')('yoapp:application');
-var path = require('path');
-var BrowserWindow = require('browser-window');
 var app = require('app');
-var Connector = require('./yo-connector');
+var YoWindow = require('./yo-window');
+var EventEmitter = require('events').EventEmitter;
+var _ = require('lodash');
 
 var YoApplication;
 
-var resourcePath = 'file://' + path.join(__dirname, '..', 'index.html');
-var windowWidth = 860;
-var windowHeight = 600;
+module.exports = YoApplication= function(options) {
+  this.devMode = options.devMode;
+  this.logLevel = options.logLevel;
 
-module.exports = YoApplication= function(){
+  global.yoApplication = this;
+  this.pidsToOpenWindows = {};
+  this.windows = [];
 
   // TODO:
   // - Add auto updater -> https://github.com/atom/atom-shell/blob/master/docs/api/auto-updater.md
   // - Add insight -> https://github.com/yeoman/insight
   // - Add application menu -> https://github.com/atom/atom-shell/blob/master/docs/api/menu.md
 
-  // List of all available options -> https://github.com/atom/atom-shell/blob/master/docs/api/browser-window.md#new-browserwindowoptions
-  var windowOptions = {
-    width: windowWidth,
-    height: windowHeight,
-    show: false // Hide window while app is initializing
-  };
-
-  this.mainWindow = new BrowserWindow(windowOptions);
-  this.mainWindow.loadUrl(resourcePath);
-
-  // Wait for the onload event from the web view
-  this.mainWindow.webContents.on('did-finish-load', function () {
-    debug('Event: did-finish-load');
-
-    this.setupConnector();
-    this.handleEvents();
-
-    // The app is ready to use, light on.
-    this.mainWindow.show();
-  }.bind(this));
+  this.handleEvents();
+  this.addDockMenu();
+  this.openWindow();
 };
 
-// Create a new application instance
-YoApplication.open = function() {
-  return new YoApplication();
+_.extend(YoApplication.prototype, EventEmitter.prototype);
+
+// The applications entrty point
+YoApplication.open = function(options) {
+  return new YoApplication(options);
 };
 
 YoApplication.prototype.handleEvents = function() {
 
-  this.mainWindow.on('close', function (event) {
-    // TODO: Confirm closing if generator is running
+  this.on('application:quit', function() {
+    return app.quit();
   });
 
-  app.on('will-quit', function (event) {
-    // TODO: Kill processes e.g npm / bower install
-  });
+  this.on('application:new-window', function() {
+    this.openWindow();
+  }.bind(this));
 
-  this.mainWindow.on('closed', function () {
-    this.mainWindow= null;
+  app.on('window-all-closed', function() {
+    var _ref =  process.platform;
+    if (_ref  === 'win32' || _ref === 'linux') {
+      return app.quit();
+    }
   });
 };
 
-YoApplication.prototype.setupConnector = function() {
-  this.connector = new Connector(this.mainWindow);
+YoApplication.prototype.removeWindow = function(window) {
+  this.windows.splice(this.windows.indexOf(window), 1);
+};
+
+YoApplication.prototype.addWindow = function(window) {
+  this.windows.push(window);
+};
+
+YoApplication.prototype.openWindow = function() {
+  var openedWindow = new YoWindow();
+};
+
+YoApplication.prototype.focusedWindow = function() {
+  return _.find(this.windows, function(yoWindow) {
+    return yoWindow.isFocused();
+  });
+};
+
+YoApplication.prototype.addDockMenu = function() {
+  var Menu = require('menu');
+  var dockMenu = Menu.buildFromTemplate([
+    { label: 'New Window', click: function() {
+      this.emit('application:new-window');
+    }.bind(this) },
+  ]);
+  app.dock.setMenu(dockMenu);
 };
