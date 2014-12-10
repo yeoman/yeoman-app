@@ -8,7 +8,7 @@ var _ = require('lodash');
 var findup = require('findup-sync');
 var ipc = require('ipc');
 var GUIAdapter = require('./helpers/adapter');
-var yoEnvironment = require('./yo-environment');
+var yoEnvironment = require('./environment');
 var dialogs = require('./helpers/dialogs');
 var env;
 

@@ -1,18 +1,18 @@
 'use strict';
 
 var app = require('app');
-var YoWindow = require('./yo-window');
+var AppWindow = require('./appwindow');
 var EventEmitter = require('events').EventEmitter;
 var _ = require('lodash');
 
-var YoApplication;
+var Application;
 
-module.exports = YoApplication= function(options) {
+module.exports = Application= function(options) {
   this.devMode = options.devMode;
   this.logLevel = options.logLevel;
 
-  global.yoApplication = this;
-  this.pidsToOpenWindows = {};
+  global.application = this;
+
   this.windows = [];
 
   // TODO:
@@ -25,14 +25,14 @@ module.exports = YoApplication= function(options) {
   this.openWindow();
 };
 
-_.extend(YoApplication.prototype, EventEmitter.prototype);
+_.extend(Application.prototype, EventEmitter.prototype);
 
 // The applications entrty point
-YoApplication.open = function(options) {
-  return new YoApplication(options);
+Application.open = function(options) {
+  return new Application(options);
 };
 
-YoApplication.prototype.handleEvents = function() {
+Application.prototype.handleEvents = function() {
 
   this.on('application:quit', function() {
     return app.quit();
@@ -50,25 +50,25 @@ YoApplication.prototype.handleEvents = function() {
   });
 };
 
-YoApplication.prototype.removeWindow = function(window) {
+Application.prototype.removeWindow = function(window) {
   this.windows.splice(this.windows.indexOf(window), 1);
 };
 
-YoApplication.prototype.addWindow = function(window) {
+Application.prototype.addWindow = function(window) {
   this.windows.push(window);
 };
 
-YoApplication.prototype.openWindow = function() {
-  var openedWindow = new YoWindow();
+Application.prototype.openWindow = function() {
+  var openedWindow = new AppWindow();
 };
 
-YoApplication.prototype.focusedWindow = function() {
-  return _.find(this.windows, function(yoWindow) {
-    return yoWindow.isFocused();
+Application.prototype.focusedWindow = function() {
+  return _.find(this.windows, function(appWindow) {
+    return appWindow.isFocused();
   });
 };
 
-YoApplication.prototype.addDockMenu = function() {
+Application.prototype.addDockMenu = function() {
   var Menu = require('menu');
   var dockMenu = Menu.buildFromTemplate([
     { label: 'New Window', click: function() {

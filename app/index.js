@@ -42,6 +42,6 @@ app.on('ready', function ready() {
 
   app.commandLine.appendSwitch('js-flags', '--harmony');
 
-  var YoApplication = require('./browser/yo-application');
+  var YoApplication = require('./browser/application');
   YoApplication.open(args);
 });

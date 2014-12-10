@@ -2,7 +2,7 @@
 
 var path = require('path');
 var BrowserWindow = require('browser-window');
-var Connector = require('./yo-connector');
+var Connector = require('./connector');
 
 var YoWindow;
 
@@ -31,7 +31,7 @@ module.exports = YoWindow= function(options) {
     this.browserWindow.show();
   }.bind(this));
 
-  global.yoApplication.addWindow(this);
+  global.application.addWindow(this);
 };
 
 YoWindow.prototype.setupConnector = function() {
