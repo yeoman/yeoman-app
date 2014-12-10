@@ -30,12 +30,17 @@ function parseArgs() {
   };
 }
 
+// Enable ES6 in the Renderer process
+app.commandLine.appendSwitch('js-flags', '--harmony');
+
 var args = parseArgs();
 
 // This method will be called when atom-shell has done everything
 // initialization and ready for creating browser windows.
 app.on('ready', function ready() {
   log.trace('Start application');
+
+  app.commandLine.appendSwitch('js-flags', '--harmony');
 
   var YoApplication = require('./browser/yo-application');
   YoApplication.open(args);
