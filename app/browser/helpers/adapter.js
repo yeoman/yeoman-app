@@ -3,14 +3,14 @@
 var debug = require('debug')('yoapp:adapter');
 var logger = require('yeoman-environment/lib/util/log');
 
-var GUIAdapter = module.exports = function GUIAdapter(webContents) {
-  this.webContents = webContents;
+var GUIAdapter = module.exports = function GUIAdapter(appWindow) {
+  this.appWindow = appWindow;
 };
 
 GUIAdapter.prototype.prompt = function (questions, callback) {
   debug('IPC: Send question-prompt with %o', questions);
 
-  this.webContents.send('question-prompt', questions);
+  this.appWindow.emit('connector:generator-prompt', questions);
   this.callback = callback;
 };
 

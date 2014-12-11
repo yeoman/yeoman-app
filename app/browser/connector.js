@@ -12,21 +12,21 @@ var yoEnvironment = require('./environment');
 var dialogs = require('./helpers/dialogs');
 var env;
 
-var Connector = module.exports = function Connector(browserWindow) {
+var Connector = module.exports = function Connector(appWindow) {
   events.EventEmitter.call(this);
 
-  var webContents = browserWindow.webContents;
+  this.appWindow = appWindow;
 
-  this.init(webContents, function(err, _env) {
+  this.init(function(err, _env) {
     env = _env;
     var generators = this.getGeneratorsData();
-    webContents.send('generators-data', generators);
+    this.appWindow.emit('connector:generator-data', generators);
 
     ipc.on('connect', function (event, generatorName, cwd) {
       debug('Event: connect');
       debug('Run generator %s in %s', generatorName, cwd);
 
-      this.connect(webContents, generatorName, cwd);
+      this.connect(generatorName, cwd);
     }.bind(this));
 
     ipc.on('set-answers', function (event, answers) {
@@ -34,13 +34,13 @@ var Connector = module.exports = function Connector(browserWindow) {
     });
   }.bind(this));
 
-  dialogs.start(browserWindow, webContents);
+  dialogs.start(this.appWindow);
 };
 
 util.inherits(Connector, events.EventEmitter);
 
-Connector.prototype.init = function(webContents, cb) {
-  var adapter = new GUIAdapter(webContents);
+Connector.prototype.init = function(cb) {
+  var adapter = new GUIAdapter(this.appWindow);
   var env = yoEnvironment([], {}, adapter);
   env.lookup(function(err) {
     if (err) return cb(err);
@@ -74,7 +74,7 @@ Connector.prototype.getGeneratorsData = function() {
   return _.compact(list);
 };
 
-Connector.prototype.connect = function(webContents, generatorName, targetDir) {
+Connector.prototype.connect = function(generatorName, targetDir) {
 
   var name = generatorName.split('generator-')[1];
   var doneCounter = 0;
@@ -85,14 +85,14 @@ Connector.prototype.connect = function(webContents, generatorName, targetDir) {
 
     if (err) {
       doneCalled = true;
-      return webContents.send('generator-error', err);
+      return this.appWindow.emit('connector:generator-error', err);
     }
 
     if (doneCounter === 0) {
       doneCalled = true;
-      webContents.send('generator-done');
+      this.appWindow.emit('connector:generator-done');
     }
-  };
+  }.bind(this);
 
   var increaseDoneCounter = function() {
     doneCounter++;
