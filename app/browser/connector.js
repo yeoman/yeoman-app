@@ -1,6 +1,6 @@
 'use strict';
 
-var debug = require('debug')('yoapp:connector');
+var log = require('./util/logger');
 var fs = require('fs');
 var util = require('util');
 var events = require('events');
@@ -22,14 +22,13 @@ var Connector = module.exports = function Connector(appWindow) {
     var generators = this.getGeneratorsData();
     this.appWindow.emit('connector:generator-data', generators);
 
-    ipc.on('connect', function (event, generatorName, cwd) {
-      debug('Event: connect');
-      debug('Run generator %s in %s', generatorName, cwd);
+    appWindow.on('connector:init', function (generatorName, cwd) {
+      log.debug('Run generator %s in %s', generatorName, cwd);
 
       this.connect(generatorName, cwd);
     }.bind(this));
 
-    ipc.on('set-answers', function (event, answers) {
+    appWindow.on('connector:set-answers', function (answers) {
       env.adapter.answers(answers);
     });
   }.bind(this));

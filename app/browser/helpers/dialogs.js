@@ -15,7 +15,7 @@ function showSelectDirDialog(browserWindow, callback) {
 }
 
 function start(appWindow) {
-  ipc.on('prompts.folder.getFolder',
+  appWindow.on('connector:open-dialog',
     showSelectDirDialog.bind({}, appWindow.browserWindow, function (filenames) {
       if (!filenames) return;
 

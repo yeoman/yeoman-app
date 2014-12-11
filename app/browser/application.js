@@ -4,6 +4,8 @@ var app = require('app');
 var AppWindow = require('./appwindow');
 var EventEmitter = require('events').EventEmitter;
 var _ = require('lodash');
+var BrowserWindow = require('browser-window');
+var ipc = require('ipc');
 
 var Application;
 
@@ -42,6 +44,12 @@ Application.prototype.handleEvents = function() {
     this.openWindow();
   }.bind(this));
 
+  ipc.on('context-appwindow', function(event) {
+    var args = Array.prototype.slice.call(arguments, 1);
+    var win = this.windowForEvent(event.sender);
+    win.emit.apply(win, args);
+  }.bind(this));
+
   app.on('window-all-closed', function() {
     var _ref =  process.platform;
     if (_ref  === 'win32' || _ref === 'linux') {
@@ -65,6 +73,14 @@ Application.prototype.openWindow = function() {
 Application.prototype.focusedWindow = function() {
   return _.find(this.windows, function(appWindow) {
     return appWindow.isFocused();
+  });
+};
+
+// Returns the {AppWindow} for the given ipc event.
+Application.prototype.windowForEvent = function(sender) {
+  var win = BrowserWindow.fromWebContents(sender);
+  return _.find(this.windows, function(appWindow) {
+    return appWindow.browserWindow === win;
   });
 };
 
