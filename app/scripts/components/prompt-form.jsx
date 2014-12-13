@@ -2,6 +2,7 @@
 
 var React = require('react');
 var Paper = require('material-ui/src/js/paper.jsx');
+var FloatingActionButton = require('material-ui/src/js/floating-action-button.jsx');
 var classSet = require('react/addons').addons.classSet;
 
 var PromptFormActions = require('../actions/prompt-form-actions');
@@ -139,10 +140,7 @@ var PromptForm = React.createClass({
       <Paper className={classes}>
         <form onSubmit={this._onSubmit}>
           <div>{prompts}</div>
-          <div className="action-bar">
-            <input className="button" type="reset" value="Reset" />
-            <input className="button submit" type="submit" value="Next" />
-          </div>
+          <FloatingActionButton className="submit-button" icon="action-done" />
         </form>
       </Paper>
     );
