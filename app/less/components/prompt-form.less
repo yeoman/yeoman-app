@@ -1,5 +1,6 @@
 @prompt-form-width: 400px;
 @prompt-form-height: 300px;
+@prompt-form-margin: 24px;
 
 .content {
   position: absolute;
@@ -33,7 +34,7 @@
 
       > label {
         font-size: 18px;
-        padding: 0px 24px;
+        padding: 0px @prompt-form-margin;
         height: 150px;
         display: flex;
         align-items: center;
@@ -46,17 +47,6 @@
       position: absolute;
       top: 122px;
       right: 20px;
-    }
-
-    // Folder prompt
-    .select-folder {
-      margin: 56px 24px 0px 24px;
-    }
-
-    span.selected-folder {
-      margin: 12px 24px 24px 24px;
-      word-wrap: break-word;
-      max-width: 300px;
     }
   }
 }
