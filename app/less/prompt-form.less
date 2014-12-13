@@ -15,7 +15,7 @@
   top: 50%;
   left: 50%;
   width: 400px;
-  height: 300px;
+  min-height: 300px;
   background-color: #FFF;
   margin-left: -200px;
 
@@ -28,8 +28,12 @@
     height: 100%;
 
     fieldset {
+      min-height: 300px;
+      display: flex;
+
       > label {
         font-size: 18px;
+        padding: 0px 24px;
         height: 150px;
         display: flex;
         align-items: center;
@@ -42,6 +46,17 @@
       position: absolute;
       top: 122px;
       right: 20px;
+    }
+
+    // Folder prompt
+    .select-folder {
+      margin: 56px 24px 0px 24px;
+    }
+
+    span.selected-folder {
+      margin: 12px 24px 24px 24px;
+      word-wrap: break-word;
+      max-width: 300px;
     }
   }
 }

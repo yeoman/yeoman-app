@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var RaisedButton = require('material-ui/src/js/raised-button.jsx');
 
 var PromptMixin = require('./prompt-mixin');
 var PromptFormActions = require('../../actions/prompt-form-actions');
@@ -13,7 +14,8 @@ var FolderPrompt = React.createClass({
 
   getInitialState: function () {
     return {
-      answer: this.props.defaultAnswer
+      answer: this.props.defaultAnswer,
+      isEmpty: true
     };
   },
 
@@ -29,7 +31,8 @@ var FolderPrompt = React.createClass({
 
   _onFolderSelected: function (cwd) {
     this.setState({
-      answer: cwd
+      answer: cwd,
+      isEmpty: false
     });
   },
 
@@ -42,10 +45,12 @@ var FolderPrompt = React.createClass({
     return (
       <fieldset>
         <label style={{ background: this.props.color }}>{this.props.message}</label>
-        <button
+        <RaisedButton
+          label="Select a folder"
+          primary={this.state.isEmpty}
           className="select-folder"
           onClick={this._onClick}
-        >Select a folder</button>
+        />
         <span className="selected-folder">{this.state.answer}</span>
       </fieldset>
     );
