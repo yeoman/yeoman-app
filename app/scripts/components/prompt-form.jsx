@@ -33,10 +33,11 @@ var PromptForm = React.createClass({
     };
   },
 
-  _onSubmit: function (e) {
+  _onClick: function (event) {
 
     var answers = {};
-    var refs = this.refs; var callback = this.props.type === 'cwd' ?
+    var refs = this.refs;
+    var action = this.props.type === 'cwd' ?
       PromptFormActions.submitSelectedFolder :
       PromptFormActions.submitForm;
 
@@ -44,11 +45,11 @@ var PromptForm = React.createClass({
       answers[question.name] = refs[question.name].state.answer;
     });
 
-    callback(
+    action(
       this.props.generator.name,
       answers
     );
-    e.preventDefault();
+    event.preventDefault();
   },
 
   render: function () {
@@ -138,9 +139,9 @@ var PromptForm = React.createClass({
 
     return (
       <Paper className={classes}>
-        <form onSubmit={this._onSubmit}>
+        <form>
           <div>{prompts}</div>
-          <FloatingActionButton className="submit-button" icon="action-done" />
+          <FloatingActionButton className="submit-button" icon="action-done" onClick={this._onClick}/>
         </form>
       </Paper>
     );
