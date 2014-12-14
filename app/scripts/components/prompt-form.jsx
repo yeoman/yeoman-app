@@ -76,14 +76,14 @@ var PromptForm = React.createClass({
         />;
       };
 
-      var list = function () {
+      var list = function (defaultValue) {
         return <ListPrompt
           key={question.name}
           ref={question.name}
           name={question.name}
           choices={question.choices}
           message={question.message}
-          defaultAnswer={question.default || 0}
+          defaultAnswer={question.default || defaultValue}
           color={color}
         />;
       };
@@ -111,7 +111,8 @@ var PromptForm = React.createClass({
             color={color}
           />;
         },
-        list: list,
+        // list prompt should start with at least first item selected
+        list: list.bind(null, 0),
         rawlist: list,
         expand: list,
         checkbox: function createCheckbox() {
