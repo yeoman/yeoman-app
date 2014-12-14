@@ -36,10 +36,8 @@ var ListPrompt = React.createClass({
 
     var choices = this.props.choices.map(function (choice, index) {
 
-      var def = this.props.defaultAnswer;
       var name = choice.name || choice;
       var ref = this._getRefName(name);
-      var checked = def === index || def === name;
 
       return (
         <RadioButton
@@ -48,8 +46,8 @@ var ListPrompt = React.createClass({
           name={this.props.name}
           value={name}
           label={name}
-          checked={checked}
           onClick={this._onClick}
+          defaultChecked={this.state.answer === index}
           className="list-prompt-list-item"
         />
       );
@@ -57,7 +55,9 @@ var ListPrompt = React.createClass({
 
     return (
       <fieldset className="list-prompt">
-        <label style={{ background: this.props.color }}>{this.props.message}</label>
+        <label style={{ background: this.props.color }}>
+          {this.props.message}
+        </label>
         <div className="list-prompt-list">
           {choices}
         </div>

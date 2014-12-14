@@ -83,7 +83,7 @@ var PromptForm = React.createClass({
           name={question.name}
           choices={question.choices}
           message={question.message}
-          defaultAnswer={question.default}
+          defaultAnswer={question.default || 0}
           color={color}
         />;
       };

@@ -12,7 +12,7 @@
     "less": "^2.1.0",
     "lodash": "^2.4.1",
     "material-colors": "^0.3.0",
-    "material-ui": "0.3.3",
+    "material-ui": "git+https://github.com/callemall/material-ui.git",
     "node-jsx": "^0.12.x",
     "react": "^0.12.x",
     "yeoman-environment": "1.1.1"
