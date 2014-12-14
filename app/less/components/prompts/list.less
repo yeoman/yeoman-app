@@ -1,4 +1,5 @@
-@prompt-chekbox-item-height: 38px;
+@prompt-list-item-height: 16px;
+@prompt-list-item-margin: 38px;
 
 .prompt form {
 
@@ -8,15 +9,15 @@
     flex-direction: column;
 
     .list-prompt-list-item {
-       height: @prompt-chekbox-item-height;
-       margin: 0px @prompt-form-margin;
+       height: @prompt-list-item-height;
+       margin: 12px @prompt-form-margin;
 
        &:first-child {
-         margin-top: @prompt-chekbox-item-height;
+         margin-top: @prompt-list-item-margin + 8px;
        }
 
        &:last-child {
-         margin-bottom: @prompt-chekbox-item-height;
+         margin-bottom: @prompt-list-item-margin;
        }
     }
   }
