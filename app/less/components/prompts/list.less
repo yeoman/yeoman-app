@@ -1,0 +1,24 @@
+@prompt-chekbox-item-height: 38px;
+
+.prompt form {
+
+  .list-prompt .list-prompt-list {
+
+    display: flex;
+    flex-direction: column;
+
+    .list-prompt-list-item {
+       height: @prompt-chekbox-item-height;
+       margin: 0px @prompt-form-margin;
+
+       &:first-child {
+         margin-top: @prompt-chekbox-item-height;
+       }
+
+       &:last-child {
+         margin-bottom: @prompt-chekbox-item-height;
+       }
+    }
+  }
+}
+
