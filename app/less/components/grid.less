@@ -10,6 +10,13 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
+
+  &.desactive {
+    .grid-item {
+      pointer-events: none;
+      cursor: default;
+    }
+  }
 }
 
 .grid-item {
@@ -17,6 +24,7 @@
   height: @grid-item-height;
   margin-bottom: 50px;
   position: relative;
+  cursor: pointer;
 }
 
 .grid-img {

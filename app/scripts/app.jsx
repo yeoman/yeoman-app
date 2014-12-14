@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var classSet = require('react/addons').addons.classSet;
 
 var Grid = require('./components/grid.jsx');
 var PromptForm = require('./components/prompt-form.jsx');
@@ -64,14 +65,24 @@ var App = React.createClass({
   },
 
   render: function () {
+
+    var gridClasses = classSet({
+      'grid': true,
+      'desactive': this.state.selectedGenerator.name
+    });
+
+    var promptContainerStyle = {
+      display: this.state.selectedGenerator.name ? 'block' : 'none'
+    };
+
     return (
       <section>
         <div className="grid-wrap">
-          <div id="generators-grid" className="grid">
+          <div id="generators-grid" className={gridClasses}>
             <Grid selectedGenerator={this.state.selectedGenerator} />
           </div>
         </div>
-        <div className="content">
+        <div className="content" style={promptContainerStyle}>
           <PromptForm
             generator={this.state.selectedGenerator}
             questions={this.state.questions}
