@@ -41,20 +41,28 @@ var GridItem = React.createClass({
 
   render: function () {
 
+    var headerHeight = 300;
+    var contentHeight =
+      window.document.getElementById('content').clientHeight + headerHeight;
     var filename = 'img/' + this.props.name + '.png';
     var classes = classSet({
       'grid-item': true,
       'active': this.props.active
     });
+    var style = {
+      minHeight: (this.props.active ? contentHeight : 329) + 'px'
+    };
 
     return (
       <Paper
+        style={style}
         className={classes}
         zDepth={this.state.zDepth}
         onMouseOver={this._onMouseOver}
         onMouseOut={this._onMouseOut}
         onClick={this._onClick}>
-        <div className="grid-bg" style={{ backgroundColor: this.state.color }}></div>
+        <div className="grid-bg" style={{ backgroundColor: this.state.color }}>
+        </div>
         <figure
           className="grid-img"
           style={{backgroundImage: 'url(' + filename + ')'}}>
