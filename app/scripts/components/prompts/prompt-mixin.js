@@ -10,7 +10,7 @@ var PromptMixin = {
     message: React.PropTypes.string.isRequired,
     defaultAnswer: React.PropTypes.any,
     filter: React.PropTypes.func,
-    choices: React.PropTypes.arrayOf(React.PropTypes.object)
+    choices: React.PropTypes.arrayOf(React.PropTypes.any)
   },
 
   getDefaultProps: function () {

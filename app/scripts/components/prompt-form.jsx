@@ -1,10 +1,14 @@
 'use strict';
 
 var React = require('react');
+var Paper = require('material-ui/src/js/paper.jsx');
+var FloatingActionButton = require('material-ui/src/js/floating-action-button.jsx');
+var classSet = require('react/addons').addons.classSet;
 
 var PromptFormActions = require('../actions/prompt-form-actions');
 var CheckboxPrompt = require('./prompts/checkbox.jsx');
 var ConfirmPrompt = require('./prompts/confirm.jsx');
+var ExpandPrompt = require('./prompts/expand.jsx');
 var FolderPrompt = require('./prompts/folder.jsx');
 var InputPrompt = require('./prompts/input.jsx');
 var ListPrompt = require('./prompts/list.jsx');
@@ -13,14 +17,14 @@ var ListPrompt = require('./prompts/list.jsx');
 var PromptForm = React.createClass({
 
   propTypes: {
-    generatorName: React.PropTypes.string.isRequired,
+    generator: React.PropTypes.object.isRequired,
     type: React.PropTypes.string.isRequired,
     questions: React.PropTypes.arrayOf(React.PropTypes.object)
   },
 
   getInitialState: function () {
     return {
-      visibility: 'show'
+      visibility: true
     };
   },
 
@@ -30,11 +34,11 @@ var PromptForm = React.createClass({
     };
   },
 
-  _onSubmit: function (e) {
+  _onClick: function (event) {
 
     var answers = {};
     var refs = this.refs;
-    var callback = this.props.type === 'cwd' ?
+    var action = this.props.type === 'cwd' ?
       PromptFormActions.submitSelectedFolder :
       PromptFormActions.submitForm;
 
@@ -42,16 +46,17 @@ var PromptForm = React.createClass({
       answers[question.name] = refs[question.name].state.answer;
     });
 
-    callback(
-      this.props.generatorName,
+    action(
+      this.props.generator.name,
       answers
     );
-    e.preventDefault();
+    event.preventDefault();
   },
 
   render: function () {
 
     var questions = this.props.questions;
+    var color = this.props.generator.color;
 
     if (questions.length === 0) {
       return null;
@@ -68,17 +73,19 @@ var PromptForm = React.createClass({
           type={question.type}
           message={question.message}
           defaultAnswer={question.default}
+          color={color}
         />;
       };
 
-      var list = function () {
+      var list = function (defaultValue) {
         return <ListPrompt
           key={question.name}
           ref={question.name}
           name={question.name}
           choices={question.choices}
           message={question.message}
-          defaultAnswer={question.default}
+          defaultAnswer={question.default || defaultValue}
+          color={color}
         />;
       };
 
@@ -92,6 +99,7 @@ var PromptForm = React.createClass({
             name={question.name}
             message={question.message}
             defaultAnswer={question.default}
+            color={color}
           />;
         },
         folder: function createFolder() {
@@ -101,11 +109,25 @@ var PromptForm = React.createClass({
             name={question.name}
             message={question.message}
             defaultAnswer={question.default}
+            color={color}
           />;
         },
-        list: list,
+        // list prompt should start with at least first item selected
+        list: list.bind(null, 0),
         rawlist: list,
-        expand: list,
+        expand: function createExpand() {
+          console.log('createExpand');
+          console.log(question);
+          return <ExpandPrompt
+            key={question.name}
+            ref={question.name}
+            name={question.name}
+            choices={question.choices}
+            message={question.message}
+            defaultAnswer={question.default || question.choices[0].value}
+            color={color}
+          />;
+        },
         checkbox: function createCheckbox() {
           return <CheckboxPrompt
             key={question.name}
@@ -114,6 +136,7 @@ var PromptForm = React.createClass({
             choices={question.choices}
             message={question.message}
             defaultAnswer={question.default}
+            color={color}
           />;
         }
       };
@@ -123,15 +146,18 @@ var PromptForm = React.createClass({
 
     // Builds required prompts from active questions
     var prompts = questions.map(createPrompt);
+    var classes = classSet({
+      'prompt': true,
+      'show': this.state.visibility
+    });
 
     return (
-      <form className={this.state.visibility} onSubmit={this._onSubmit}>
-        <div>{prompts}</div>
-        <div className="action-bar">
-          <input className="button" type="reset" value="Reset" />
-          <input className="button submit" type="submit" value="Next" />
-        </div>
-      </form>
+      <Paper className={classes}>
+        <form>
+          <div>{prompts}</div>
+          <FloatingActionButton className="submit-button" icon="action-done" onClick={this._onClick}/>
+        </form>
+      </Paper>
     );
   }
 

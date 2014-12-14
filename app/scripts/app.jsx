@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var classSet = require('react/addons').addons.classSet;
 
 var Grid = require('./components/grid.jsx');
 var PromptForm = require('./components/prompt-form.jsx');
@@ -18,7 +19,7 @@ var App = React.createClass({
     return {
       actualFormType: '',
       questions: [],
-      selectedGeneratorName: ''
+      selectedGenerator: {}
     };
   },
 
@@ -40,11 +41,11 @@ var App = React.createClass({
       .removeListener('generator-done', this._onGeneratorDone);
   },
 
-  _onItemSelected: function (generatorName, questions) {
+  _onItemSelected: function (generator, questions) {
     this.setState({
       actualFormType: 'cwd',
       questions: questions,
-      selectedGeneratorName: generatorName
+      selectedGenerator: generator
     });
   },
 
@@ -59,32 +60,34 @@ var App = React.createClass({
     this.setState({
       actualFormType: '',
       questions: [],
-      selectedGeneratorName: ''
+      selectedGenerator: {}
     });
   },
 
   render: function () {
+
+    var gridClasses = classSet({
+      'grid': true,
+      'desactive': this.state.selectedGenerator.name
+    });
+
+    var promptContainerStyle = {
+      display: this.state.selectedGenerator.name ? 'block' : 'none'
+    };
+
     return (
-      <section className="grid3d vertical" id="grid3d">
+      <section>
         <div className="grid-wrap">
-          <div className="hi">
-            <img className="yeoman-hi" src="img/yeoman-hi.png" />
-            <h1>Welcome to Yeoman, ladies and gentleman!</h1>
-            <p>We are here to improve your workflow and help you develop modern webapps. No more copy and paste.</p>
-            <p>Go ahead and choose any of the options below to scaffold your next amazing application!</p>
-          </div>
-          <div id="generators-grid" className="grid">
-            <Grid />
+          <div id="generators-grid" className={gridClasses}>
+            <Grid selectedGenerator={this.state.selectedGenerator} />
           </div>
         </div>
-        <div className="content">
+        <div className="content" style={promptContainerStyle}>
           <PromptForm
-            generatorName={this.state.selectedGeneratorName}
+            generator={this.state.selectedGenerator}
             questions={this.state.questions}
             type={this.state.actualFormType}
           />
-          <span className="loading"></span>
-          <span className="icon close-content"></span>
         </div>
       </section>
     );

@@ -5,10 +5,10 @@ var AppDispatcher = require('../dispatcher/app-dispatcher');
 
 var GridActions = {
 
-  gridItemSelected: function(name) {
+  gridItemSelected: function(selectedGenerator) {
     AppDispatcher.handleViewAction({
       actionType: 'grid-item-selected',
-      name: name
+      generator: selectedGenerator
     });
   }
 };

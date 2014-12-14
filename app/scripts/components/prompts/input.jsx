@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var Input = require('material-ui/src/js/input.jsx');
 
 var PromptMixin = require('./prompt-mixin');
 
@@ -15,23 +16,29 @@ var InputPrompt = React.createClass({
     };
   },
 
-  _onChange: function (event) {
+  _onChange: function () {
     this.setState({
-      answer: event.target.value
+      answer: this.refs[this._getRefName()].getValue()
     });
+  },
+
+  _getRefName: function () {
+    return 'input-' + this.props.name + '-' + this.props.value;
   },
 
   render: function () {
     return (
-      <p>
-        <label htmlFor={this.props.name}>{this.props.message}</label>
-        <input
+      <fieldset className="input-prompt">
+        <label htmlFor={this.props.name} style={{ background: this.props.color }}>{this.props.message}</label>
+        <Input
+          ref={this._getRefName()}
+          className="input-prompt-elem"
           type={this.props.type}
           name={this.props.name}
           value={this.state.answer}
           onChange={this._onChange}
         />
-      </p>
+      </fieldset>
     );
   }
 

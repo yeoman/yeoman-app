@@ -6,7 +6,7 @@ var RadioButton = require('material-ui/src/js/radio-button.jsx');
 var PromptMixin = require('./prompt-mixin');
 
 
-var ListPrompt = React.createClass({
+var ExpandPrompt = React.createClass({
 
   mixins: [PromptMixin],
 
@@ -17,37 +17,36 @@ var ListPrompt = React.createClass({
   },
 
   _getRefName: function (name) {
-    return 'list-item-' + name;
+    return 'expand-item-' + name;
   },
 
   _onClick: function (event) {
     // Currently looking up on elems using query selector because material-ui
     // doesn't provide a better api for accessing value of RadioButton elem
-    var value = event.currentTarget.querySelector('input[type=radio]').value;
     this.setState({
-      answer: this.props.choices.findIndex(function (item) {
-        var itemValue = item.value || item;
-        return itemValue === value;
-      }, null)
+      answer: event.currentTarget.querySelector('input[type=radio]').value
     });
   },
 
   render: function () {
 
-    var choices = this.props.choices.map(function (choice, index) {
+    console.log('expand.render');
+    console.log(this.props.defaultAnswer);
+    console.log(this.state.answer);
 
-      var name = choice.name || choice;
-      var ref = this._getRefName(name);
+    var choices = this.props.choices.map(function (choice) {
+
+      var ref = this._getRefName(choice.name);
 
       return (
         <RadioButton
           key={ref}
           ref={ref}
           name={this.props.name}
-          value={name}
-          label={name}
+          value={choice.value}
+          label={choice.name}
           onClick={this._onClick}
-          defaultChecked={this.state.answer === index}
+          defaultChecked={choice.value && this.state.answer === choice.value}
           className="list-prompt-list-item"
         />
       );
@@ -68,5 +67,5 @@ var ListPrompt = React.createClass({
 });
 
 
-module.exports = ListPrompt;
+module.exports = ExpandPrompt;
 
