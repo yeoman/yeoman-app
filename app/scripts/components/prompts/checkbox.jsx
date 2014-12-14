@@ -25,7 +25,7 @@ var CheckboxPromptItem = React.createClass({
 
   render: function () {
     return (
-      <div className="prompt-checkbox-item">
+      <div className="checkbox-prompt-item">
         <label htmlFor={this.props.name}>{this.props.name}</label>
         <Checkbox
           type="checkbox"
@@ -97,9 +97,9 @@ var CheckboxPrompt = React.createClass({
     }, this);
 
     return (
-      <fieldset>
+      <fieldset className="checkbox-prompt">
         <label style={{ background: this.props.color }}>{this.props.message}</label>
-        <div className="prompt-checkbox">
+        <div className="checkbox-prompt-list">
           {choices}
         </div>
       </fieldset>
