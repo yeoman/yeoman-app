@@ -8,6 +8,7 @@ var classSet = require('react/addons').addons.classSet;
 var PromptFormActions = require('../actions/prompt-form-actions');
 var CheckboxPrompt = require('./prompts/checkbox.jsx');
 var ConfirmPrompt = require('./prompts/confirm.jsx');
+var ExpandPrompt = require('./prompts/expand.jsx');
 var FolderPrompt = require('./prompts/folder.jsx');
 var InputPrompt = require('./prompts/input.jsx');
 var ListPrompt = require('./prompts/list.jsx');
@@ -114,7 +115,19 @@ var PromptForm = React.createClass({
         // list prompt should start with at least first item selected
         list: list.bind(null, 0),
         rawlist: list,
-        expand: list,
+        expand: function createExpand() {
+          console.log('createExpand');
+          console.log(question);
+          return <ExpandPrompt
+            key={question.name}
+            ref={question.name}
+            name={question.name}
+            choices={question.choices}
+            message={question.message}
+            defaultAnswer={question.default || question.choices[0].value}
+            color={color}
+          />;
+        },
         checkbox: function createCheckbox() {
           return <CheckboxPrompt
             key={question.name}
