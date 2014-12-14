@@ -16,9 +16,9 @@ var InputPrompt = React.createClass({
     };
   },
 
-  _onChange: function (event) {
+  _onChange: function () {
     this.setState({
-      answer: event.target.getValue()
+      answer: this.refs[this.props.name].getValue()
     });
   },
 
@@ -27,6 +27,7 @@ var InputPrompt = React.createClass({
       <fieldset className="input-prompt">
         <label htmlFor={this.props.name} style={{ background: this.props.color }}>{this.props.message}</label>
         <Input
+          ref={this.props.name}
           className="input-prompt-elem"
           type={this.props.type}
           name={this.props.name}
