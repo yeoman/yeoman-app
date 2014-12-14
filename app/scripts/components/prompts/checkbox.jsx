@@ -16,11 +16,15 @@ var CheckboxPromptItem = React.createClass({
 
   _onChange: function (event) {
     this.setState({
-      checked: event.target.checked
+      checked: this.refs[this._getRefName()].state.checked
     });
 
     this.props.onChange();
     event.preventDefault();
+  },
+
+  _getRefName: function () {
+    return 'checkbox-item-' + this.props.name + '-' + this.props.value;
   },
 
   render: function () {
@@ -29,6 +33,7 @@ var CheckboxPromptItem = React.createClass({
         <label htmlFor={this.props.name}>{this.props.name}</label>
         <Checkbox
           type="checkbox"
+          ref={this._getRefName()}
           name={this.props.name}
           value={this.props.value}
           checked={this.state.checked}
@@ -66,7 +71,7 @@ var CheckboxPrompt = React.createClass({
   },
 
   _getRefName: function (choice) {
-    return 'radio-' + choice.name + '-' + choice.value;
+    return 'checkbox-' + choice.name + '-' + choice.value;
   },
 
   _onChange: function () {
@@ -77,11 +82,12 @@ var CheckboxPrompt = React.createClass({
 
   render: function () {
 
-    var choices = this.props.choices.map(function (choice, index) {
+    var choices = this.props.choices.map(function (choice) {
 
       var ref = this._getRefName(choice);
-      var def = this.props.defaultAnswer;
-      var checked = def === index || def === choice.value;
+      var checked = choice.checked ||
+        Array.isArray(this.props.defaultAnswer) &&
+        this.props.defaultAnswer.indexOf(choice.value) > -1;
 
       return (
         <CheckboxPromptItem

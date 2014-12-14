@@ -18,8 +18,12 @@ var InputPrompt = React.createClass({
 
   _onChange: function () {
     this.setState({
-      answer: this.refs[this.props.name].getValue()
+      answer: this.refs[this._getRefName()].getValue()
     });
+  },
+
+  _getRefName: function () {
+    return 'input-' + this.props.name + '-' + this.props.value;
   },
 
   render: function () {
@@ -27,7 +31,7 @@ var InputPrompt = React.createClass({
       <fieldset className="input-prompt">
         <label htmlFor={this.props.name} style={{ background: this.props.color }}>{this.props.message}</label>
         <Input
-          ref={this.props.name}
+          ref={this._getRefName()}
           className="input-prompt-elem"
           type={this.props.type}
           name={this.props.name}
