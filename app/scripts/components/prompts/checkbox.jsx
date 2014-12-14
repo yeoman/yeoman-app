@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var Checkbox = require('material-ui/src/js/checkbox.jsx');
 
 var PromptMixin = require('./prompt-mixin');
 
@@ -19,20 +20,21 @@ var CheckboxPromptItem = React.createClass({
     });
 
     this.props.onChange();
+    event.preventDefault();
   },
 
   render: function () {
     return (
-      <span className="list">
+      <div className="prompt-checkbox-item">
         <label htmlFor={this.props.name}>{this.props.name}</label>
-        <input
+        <Checkbox
           type="checkbox"
           name={this.props.name}
           value={this.props.value}
           checked={this.state.checked}
           onChange={this._onChange}
         />
-      </span>
+      </div>
     );
   }
 });
@@ -97,7 +99,9 @@ var CheckboxPrompt = React.createClass({
     return (
       <fieldset>
         <label style={{ background: this.props.color }}>{this.props.message}</label>
-        {choices}
+        <div className="prompt-checkbox">
+          {choices}
+        </div>
       </fieldset>
     );
   }
