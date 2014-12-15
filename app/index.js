@@ -1,42 +1,47 @@
 'use strict';
 
-var app = require('app');  // Module to control application life.
-var BrowserWindow = require('browser-window');  // Module to create native browser window.
+var app = require('app');
+var log = require('./browser/util/logger');
+var argv = require('minimist');
 
-var yo = require('./lib/yo-connector');
-
-// Report crashes to our server.
-require('crash-reporter').start();
-
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the javascript object is GCed.
-var mainWindow = null;
-
-// Quit when all windows are closed.
-app.on('window-all-closed', function () {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
+// Catch unhandled exceptions
+process.on('uncaughtException', function uncaughtException(error) {
+  log.error(error);
 });
+
+app.on('will-finish-launching', function willFinishLaunching() {
+  setupCrashReporter();
+});
+
+function setupCrashReporter() {
+  // TODO: Register own crash reporter server
+  // https://github.com/atom/atom-shell/blob/master/docs/api/crash-reporter.md
+  require('crash-reporter').start();
+}
+
+function parseArgs() {
+  var args = argv(process.argv);
+  var devMode = args.debug || null;
+  var logLevel = args.loglevel || null;
+
+  return {
+    devMode: devMode,
+    logLevel: logLevel
+  };
+}
+
+// Enable ES6 in the Renderer process
+app.commandLine.appendSwitch('js-flags', '--harmony');
+
+var args = parseArgs();
 
 // This method will be called when atom-shell has done everything
 // initialization and ready for creating browser windows.
-app.on('ready', function () {
-  // Create the browser window.
-  mainWindow = new BrowserWindow({width: 1024, height: 700});
+app.on('ready', function ready() {
+  log.trace('Start application');
 
-  // and load the index.html of the app.
-  mainWindow.loadUrl('file://' + __dirname + '/index.html');
+  app.commandLine.appendSwitch('js-flags', '--harmony');
 
-  // Emitted when the window is closed.
-  mainWindow.on('closed', function () {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    mainWindow = null;
-  });
-
-  // Starts yo connection logic
-  yo.start(mainWindow, mainWindow.webContents);
-
+  var YoApplication = require('./browser/application');
+  YoApplication.open(args);
 });

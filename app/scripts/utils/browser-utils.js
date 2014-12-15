@@ -8,15 +8,15 @@ var PromptStore = require('../stores/prompt-store');
 
 
 function onSelectFolder() {
-  ipc.send('prompts.folder.getFolder');
+  ipc.send('context-appwindow', 'connector:open-dialog');
 }
 
 function onSubmitForm(answers) {
-  ipc.send('set-answers', answers);
+  ipc.send('context-appwindow', 'connector:set-answers', answers);
 }
 
 function onSubmitSelectedFolder(generatorName, answers){
-  ipc.send('connect', generatorName, answers.cwd);
+  ipc.send('context-appwindow', 'connector:init', generatorName, answers.cwd);
 }
 
 // Sets user generated events to trigger browser actions

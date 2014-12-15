@@ -14,13 +14,14 @@ function showSelectDirDialog(browserWindow, callback) {
   dialog.showOpenDialog(browserWindow, opts, callback);
 }
 
-function start(browserWindow, client) {
-  ipc.on('prompts.folder.getFolder',
-    showSelectDirDialog.bind({}, browserWindow, function (filenames) {
-      client.send('helpers.dialogs.selectDir', filenames.shift());
+function start(appWindow) {
+  appWindow.on('connector:open-dialog',
+    showSelectDirDialog.bind({}, appWindow.browserWindow, function (filenames) {
+      if (!filenames) return;
+
+      appWindow.emit('connector:directory-selected', filenames.shift());
     }));
 }
-
 
 module.exports = {
   start: start

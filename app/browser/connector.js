@@ -1,24 +1,53 @@
 'use strict';
 
+var log = require('./util/logger');
 var fs = require('fs');
+var util = require('util');
+var events = require('events');
 var _ = require('lodash');
 var findup = require('findup-sync');
 var ipc = require('ipc');
 var GUIAdapter = require('./helpers/adapter');
-var yoEnvironment = require('./yo-env');
+var yoEnvironment = require('./environment');
 var dialogs = require('./helpers/dialogs');
 var env;
 
-function init(client, cb) {
+var Connector = module.exports = function Connector(appWindow) {
+  events.EventEmitter.call(this);
 
-  var questionCallback = function (questions) {
-    client.send('question-prompt', questions);
-  };
-  var adapter = new GUIAdapter(questionCallback);
-  yoEnvironment(adapter, cb);
-}
+  this.appWindow = appWindow;
 
-function getGeneratorsData() {
+  this.init(function(err, _env) {
+    env = _env;
+    var generators = this.getGeneratorsData();
+    this.appWindow.emit('connector:generator-data', generators);
+
+    appWindow.on('connector:init', function (generatorName, cwd) {
+      log.debug('Run generator %s in %s', generatorName, cwd);
+
+      this.connect(generatorName, cwd);
+    }.bind(this));
+
+    appWindow.on('connector:set-answers', function (answers) {
+      env.adapter.answers(answers);
+    });
+  }.bind(this));
+
+  dialogs.start(this.appWindow);
+};
+
+util.inherits(Connector, events.EventEmitter);
+
+Connector.prototype.init = function(cb) {
+  var adapter = new GUIAdapter(this.appWindow);
+  var env = yoEnvironment([], {}, adapter);
+  env.lookup(function(err) {
+    if (err) return cb(err);
+    cb(null, env);
+  });
+};
+
+Connector.prototype.getGeneratorsData = function() {
    var generatorsMeta = env.store.getGeneratorsMeta();
 
    // Remove sub generators from list
@@ -42,9 +71,9 @@ function getGeneratorsData() {
     return null;
   });
   return _.compact(list);
-}
+};
 
-function connect(client, generatorName, targetDir) {
+Connector.prototype.connect = function(generatorName, targetDir) {
 
   var name = generatorName.split('generator-')[1];
   var doneCounter = 0;
@@ -55,14 +84,14 @@ function connect(client, generatorName, targetDir) {
 
     if (err) {
       doneCalled = true;
-      return client.send('generator-error', err);
+      return this.appWindow.emit('connector:generator-error', err);
     }
 
     if (doneCounter === 0) {
       doneCalled = true;
-      client.send('generator-done');
+      this.appWindow.emit('connector:generator-done');
     }
-  };
+  }.bind(this);
 
   var increaseDoneCounter = function() {
     doneCounter++;
@@ -83,35 +112,4 @@ function connect(client, generatorName, targetDir) {
     .on('bowerInstall', increaseDoneCounter)
     .on('npmInstall:end', decreaseDoneCounter)
     .on('bowerInstall:end', decreaseDoneCounter);
-}
-
-function setAnswers(answers) {
-  return env.adapter.answers(answers);
-}
-
-function start(browserWindow, client) {
-
-  client.on('did-finish-load', function () {
-
-    init(client, function(err, _env) {
-      env = _env;
-      var generators = getGeneratorsData();
-      client.send('generators-data', generators);
-
-      ipc.on('connect', function (event, generatorName, cwd) {
-        connect(client, generatorName, cwd);
-      });
-
-      ipc.on('set-answers', function (event, answers) {
-        setAnswers(answers);
-      });
-    });
-  });
-
-  dialogs.start(browserWindow, client);
-}
-
-module.exports = {
-  start: start
 };
-
