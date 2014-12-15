@@ -1,6 +1,5 @@
 'use strict';
 
-var log = require('./util/logger');
 var fs = require('fs');
 var util = require('util');
 var events = require('events');
@@ -21,7 +20,7 @@ var Connector = module.exports = function Connector(appWindow) {
     this.appWindow.emit('connector:generator-data', generators);
 
     appWindow.on('connector:init', function (generatorName, cwd) {
-      log.debug('Run generator %s in %s', generatorName, cwd);
+      this.appWindow.log.debug('Run generator %s in %s', generatorName, cwd);
 
       this.connect(generatorName, cwd);
     }.bind(this));
@@ -37,7 +36,7 @@ var Connector = module.exports = function Connector(appWindow) {
 util.inherits(Connector, events.EventEmitter);
 
 Connector.prototype.init = function(cb) {
-  var adapter = new GUIAdapter(this.appWindow);
+  var adapter = new GUIAdapter(this.appWindow, this.appWindow.log);
   this.env = yoEnvironment([], {}, adapter);
   this.env.lookup(function(err) {
     if (err) return cb(err);

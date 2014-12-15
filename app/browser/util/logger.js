@@ -49,30 +49,26 @@ if (argv.debug) {
   });
 }
 
-var log = bunyan.createLogger({
+module.exports = function(name) {
+  var log = bunyan.createLogger({
 
-  // Give the logger the app name.
-  name: app.getName(),
+    // Give the logger the app name.
+    name: app.getName() + ' ' + name,
 
-  // Log the source file, line and function name.
-  // Therfore you should use named function
-  // https://github.com/trentm/node-bunyan#src
-  src: true,
+    // Log the source file, line and function name.
+    // Therfore you should use named function
+    // https://github.com/trentm/node-bunyan#src
+    src: true,
 
-  // Add the outputsgst
-  streams: streams
-});
-
-// Advanced logging for our devs. Log logger errors.
-if (argv.debug) {
-  log.on('error', function (err) {
-      console.warn('An error in bunyan occurred:', err);
+    // Add the outputsgst
+    streams: streams
   });
-}
 
-// Print some  information about the system and the application.
-log.info('Run %s in version %s', app.getName(), app.getVersion());
-log.info('Platform: %s', process.platform);
-log.info(process.versions, 'Versions:');
-
-module.exports = log;
+  // Advanced logging for our devs. Log logger errors.
+  if (argv.debug) {
+    log.on('error', function (err) {
+        console.warn('An error in bunyan occurred:', err);
+    });
+  }
+  return log;
+};

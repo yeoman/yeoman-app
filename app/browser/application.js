@@ -5,6 +5,7 @@ var AppWindow = require('./appwindow');
 var EventEmitter = require('events').EventEmitter;
 var _ = require('lodash');
 var BrowserWindow = require('browser-window');
+var log = require('./util/logger')('Application');
 var ipc = require('ipc');
 
 var Application;
@@ -46,23 +47,26 @@ Application.prototype.handleEvents = function() {
 
   ipc.on('context-appwindow', function(event) {
     var args = Array.prototype.slice.call(arguments, 1);
-    var win = this.windowForEvent(event.sender);
-    win.emit.apply(win, args);
+    var appWindow = this.windowForEvent(event.sender);
+    log.trace('Emit %s on %s with args', args[0],  appWindow.getId(), args.slice(1));
+    appWindow.emit.apply(appWindow, args);
   }.bind(this));
 
   app.on('window-all-closed', function() {
-    var _ref =  process.platform;
-    if (_ref  === 'win32' || _ref === 'linux') {
+    var platform =  process.platform;
+    if (platform  === 'win32' || platform === 'linux') {
       return app.quit();
     }
   });
 };
 
 Application.prototype.removeWindow = function(window) {
+  log.trace('Remove %s', window.getId());
   this.windows.splice(this.windows.indexOf(window), 1);
 };
 
 Application.prototype.addWindow = function(window) {
+  log.trace('Add %s', window.getId());
   this.windows.push(window);
 };
 
