@@ -10,15 +10,13 @@ var ipc = require('ipc');
 var GUIAdapter = require('./helpers/adapter');
 var yoEnvironment = require('./environment');
 var dialogs = require('./helpers/dialogs');
-var env;
 
 var Connector = module.exports = function Connector(appWindow) {
   events.EventEmitter.call(this);
 
   this.appWindow = appWindow;
 
-  this.init(function(err, _env) {
-    env = _env;
+  this.init(function(err) {
     var generators = this.getGeneratorsData();
     this.appWindow.emit('connector:generator-data', generators);
 
@@ -29,8 +27,8 @@ var Connector = module.exports = function Connector(appWindow) {
     }.bind(this));
 
     appWindow.on('connector:set-answers', function (answers) {
-      env.adapter.answers(answers);
-    });
+      this.env.adapter.answers(answers);
+    }.bind(this));
   }.bind(this));
 
   dialogs.start(this.appWindow);
@@ -40,15 +38,15 @@ util.inherits(Connector, events.EventEmitter);
 
 Connector.prototype.init = function(cb) {
   var adapter = new GUIAdapter(this.appWindow);
-  var env = yoEnvironment([], {}, adapter);
-  env.lookup(function(err) {
+  this.env = yoEnvironment([], {}, adapter);
+  this.env.lookup(function(err) {
     if (err) return cb(err);
-    cb(null, env);
+    cb(null);
   });
 };
 
 Connector.prototype.getGeneratorsData = function() {
-   var generatorsMeta = env.store.getGeneratorsMeta();
+   var generatorsMeta = this.env.store.getGeneratorsMeta();
 
    // Remove sub generators from list
    var list = _.filter(generatorsMeta, function(item) {
@@ -107,7 +105,7 @@ Connector.prototype.connect = function(generatorName, targetDir) {
   // TODO:
   // Optimize done handling for yeoman-generators >= 0.17
   // https://github.com/yeoman/yeoman-app/issues/10#issuecomment-62968879
-  env.run(name, done)
+  this.env.run(name, done)
     .on('npmInstall', increaseDoneCounter)
     .on('bowerInstall', increaseDoneCounter)
     .on('npmInstall:end', decreaseDoneCounter)
