@@ -8,15 +8,15 @@ var PromptStore = require('../stores/prompt-store');
 
 
 function onSelectFolder() {
-  ipc.send('context-appwindow', 'connector:open-dialog');
+  ipc.send('context-appwindow', 'generator:open-dialog');
 }
 
 function onSubmitForm(answers) {
-  ipc.send('context-appwindow', 'connector:set-answers', answers);
+  ipc.send('context-appwindow', 'generator:prompt-answers', answers);
 }
 
 function onSubmitSelectedFolder(generatorName, answers){
-  ipc.send('context-appwindow', 'connector:init', generatorName, answers.cwd);
+  ipc.send('context-appwindow', 'generator:init', generatorName, answers.cwd);
 }
 
 // Sets user generated events to trigger browser actions
@@ -27,10 +27,10 @@ GeneratorStore.events.on('submit-selected-folder', onSubmitSelectedFolder);
 
 // List events to listen from browser and broadcast to view
 var BrowserUtils = {
-  'generators-data': 'generatorsDataReceived',
-  'question-prompt': 'questionPrompt',
-  'generator-done': 'generatorDone',
-  'helpers.dialogs.selectDir': 'folderSelected'
+  'generator:data': 'generatorsDataReceived',
+  'generator:prompt-questions': 'questionPrompt',
+  'generator:done': 'generatorDone',
+  'generator:directory-selected': 'folderSelected'
 };
 
 Object.keys(BrowserUtils).forEach(function (key) {

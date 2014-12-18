@@ -8,21 +8,21 @@ var BrowserActions = {
 
   generatorsDataReceived: function (data) {
     AppDispatcher.handleBrowserAction({
-      actionType: 'generators-data',
+      actionType: 'generator:data',
       generators: data
     });
   },
 
   questionPrompt: function (data) {
     AppDispatcher.handleBrowserAction({
-      actionType: 'question-prompt',
+      actionType: 'generator:prompt-questions',
       questions: data
     });
   },
 
   generatorDone: function () {
     AppDispatcher.handleBrowserAction({
-      actionType: 'generator-done'
+      actionType: 'generator:done'
     });
   },
 

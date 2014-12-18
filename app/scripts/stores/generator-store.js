@@ -31,14 +31,14 @@ var GeneratorStore = {
       },
 
       BROWSER_ACTION: {
-        'generators-data': function (action) {
-          GeneratorStore.events.emit('generators-data', action.generators);
+        'generator:data': function (action) {
+          GeneratorStore.events.emit('generator:data', action.generators);
         },
-        'question-prompt': function (action) {
-          GeneratorStore.events.emit('question-prompt', action.questions);
+        'generator:prompt-questions': function (action) {
+          GeneratorStore.events.emit('generator:prompt-questions', action.questions);
         },
-        'generator-done': function () {
-          GeneratorStore.events.emit('generator-done');
+        'generator:done': function () {
+          GeneratorStore.events.emit('generator:done');
         }
       }
     };

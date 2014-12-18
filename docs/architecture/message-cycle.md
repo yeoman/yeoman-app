@@ -13,32 +13,25 @@ With the [IPC renderer](https://github.com/atom/atom-shell/blob/master/docs/api/
 
 ## List of implemented IPC's
 
-- appwindow
+- context-appwindow
 
-- generator-data
+- generator:data
 
-- generator-error
+- generator:error
 
-- generator-done
+- generator:done
 
-- directory-selected
+- generator:directory-selected
 
-- generator-prompt
+- generator:prompt-questions
 
 
 ## List of implemented events
 
-
 - application:quit
 
-- application:new-window
+- generator:init
 
-- connector:generator-data
+- generator:open-dialog
 
-- connector:generator-error
-
-- connector:generator-done
-
-- connector:directory-selected
-
-- connector:generator-prompt
+- generator:prompt-answers

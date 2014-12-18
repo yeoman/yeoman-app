@@ -7,9 +7,9 @@ var GUIAdapter = module.exports = function GUIAdapter(appWindow) {
 };
 
 GUIAdapter.prototype.prompt = function (questions, callback) {
-  this.appWindow.log.debug('Send question-prompt: ', questions);
+  this.appWindow.log.debug('Send generator:prompt-questions: ', questions);
 
-  this.appWindow.emit('connector:generator-prompt', questions);
+  this.appWindow.sendCommandToBrowserWindow('generator:prompt-questions', questions);
   this.callback = callback;
 };
 

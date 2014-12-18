@@ -17,15 +17,15 @@ var Connector = module.exports = function Connector(appWindow) {
 
   this.init(function(err) {
     var generators = this.getGeneratorsData();
-    this.appWindow.emit('connector:generator-data', generators);
+    this.appWindow.sendCommandToBrowserWindow('generator:data', generators);
 
-    appWindow.on('connector:init', function (generatorName, cwd) {
+    appWindow.on('generator:init', function (generatorName, cwd) {
       this.appWindow.log.debug('Run generator %s in %s', generatorName, cwd);
 
       this.connect(generatorName, cwd);
     }.bind(this));
 
-    appWindow.on('connector:set-answers', function (answers) {
+    appWindow.on('generator:prompt-answers', function (answers) {
       this.env.adapter.answers(answers);
     }.bind(this));
   }.bind(this));
@@ -81,12 +81,12 @@ Connector.prototype.connect = function(generatorName, targetDir) {
 
     if (err) {
       doneCalled = true;
-      return this.appWindow.emit('connector:generator-error', err);
+      return this.appWindow.sendCommandToBrowserWindow('generator:error', err);
     }
 
     if (doneCounter === 0) {
       doneCalled = true;
-      this.appWindow.emit('connector:generator-done');
+      this.appWindow.sendCommandToBrowserWindow('generator:done');
     }
   }.bind(this);
 

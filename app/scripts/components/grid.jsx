@@ -82,12 +82,12 @@ var Grid = React.createClass({
   },
 
   componentDidMount: function () {
-    GeneratorStore.events.on('generators-data', this._onGeneratorData);
-    GeneratorStore.events.on('generator-done', this._onGeneratorDone);
+    GeneratorStore.events.on('generator:data', this._onGeneratorData);
+    GeneratorStore.events.on('generator:done', this._onGeneratorDone);
   },
 
   componentWillUnmount: function () {
-    GeneratorStore.events.removeListener('generator-done', this._onGeneratorDone);
+    GeneratorStore.events.removeListener('generator:done', this._onGeneratorDone);
   },
 
   _onGeneratorData: function (data) {

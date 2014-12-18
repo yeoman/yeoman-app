@@ -15,11 +15,11 @@ function showSelectDirDialog(browserWindow, callback) {
 }
 
 function start(appWindow) {
-  appWindow.on('connector:open-dialog',
+  appWindow.on('generator:open-dialog',
     showSelectDirDialog.bind({}, appWindow.browserWindow, function (filenames) {
       if (!filenames) return;
 
-      appWindow.emit('connector:directory-selected', filenames.shift());
+      appWindow.sendCommandToBrowserWindow('generator:directory-selected', filenames.shift());
     }));
 }
 

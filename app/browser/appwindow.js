@@ -33,7 +33,6 @@ module.exports = AppWindow= function(options) {
   // Wait for the onload event from the web view
   this.browserWindow.webContents.on('did-finish-load', function () {
 
-    this.handleEvents();
     this.setupConnector();
 
     // The app is ready to use, light on.
@@ -45,27 +44,8 @@ module.exports = AppWindow= function(options) {
 
 _.extend(AppWindow.prototype, EventEmitter.prototype);
 
-AppWindow.prototype.handleEvents = function() {
-
-  this.on('connector:generator-data', function(data) {
-    this.browserWindow.webContents.send('generators-data', data);
-  });
-
-  this.on('connector:generator-error', function(err) {
-    this.browserWindow.webContents.send('generator-error', err);
-  });
-
-  this.on('connector:generator-done', function(data) {
-    this.browserWindow.webContents.send('generator-done', data);
-  });
-
-  this.on('connector:directory-selected', function(data) {
-    this.browserWindow.webContents.send('helpers.dialogs.selectDir', data);
-  });
-
-  this.on('connector:generator-prompt', function(data) {
-    this.browserWindow.webContents.send('question-prompt', data);
-  });
+AppWindow.prototype.sendCommandToBrowserWindow = function() {
+  this.browserWindow.webContents.send.apply(this.browserWindow.webContents, arguments);
 };
 
 AppWindow.prototype.setupConnector = function() {
