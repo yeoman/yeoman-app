@@ -40,7 +40,6 @@ module.exports = (grunt) ->
     # so that it doesn't becomes larger than it needs to be.
     ignoredPaths = [
       path.join('apm')
-      path.join('less', 'dist')
       path.join('npm', 'doc')
       path.join('npm', 'html')
       path.join('npm', 'man')

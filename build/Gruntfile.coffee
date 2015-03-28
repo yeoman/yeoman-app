@@ -12,7 +12,6 @@ _ = require 'underscore-plus'
 packageJson = require '../package.json'
 
 module.exports = (grunt) ->
-  grunt.loadNpmTasks('grunt-bower-task')
   grunt.loadNpmTasks('grunt-coffeelint')
   grunt.loadNpmTasks('grunt-lesslint')
   grunt.loadNpmTasks('grunt-cson')
@@ -185,11 +184,6 @@ module.exports = (grunt) ->
       categories: 'GNOME;GTK;Development;Documentation'
       genericName: 'Demo Application'
 
-    bower:
-      install:
-        options:
-          targetDir: 'static/components'
-
     shell:
       'kill-app':
         command: killCommand
@@ -206,7 +200,7 @@ module.exports = (grunt) ->
   grunt.registerTask('lint', ['coffeelint', 'csslint', 'lesslint'])
   grunt.registerTask('test', ['shell:kill-app', 'run-specs'])
 
-  ciTasks = ['output-disk-space', 'build-atom-shell', 'bower:install', 'build', 'generate-license']
+  ciTasks = ['output-disk-space', 'build-atom-shell', 'build', 'generate-license']
   ciTasks.push('dump-symbols') if process.platform isnt 'win32'
   ciTasks.push('set-version', 'check-licenses', 'lint', 'generate-asar')
   ciTasks.push('mkdeb') if process.platform is 'linux'
@@ -215,5 +209,5 @@ module.exports = (grunt) ->
   ciTasks.push('codesign')
   grunt.registerTask('ci', ciTasks)
 
-  defaultTasks = ['build-atom-shell', 'bower:install', 'build', 'set-version', 'generate-asar']
+  defaultTasks = ['build-atom-shell', 'build', 'set-version', 'generate-asar']
   grunt.registerTask('default', defaultTasks)

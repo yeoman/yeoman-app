@@ -1,6 +1,6 @@
-# Atom Shell Build
+# Yeoman App Build
 
-This folder contains the grunt configuration and tasks to build Atom Shell apps.
+This folder contains the grunt configuration and tasks to build the Yeoman app.
 
 It was moved from the root of the repository so that any native modules used
 would be compiled against node's v8 headers since anything stored in

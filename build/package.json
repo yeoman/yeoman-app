@@ -1,11 +1,11 @@
 {
-  "name": "eightoheight-build",
-  "description": "Atom Shell Sample App Build",
+  "name": "yeoman-app-build",
+  "description": "Yeoman App Build",
   "repository": {
     "type": "git",
-    "url": "https://github.com/atom/atom-shell-starter.git"
+    "url": "https://github.com/yeoman/yeoman-app.git"
   },
-  "dependencies": {
+  "devDependencies": {
     "asar": "^0.4.0",
     "async": "~0.2.9",
     "donna": "1.0.6",
