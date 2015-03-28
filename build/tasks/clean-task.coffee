@@ -10,7 +10,6 @@ module.exports = (grunt) ->
     pkgName = grunt.config.get('name')
     rm grunt.config.get("#{pkgName}.buildDir")
 
-    rm require('../src/coffee-cache').cacheDir
     rm require('../src/less-compile-cache').cacheDir
     rm path.join(tmpdir, 'atom-cached-atom-shells')
     rm 'atom-shell'
