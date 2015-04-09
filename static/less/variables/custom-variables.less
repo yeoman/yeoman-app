@@ -13,6 +13,7 @@
 @accent-1-color: @pink-A200;
 @accent-2-color: @pink-A400;
 @accent-3-color: @pink-A100;
+@disabled-color: @grey-700;
 
 //Text Colors
 @body-text-color: @dark-black;
@@ -102,19 +103,24 @@
 @input-width: 352px;
 @input-font-size: 16px;
 @input-placeholder-size: 13px;
-@input-error-color: red;
+@input-error-color: @red-700;
 @input-bar-height: 2px;
 
 // radio button
 @radio-button-size: 16px;
 @radio-button-border-color: black;
 @radio-button-background-color: white;
-@radio-button-check-color: black;
+@radio-button-checked-color: black;
+@radio-button-disabled-color: @grey-300;
+@radio-button-required-color: @red-700;
 
 // checkbox
 @checkbox-box-background-color: white;
 @checkbox-box-border-color: black;
-@checkbox-check-color: green;
+@checkbox-checked-color: green;
+@checkbox-box-color: green;
+@checkbox-disabled-color: @grey-300;
+@checkbox-required-color: @red-700;
 
 // snackbar
 @mui-snackbar-text-color: white;
@@ -134,6 +140,9 @@
 @toggle-thumb-on-color: @primary-1-color;
 @toggle-thumb-off-color: @grey-50;
 @toggle-thumb-disabled-color: @grey-800;
+@toggle-track-required-color: @red-700;
+@toggle-thumb-required-color: @red-700;
+@switches-ripple-color: @red-700;
 
 // toolbar
 @toolbar-background-color: darken(#eeeeee, 5%);

@@ -10,13 +10,12 @@ function showSelectDirDialog(browserWindow, callback) {
     title: 'Select a folder to generate the project into',
     properties: ['openDirectory', 'createDirectory']
   };
-
   dialog.showOpenDialog(browserWindow, opts, callback);
 }
 
 function start(appWindow) {
   appWindow.on('generator:open-dialog',
-    showSelectDirDialog.bind({}, appWindow.browserWindow, function (filenames) {
+    showSelectDirDialog.bind({}, appWindow.window, function (filenames) {
       if (!filenames) return;
 
       appWindow.sendCommandToBrowserWindow('generator:directory-selected', filenames.shift());
@@ -26,4 +25,3 @@ function start(appWindow) {
 module.exports = {
   start: start
 };
-

@@ -5,7 +5,10 @@ var path = require('path');
 var app = require('app');
 var bunyan = require('bunyan');
 var PrettyStream = require('bunyan-prettystream');
-var argv = require('minimist')(process.argv);
+var yargs = require('yargs');
+var args = {
+  debug: true
+};
 
 // Bunyan is a simple and fast JSON logging library.
 // Please take a closer look to the readme and sample
@@ -20,7 +23,7 @@ var streams = [];
 // applications configuration directory.
 var logPath = path.join(app.getDataPath(), 'yoapp.log');
 streams.push({
-  level: argv.loglevel || bunyan.INFO,
+  level: args.loglevel || bunyan.INFO,
   path: logPath
 });
 
@@ -34,7 +37,7 @@ if (fs.existsSync(logPath)) {
 // Pipe the logs to the console.
 // Start the app with the `--debug` argument to
 // enable the debug mode.
-if (argv.debug) {
+if (args.debug) {
 
   // Prettify the stream for the console
   var prettyStdOut = new PrettyStream({
@@ -43,7 +46,7 @@ if (argv.debug) {
   prettyStdOut.pipe(process.stdout);
 
   streams.push({
-    level: argv.loglevel || bunyan.TRACE,
+    level: args.loglevel || bunyan.TRACE,
     type: 'raw',
     stream: prettyStdOut
   });
@@ -65,7 +68,7 @@ module.exports = function(name) {
   });
 
   // Advanced logging for our devs. Log logger errors.
-  if (argv.debug) {
+  if (args.debug) {
     log.on('error', function (err) {
         console.warn('An error in bunyan occurred:', err);
     });

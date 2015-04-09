@@ -11,6 +11,7 @@ var url = require('url');
 var EventEmitter = require('events').EventEmitter;
 var BrowserWindow = require('browser-window');
 var _ = require('underscore-plus');
+var Connector = require('./connector');
 
 function AppWindow(options) {
   this.loadSettings = {
@@ -55,6 +56,11 @@ AppWindow.prototype.show = function() {
     }
   });
   this.window.loadUrl(targetUrl);
+
+  this.window.webContents.on('did-finish-load', function() {
+    this.setupConnector();
+  }.bind(this));
+
   this.window.show();
 };
 
@@ -73,6 +79,14 @@ AppWindow.prototype.toggleDevTools = function() {
 AppWindow.prototype.close = function() {
   this.window.close();
   this.window = null;
+};
+
+AppWindow.prototype.sendCommandToBrowserWindow = function() {
+  this.window.webContents.send.apply(this.window.webContents, arguments);
+};
+
+AppWindow.prototype.setupConnector = function() {
+  this.connector = new Connector(this);
 };
 
 module.exports = AppWindow;

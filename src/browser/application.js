@@ -39,6 +39,7 @@ function Application(options) {
     }
   });
 
+  this.handleEvents();
   this.openWithOptions(options);
 }
 
@@ -165,6 +166,38 @@ Application.prototype.removeAppWindow = function(appWindow) {
       this.windows.splice(index, 1);
     }
   }.bind(this));
+};
+
+Application.prototype.handleEvents = function() {
+
+  this.on('application:quit', function() {
+    return app.quit();
+  });
+
+  this.on('application:new-window', function() {
+    this.openWindow();
+  }.bind(this));
+
+  ipc.on('context-appwindow', function(event) {
+    var args = Array.prototype.slice.call(arguments, 1);
+    var appWindow = this.windowForEvent(event.sender);
+    appWindow.emit.apply(appWindow, args);
+  }.bind(this));
+
+  app.on('window-all-closed', function() {
+    var platform =  process.platform;
+    if (platform  === 'win32' || platform === 'linux') {
+      return app.quit();
+    }
+  });
+};
+
+// Returns the {AppWindow} for the given ipc event.
+Application.prototype.windowForEvent = function(sender) {
+  var win = BrowserWindow.fromWebContents(sender);
+  return _.find(this.windows, function(appWindow) {
+    return appWindow.window === win;
+  });
 };
 
 module.exports = Application;
