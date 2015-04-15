@@ -20,8 +20,8 @@ function AppWindow(options) {
   this.loadSettings = _.extend(this.loadSettings, options);
 
   var windowOpts = {
-    width: 800,
-    height: 600,
+    width: 1024,
+    height: 700,
     title: (options.title) ? options.title : 'You Should Set options.title',
     'web-preferences': {
       'subpixel-font-scaling': true,

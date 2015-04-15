@@ -1,3 +1,6 @@
+var header = document.createElement('header');
+document.body.appendChild(header);
+
 var main = document.createElement('main');
 main.id = 'content';
 document.body.appendChild(main);
