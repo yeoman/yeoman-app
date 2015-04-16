@@ -12,7 +12,7 @@ A desktop app that scaffolds projects using [Yeoman](https://github.com/yeoman/y
 
 ## Development
 
-1. Install apm (Atom Package Manager). apm is bundled and installed automatically with Atom. If not already done install [atom.io](https://atom.io/). You can now run the Atom > Install Shell Commands menu option to install apm. Read more about [using native Node modules in Atom-Shell](https://github.com/atom/atom-shell/blob/master/docs/tutorial/using-native-node-modules.md). 
+1. Install apm (Atom Package Manager). apm is bundled and installed automatically with Atom. If not already done install [atom.io](https://atom.io/). You can now run the Atom > Install Shell Commands menu option to install apm. Read more about [using native Node modules in Atom-Shell](https://github.com/atom/atom-shell/blob/master/docs/tutorial/using-native-node-modules.md).
 1. Clone the repository `git clone git@github.com:yeoman/yeoman-app.git`.
 1. Run `apm install`.
 1. Run `grunt init`  for download and build the app with atom-shell.
@@ -22,4 +22,3 @@ During the development process you can start the app with `grunt run`.
 ## License
 
 [MIT License](http://opensource.org/licenses/mit-license.php)
-

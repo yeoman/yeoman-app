@@ -1,0 +1,51 @@
+#!/usr/bin/env node
+var cp = require('./utils/child-process-wrapper.js');
+var fs = require('fs');
+var path = require('path');
+var os = require('os');
+
+require('./utils/config')
+
+var removeCommand = process.platform === 'win32' ? 'rmdir /S /Q ' : 'rm -rf ';
+var packageJson = require('../package.json');
+var productName = packageJson.productName;
+var name = packageJson.name;
+
+process.chdir(path.dirname(__dirname));
+var home = process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME'];
+var tmpdir = os.tmpdir();
+
+// Windows: Use START as a way to ignore error if YOURAPP.exe isn't running
+var killatom = process.platform === 'win32' ? 'START taskkill /F /IM "' + productName + '.exe"' : 'pkill -9 ' + productName + ' || true';
+
+var dotName = '.' + name;
+var commands = [
+  killatom,
+  [__dirname, '..', 'node_modules'],
+  [__dirname, '..', 'build', 'node_modules'],
+  [__dirname, '..', 'apm', 'node_modules'],
+  [__dirname, '..', 'atom-shell'],
+  [home, dotName, '.node-gyp'],
+  [home, dotName, 'storage'],
+  [home, dotName, '.npm'],
+  [home, dotName, 'compile-cache'],
+  [home, dotName, 'atom-shell'],
+  [tmpdir, name + '-build'],
+  [tmpdir, 'atom-cached-atom-shells'],
+];
+var run = function() {
+  var next = commands.shift();
+  if (!next)
+    process.exit(0);
+
+  if (Array.isArray(next)) {
+    var pathToRemove = path.resolve.apply(path.resolve, next);
+    if (fs.existsSync(pathToRemove))
+      next = removeCommand + pathToRemove;
+    else
+      return run();
+  }
+
+  cp.safeExec(next, run);
+};
+run();

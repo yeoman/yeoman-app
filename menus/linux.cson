@@ -1,0 +1,44 @@
+'menu': [
+  {
+    label: '&File'
+    submenu: [
+      { label: '&Preferences', command: 'application:show-settings' }
+      { label: 'Quit', command: 'application:quit', accelerator: 'Control+Q' }
+    ]
+  }
+
+  {
+    label: '&Edit'
+    submenu: [
+      { label: '&Undo', command: 'core:undo', accelerator: 'Control+Z' }
+      { label: '&Redo', command: 'core:redo', accelerator: 'Control+Y' }
+      { type: 'separator' }
+      { label: '&Cut', command: 'core:cut', accelerator: 'Control+X' }
+      { label: 'C&opy', command: 'core:copy', accelerator: 'Control+C' }
+      { label: '&Paste', command: 'core:paste', accelerator: 'Control+V' }
+      { label: 'Select &All', command: 'core:select-all', accelerator: 'Control+A' }
+    ]
+  }
+
+  {
+    label: '&View'
+    submenu: [
+      { label: '&Reload', command: 'window:reload', accelerator: 'Control+R' }
+      { label: 'Toggle &Full Screen', command: 'window:toggle-full-screen', accelerator: 'Control+Shift+F' }
+      {
+        label: 'Developer'
+        submenu: [
+          { label: 'Run Tests...', command: 'application:run-specs', accelerator: 'Control+Shift+T' }
+          { label: 'Toggle Developer &Tools', command: 'window:toggle-dev-tools', accelerator: 'Control+Shift+I' }
+        ]
+      }
+    ]
+  }
+
+  {
+    label: '&Help'
+    submenu: [
+      { label: 'About <%= productName %>', command: 'application:about' }
+    ]
+  }
+]

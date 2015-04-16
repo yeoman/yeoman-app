@@ -1,0 +1,13 @@
+#!/usr/bin/env node
+var safeExec = require('./utils/child-process-wrapper.js').safeExec;
+var path = require('path');
+require('./utils/config')
+
+process.chdir(path.dirname(__dirname));
+
+safeExec('node script/bootstrap', function() {
+  var gruntPath = '"' + path.join('build', 'node_modules', '.bin', 'grunt') + (process.platform === 'win32' ? '.cmd"' : '"');
+  var gruntFileOpt = ['--gruntfile', path.resolve('build', 'Gruntfile.coffee')];
+  gruntFileOpt = gruntFileOpt.join(' ');
+  safeExec(gruntPath + ' ci --stack --no-color ' + gruntFileOpt, process.exit);
+});

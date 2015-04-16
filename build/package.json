@@ -1,0 +1,41 @@
+{
+  "name": "eightoheight-build",
+  "description": "Atom Shell Sample App Build",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/atom/atom-shell-starter.git"
+  },
+  "dependencies": {
+    "asar": "^0.4.0",
+    "async": "~0.2.9",
+    "donna": "1.0.6",
+    "formidable": "~1.0.14",
+    "fs-plus": "2.x",
+    "github-releases": "~0.2.0",
+    "grunt": "~0.4.1",
+    "grunt-atom-shell-installer": "^0.7.0",
+    "grunt-bower-task": "^0.4.0",
+    "grunt-build-atom-shell": "^2.0.4",
+    "grunt-cli": "~0.1.9",
+    "grunt-coffeelint": "git+https://github.com/atom/grunt-coffeelint.git#cfb99aa99811d52687969532bd5a98011ed95bfe",
+    "grunt-contrib-coffee": "~0.9.0",
+    "grunt-contrib-csslint": "~0.1.2",
+    "grunt-contrib-less": "~0.8.0",
+    "grunt-cson": "0.10.0",
+    "grunt-lesslint": "0.13.0",
+    "grunt-peg": "~1.1.0",
+    "grunt-shell": "~0.3.1",
+    "legal-eagle": "~0.4.0",
+    "minidump": "~0.8",
+    "npm": "~1.4.5",
+    "rcedit": "~0.1.2",
+    "request": "~2.27.0",
+    "rimraf": "~2.2.2",
+    "runas": "~1.0.1",
+    "tello": "1.0.3",
+    "temp": "~0.8.1",
+    "underscore-plus": "1.x",
+    "unzip": "~0.1.9",
+    "vm-compatibility-layer": "~0.1.0"
+  }
+}

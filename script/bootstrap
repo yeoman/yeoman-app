@@ -1,0 +1,130 @@
+#!/usr/bin/env node
+
+require('./utils/config.js');
+rimraf = require('./utils/rimraf.js');
+
+var fs = require('fs');
+var verifyRequirements = require('./utils/verify-requirements');
+var safeExec = require('./utils/child-process-wrapper.js').safeExec;
+var path = require('path');
+var pkg = require('../package.json');
+
+// Executes an array of commands one by one.
+function executeCommands(commands, done, index) {
+  index = (index === undefined ? 0 : index);
+  if (index < commands.length) {
+    var command = commands[index];
+    if (command.message)
+      console.log(command.message);
+    var options = null;
+    if (typeof command !== 'string') {
+      options = command.options;
+      command = command.command;
+    }
+    safeExec(command, options, executeCommands.bind(this, commands, done, index + 1));
+  }
+  else
+    done(null);
+}
+
+function copyFileSync(srcFile, destFile) {
+  var BUF_LENGTH, buff, bytesRead, fdr, fdw, pos;
+  BUF_LENGTH = 64 * 1024;
+  buff = new Buffer(BUF_LENGTH);
+
+  fdr = fs.openSync(srcFile, 'r');
+  fdw = fs.openSync(destFile, 'w');
+  bytesRead = 1;
+  pos = 0;
+
+  while (bytesRead > 0) {
+    bytesRead = fs.readSync(fdr, buff, 0, BUF_LENGTH, pos);
+    fs.writeSync(fdw, buff, 0, bytesRead);
+    pos += bytesRead;
+  }
+
+  fs.closeSync(fdr);
+  return fs.closeSync(fdw);
+}
+
+function bootstrap() {
+  var apmInstallPath = path.resolve(__dirname, '..', 'apm');
+  if (!fs.existsSync(apmInstallPath))
+    fs.mkdirSync(apmInstallPath);
+  if (!fs.existsSync(path.join(apmInstallPath, 'node_modules')))
+    fs.mkdirSync(path.join(apmInstallPath, 'node_modules'));
+
+  var apmPath = '"' + path.resolve(__dirname, '..', 'apm', 'node_modules', 'atom-package-manager', 'bin', 'apm') + '"';
+  var apmFlags = process.env.JANKY_SHA1 || process.argv.indexOf('--no-color') !== -1 ? ' --no-color' : '';
+
+  var npmPath = '"' + path.resolve(__dirname, '..', 'build', 'node_modules', '.bin', 'npm') + '"';
+  var initialNpmCommand = fs.existsSync(npmPath) ? npmPath : 'npm';
+  var npmFlags = ' --userconfig="' + path.resolve('.npmrc') + '" ';
+
+  var packagesToDedupe = ['fs-plus', 'humanize-plus', 'oniguruma', 'roaster', 'season', 'grim'];
+
+  var buildInstallCommand = initialNpmCommand + npmFlags + 'install';
+  var buildInstallOptions = {cwd: path.resolve(__dirname, '..', 'build')};
+  var apmInstallCommand = npmPath + npmFlags + 'install';
+  var apmInstallOptions = {cwd: apmInstallPath};
+  var moduleInstallCommand = apmPath + ' install' + apmFlags;
+  var dedupeApmCommand = apmPath + ' dedupe' + apmFlags;
+  var dedupeNpmCommand = npmPath + npmFlags + 'dedupe';
+
+  if (process.argv.indexOf('--no-quiet') === -1) {
+    buildInstallCommand  += ' --quiet';
+    apmInstallCommand    += ' --quiet';
+    moduleInstallCommand += ' --quiet';
+    dedupeApmCommand     += ' --quiet';
+    dedupeNpmCommand     += ' --quiet';
+    buildInstallOptions.ignoreStdout = true;
+    apmInstallOptions.ignoreStdout = true;
+  }
+
+  // apm ships with 32-bit node so make sure its native modules are compiled
+  // for a 32-bit target architecture
+  if (process.env.JANKY_SHA1 && process.platform === 'win32')
+    apmInstallCommand += ' --arch=ia32';
+
+  var commands = [
+    {
+      command: buildInstallCommand,
+      message: 'Installing build modules...',
+      options: buildInstallOptions
+    },
+    {
+      command: apmInstallCommand,
+      message: 'Installing apm...',
+      options: apmInstallOptions
+    },
+    apmPath + ' clean' + apmFlags,
+    moduleInstallCommand,
+    dedupeApmCommand + ' ' + packagesToDedupe.join(' '),
+    {
+      command: dedupeNpmCommand + ' request semver',
+      options: {
+        cwd: path.resolve(__dirname, '..', 'apm', 'node_modules', 'atom-package-manager')
+      }
+    },
+  ];
+
+  var tmpDir = process.env.TMPDIR || process.env.TEMP || '/tmp';
+  var buildDir = path.join(tmpDir, pkg.name + '-build');
+
+  if (fs.existsSync(buildDir) && !process.env.JENKINS_URL) {
+    rimraf.sync(buildDir);
+  }
+
+  process.chdir(path.dirname(__dirname));
+  executeCommands(commands, process.exit);
+}
+
+verifyRequirements(function(error, successMessage) {
+  if (error) {
+    console.log(error);
+    process.exit(1);
+  }
+
+  console.log(successMessage);
+  bootstrap();
+});

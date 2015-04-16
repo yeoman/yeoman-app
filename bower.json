@@ -1,0 +1,20 @@
+{
+  "name": "atom-shell-starter",
+  "version": "0.1.0",
+  "homepage": "https://github.com/atom/atom-shell-starter",
+  "authors": [
+    "Paul Betts <paul@paulbetts.org>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "static/components/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+  }
+}

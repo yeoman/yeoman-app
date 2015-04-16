@@ -1,0 +1,27 @@
+#!/bin/bash
+
+set -e
+
+SPEC_FILE="$1"
+DESKTOP_FILE="$2"
+BUILD_DIRECTORY="$3"
+SHORT_NAME="$4"
+APP_NAME="$5"
+ICON_PATH="$6"
+
+RPM_BUILD_ROOT=~/rpmbuild
+ARCH=`uname -m`
+
+rpmdev-setuptree
+
+cp -r $BUILD_DIRECTORY/$APP_NAME/* $RPM_BUILD_ROOT/BUILD
+rm -rf $RPM_BUILD_ROOT/BUILD/obj
+rm -rf $RPM_BUILD_ROOT/BUILD/gen
+
+cp $SPEC_FILE $RPM_BUILD_ROOT/SPECS
+cp $DESKTOP_FILE $RPM_BUILD_ROOT/BUILD
+
+rpmbuild -ba $SPEC_FILE
+cp $RPM_BUILD_ROOT/RPMS/$ARCH/*.rpm $BUILD_DIRECTORY
+
+rm -rf $RPM_BUILD_ROOT

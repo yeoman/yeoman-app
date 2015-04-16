@@ -1,0 +1,51 @@
+#!/bin/bash
+# mkdeb version control-file-path deb-file-path
+
+set -e
+
+SCRIPT=`readlink -f "$0"`
+ROOT=`readlink -f $(dirname $SCRIPT)/..`
+cd $ROOT
+
+VERSION="$1"
+ARCH="$2"
+CONTROL_FILE="$3"
+DESKTOP_FILE="$4"
+ICON_FILE="$5"
+DEB_PATH="$6"
+SHORT_NAME="$7"
+FILE_MODE=755
+
+TARGET_ROOT="`mktemp -d`"
+chmod $FILE_MODE "$TARGET_ROOT"
+TARGET="$TARGET_ROOT/$SHORT_NAME-$VERSION-$ARCH"
+
+mkdir -m $FILE_MODE -p "$TARGET/usr"
+env INSTALL_PREFIX="$TARGET/usr" script/grunt install
+
+mkdir -m $FILE_MODE -p "$TARGET/DEBIAN"
+cp "$CONTROL_FILE" "$TARGET/DEBIAN/control"
+
+mkdir -m $FILE_MODE -p "$TARGET/usr/share/applications"
+cp "$DESKTOP_FILE" "$TARGET/usr/share/applications"
+
+mkdir -m $FILE_MODE -p "$TARGET/usr/share/pixmaps"
+cp "$ICON_FILE" "$TARGET/usr/share/pixmaps"
+
+# Copy generated LICENSE.md to /usr/share/doc/atom/copyright
+mkdir -m $FILE_MODE -p "$TARGET/usr/share/doc/$SHORT_NAME"
+cp "$TARGET/usr/share/$SHORT_NAME/LICENSE.md" "$TARGET/usr/share/doc/$SHORT_NAME/copyright"
+
+# Add lintian overrides
+mkdir -m $FILE_MODE -p "$TARGET/usr/share/lintian/overrides"
+cp "$ROOT/resources/linux/debian/lintian-overrides" "$TARGET/usr/share/lintian/overrides/$SHORT_NAME"
+
+# Symlink bin
+ln -s "/usr/share/$SHORT_NAME/$SHORT_NAME" "$TARGET/usr/bin/$SHORT_NAME"
+
+# Remove executable bit from .node files
+find "$TARGET" -type f -name "*.node" -exec chmod a-x {} \;
+
+fakeroot dpkg-deb -b "$TARGET"
+mv "$TARGET_ROOT/$SHORT_NAME-$VERSION-$ARCH.deb" "$DEB_PATH"
+rm -rf "$TARGET_ROOT"
