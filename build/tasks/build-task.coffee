@@ -99,7 +99,7 @@ module.exports = (grunt) ->
       pathToCopy = path.resolve(pathToCopy)
       nodeModulesFilter.test(pathToCopy) or testFolderPattern.test(pathToCopy) or exampleFolderPattern.test(pathToCopy)
 
-    packageFilter = new RegExp("(#{ignoredPaths.join('|')})|(.+\\.(cson|coffee)$)")
+    packageFilter = new RegExp("(#{ignoredPaths.join('|')})|(.+\\.(coffee)$)")
     filterPackage = (pathToCopy) ->
       return true if benchmarkFolderPattern.test(pathToCopy)
 
@@ -110,9 +110,10 @@ module.exports = (grunt) ->
       cp directory, path.join(appDir, directory), filter: filterNodeModule
 
     cp 'spec', path.join(appDir, 'spec')
-    cp 'src', path.join(appDir, 'src'), filter: /.+\.(cson|coffee)$/
+    cp 'src', path.join(appDir, 'src'), filter: /.+\.(coffee)$/
     cp 'static', path.join(appDir, 'static')
     cp 'apm', path.join(appDir, 'apm'), filter: filterNodeModule
+    cp 'menus', path.join(appDir, 'menus')
 
     if process.platform is 'darwin'
       grunt.file.recurse path.join('resources', 'mac'), (sourcePath, rootDirectory, subDirectory='', filename) ->

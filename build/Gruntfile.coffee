@@ -14,7 +14,6 @@ packageJson = require '../package.json'
 module.exports = (grunt) ->
   grunt.loadNpmTasks('grunt-coffeelint')
   grunt.loadNpmTasks('grunt-lesslint')
-  grunt.loadNpmTasks('grunt-cson')
   grunt.loadNpmTasks('grunt-contrib-csslint')
   grunt.loadNpmTasks('grunt-contrib-coffee')
   grunt.loadNpmTasks('grunt-contrib-less')
@@ -90,21 +89,6 @@ module.exports = (grunt) ->
       dest: appDir
       ext: '.css'
 
-  csonConfig =
-    options:
-      rootObject: true
-      cachePath: path.join(home, ".#{pkgName}", 'compile-cache', 'grunt-cson')
-
-    glob_to_multiple:
-      expand: true
-      src: [
-        'menus/*.cson'
-        'keymaps/*.cson'
-        'static/**/*.cson'
-      ]
-      dest: appDir
-      ext: '.json'
-
   opts =
     name: pkgName
 
@@ -113,8 +97,6 @@ module.exports = (grunt) ->
     coffee: coffeeConfig
 
     less: lessConfig
-
-    cson: csonConfig
 
     coffeelint:
       options:
@@ -196,7 +178,7 @@ module.exports = (grunt) ->
 
   grunt.initConfig(opts)
 
-  grunt.registerTask('compile', ['coffee', 'cson'])
+  grunt.registerTask('compile', ['coffee'])
   grunt.registerTask('lint', ['coffeelint', 'csslint', 'lesslint'])
   grunt.registerTask('test', ['shell:kill-app', 'run-specs'])
 
