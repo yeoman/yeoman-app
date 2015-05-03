@@ -36,4 +36,3 @@ var BrowserActions = {
 
 
 module.exports = BrowserActions;
-

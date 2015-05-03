@@ -13,7 +13,11 @@ var EventEmitter = require('events').EventEmitter;
 var BrowserWindow = require('browser-window');
 var _ = require('underscore-plus');
 var fork = require('child_process').fork;
+<<<<<<< HEAD
 var kill = require('./kill');
+=======
+var dialogs = require('./helpers/dialogs');
+>>>>>>> 3c7dde0... Run yeoman in a child process
 
 function AppWindow(options) {
   this.loadSettings = {

@@ -12,11 +12,11 @@ function onSelectFolder() {
 }
 
 function onSubmitForm(answers) {
-  ipc.send('context-appwindow', 'generator:prompt-answers', answers);
+  ipc.send('context-generator', 'generator:promptAnswer', answers);
 }
 
 function onSubmitSelectedFolder(generatorName, answers){
-  ipc.send('context-appwindow', 'generator:init', generatorName, answers.cwd);
+  ipc.send('context-generator', 'generator:run', generatorName, answers.cwd);
 }
 
 // Sets user generated events to trigger browser actions
@@ -27,8 +27,8 @@ GeneratorStore.events.on('submit-selected-folder', onSubmitSelectedFolder);
 
 // List events to listen from browser and broadcast to view
 var BrowserUtils = {
-  'generator:data': 'generatorsDataReceived',
-  'generator:prompt-questions': 'questionPrompt',
+  'generator:generators': 'generatorsDataReceived',
+  'generator:prompt': 'questionPrompt',
   'generator:done': 'generatorDone',
   'generator:directory-selected': 'folderSelected'
 };
