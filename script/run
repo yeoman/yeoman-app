@@ -1,0 +1,38 @@
+#!/usr/bin/env node
+
+var path = require("path");
+var spawn = require("child_process").spawn;
+require('./utils/config')
+
+var pkgInfo = require(path.resolve(__dirname, '..', 'package.json'));
+
+var target = path.join(process.env.TMPDIR || process.env.TEMP || '/tmp', pkgInfo.name + "-build");
+
+var theArgs = process.argv.slice(2);
+if (theArgs.length < 1) {
+  theArgs = ['-r', '.'];
+}
+
+// Linux
+var cmd = path.join(target, pkgInfo.productName, pkgInfo.name);
+
+if (process.platform === 'darwin') {
+  cmd = path.join(target, pkgInfo.productName + '.app', 'Contents', 'MacOS', pkgInfo.productName);
+}
+
+if (process.platform === 'win32') {
+  cmd = path.join(target, pkgInfo.productName, pkgInfo.productName + '.exe');
+}
+
+var toRun = cmd + " " + theArgs.join(" ");
+console.log("Running: " + toRun);
+var child = spawn(cmd, theArgs);
+child.stdout.on('data', function(data) {
+  console.log(data.toString());
+});
+child.stderr.on('data', function(data) {
+  console.error(data.toString());
+});
+child.on('close', function(exitValue) {
+  process.exit(exitValue);
+});

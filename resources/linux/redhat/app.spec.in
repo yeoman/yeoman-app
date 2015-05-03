@@ -1,0 +1,27 @@
+Name:           <%= name %>
+Version:        <%= version %>
+Release:        0.1%{?dist}
+Summary:        <%= description %>
+License:        MIT
+URL:            <%= repository.url %>
+AutoReqProv:    no # Avoid libchromiumcontent.so missing dependency
+Prefix:         /usr
+
+%description
+<%= description %>
+
+%install
+mkdir -p %{buildroot}/usr/share/<%= name %>
+cp -r <%= shellAppDir %>/* %{buildroot}/usr/share/<%= name %>
+mkdir -p %{buildroot}/usr/bin/
+ln -sf ../share/<%= name %>/<%= name %> %{buildroot}/usr/bin/<%= name %>
+mkdir -p %{buildroot}/usr/share/applications/
+mv <%= name %>.desktop %{buildroot}/usr/share/applications/
+mkdir -p %{buildroot}/usr/share/pixmaps
+mv <%= shellAppDir %>/app.png %{buildroot}/usr/share/pixmaps/<%= name %>.png
+
+%files
+/usr/bin/<%= name %>
+/usr/share/<%= name %>/
+/usr/share/applications/<%= name %>.desktop
+/usr/share/pixmaps/<%= name %>.png
