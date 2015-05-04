@@ -19,6 +19,10 @@ function onSubmitSelectedFolder(generatorName, answers){
   ipc.send('context-generator', 'generator:run', generatorName, answers.cwd);
 }
 
+function onCancel(){
+  ipc.send('context-generator', 'generator:cancel');
+}
+
 // Sets user generated events to trigger browser actions
 PromptStore.events.on('select-folder', onSelectFolder);
 GeneratorStore.events.on('submit-form', onSubmitForm);
