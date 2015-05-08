@@ -8,7 +8,7 @@ var PromptStore = require('../stores/prompt-store');
 
 
 function onSelectFolder() {
-  ipc.send('context-appwindow', 'generator:open-dialog');
+  ipc.send('context-generator', 'generator:open-dialog');
 }
 
 function onSubmitForm(answers) {
@@ -43,4 +43,3 @@ Object.keys(BrowserUtils).forEach(function (key) {
 
 
 module.exports = BrowserUtils;
-
