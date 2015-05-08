@@ -1,8 +1,12 @@
 {
   "name": "yeoman-app",
+  "productName": "Yeoman",
   "version": "0.0.0",
-  "description": "An app made with Node Webkit that scaffolds projects using Yeoman",
+  "appBundleId": "io.yeoman.app",
+  "helperBundleId": "io.yeoman.app.helper",
+  "description": "An app made with Electron that scaffolds projects using Yeoman",
   "author": "The Yeoman Team",
+  "main": "app/index.js",
   "dependencies": {
     "array.prototype.findindex": "^1.0.0",
     "bootstrap": "^3.0.0",
@@ -22,10 +26,15 @@
     "yeoman-environment": "1.1.1"
   },
   "devDependencies": {
-    "react-tools": "^0.12.x"
+    "electron-packager": "^3.3.0",
+    "electron-prebuilt": "^0.25.2",
+    "mkdirp": "^0.5.0",
+    "react-tools": "^0.12.x",
+    "rimraf": "^2.3.3"
   },
   "scripts": {
-    "test": "grunt test"
+    "start": "electron .",
+    "build": "node scripts/build.js"
   },
   "license": "MIT"
 }

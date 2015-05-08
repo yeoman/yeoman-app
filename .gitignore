@@ -1,7 +1,8 @@
 .DS_Store
 .*.swp
 .swp
-out
+build/
 node_modules
 .idea
 app/bower_components
+npm-debug.log
