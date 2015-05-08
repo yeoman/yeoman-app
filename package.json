@@ -22,14 +22,6 @@
     "yeoman-environment": "1.1.1"
   },
   "devDependencies": {
-    "grunt": "^0.4.x",
-    "grunt-contrib-watch": "^0.6.x",
-    "grunt-download-atom-shell": "^0.10.x",
-    "grunt-jsxhint": "^0.4.x",
-    "grunt-menu": "^1.x.x",
-    "grunt-parallel": "^0.3.x",
-    "grunt-shell": "^1.x.x",
-    "load-grunt-tasks": "^1.x.x",
     "react-tools": "^0.12.x"
   },
   "scripts": {
