@@ -9,16 +9,7 @@ window.onload = function() {
     // Skip "?loadSettings=".
     var loadSettings = JSON.parse(decodeURIComponent(window.location.search.substr(14)));
 
-    // Require before the module cache in dev mode
-    if (loadSettings.devMode) {
-      require('../src/babel').register();
-    }
-
     require('vm-compatibility-layer');
-
-    if (!loadSettings.devMode) {
-      require('../src/babel').register();
-    }
 
     window.loadSettings = loadSettings;
 
