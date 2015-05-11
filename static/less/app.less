@@ -1,0 +1,22 @@
+// requires bootstrap utils
+@import "../../node_modules/bootstrap/less/mixins/hide-text.less";
+
+
+header {
+  background: #FFDE00 url('../img/header.png') no-repeat scroll top center;
+  width: 100%;
+  height: 300px;
+
+  h1 {
+    display: none;
+  }
+}
+
+header h1 {
+  .text-hide;
+}
+
+main {
+  margin-top: 45px;
+}
+
