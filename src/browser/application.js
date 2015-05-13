@@ -9,6 +9,7 @@ var path = require('path');
 var os = require('os');
 var net = require('net');
 var url = require('url');
+var shell = require('shell');
 var EventEmitter = require('events').EventEmitter;
 var _ = require('underscore-plus');
 var AppMenu = require('./appmenu');
@@ -123,6 +124,10 @@ Application.prototype.openWindow = function(options) {
   this.menu.on('application:quit', function() {
     app.quit();
   });
+
+  this.menu.on('application:report-issue', function() {
+    shell.openExternal(this.pkgJson.bugs);
+  }.bind(this));
 
   this.menu.on('window:reload', function() {
     BrowserWindow.getFocusedWindow().reload();

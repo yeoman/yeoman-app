@@ -7,6 +7,7 @@
   "description": "An app made with Electron that scaffolds projects using Yeoman",
   "author": "The Yeoman Team",
   "main": "src/browser/main.js",
+  "bugs": "https://github.com/yeoman/yeoman-app/issues",
   "dependencies": {
     "array.prototype.findindex": "^1.0.0",
     "async": "0.2.6",
