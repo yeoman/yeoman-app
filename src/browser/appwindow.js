@@ -86,7 +86,7 @@ AppWindow.prototype.sendCommandToBrowserWindow = function() {
 };
 
 AppWindow.prototype.setupConnector = function() {
-  this.yoProcess = fork(path.join(__dirname, 'yo.js'));
+  this.yoProcess = fork(path.join(__dirname, 'yo', 'yo.js'));
 
   this.yoProcess.on('message', function (msg) {
     console.log('APP', msg);
