@@ -1,18 +1,12 @@
 'use strict';
 
-var Menu = require('menu');
-var app = require('app');
-var fs = require('fs');
-var ipc = require('ipc');
 var dialog = require('dialog');
 var path = require('path');
-var os = require('os');
-var net = require('net');
 var url = require('url');
 var EventEmitter = require('events').EventEmitter;
 var BrowserWindow = require('browser-window');
-var _ = require('underscore-plus');
 var fork = require('child_process').fork;
+var _ = require('underscore-plus');
 var killChildProcess = require('./util/kill-childprocess');
 
 function AppWindow(options) {

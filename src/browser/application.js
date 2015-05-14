@@ -1,15 +1,11 @@
 'use strict';
 
-var Menu = require('menu');
-var BrowserWindow = require('browser-window');
 var app = require('app');
 var fs = require('fs-plus');
 var ipc = require('ipc');
 var path = require('path');
-var os = require('os');
-var net = require('net');
-var url = require('url');
 var shell = require('shell');
+var BrowserWindow = require('browser-window');
 var EventEmitter = require('events').EventEmitter;
 var _ = require('underscore-plus');
 var AppMenu = require('./appmenu');

@@ -1,12 +1,10 @@
 'use strict';
 
-var app = require('app');
-var ipc = require('ipc');
 var Menu = require('menu');
 var path = require('path');
 var season = require('season');
-var _ = require('underscore-plus');
 var EventEmitter = require('events').EventEmitter;
+var _ = require('underscore-plus');
 
 function ApplicationMenu(options) {
   var menuJson = season.resolve(path.join(__dirname, '..', '..', 'menus', process.platform + '.json'));

@@ -26,7 +26,7 @@ app.commandLine.appendSwitch('js-flags', '--harmony');
 // unless it's after 'ready', or else mysterious bad things will happen
 // to you.
 app.on('ready', function() {
-  var Application = require('./application');
+
   new Application();
 
   console.log('App load time: ' + (Date.now() - shellStartTime) + 'ms');
