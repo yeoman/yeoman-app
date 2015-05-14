@@ -13,7 +13,7 @@ var EventEmitter = require('events').EventEmitter;
 var BrowserWindow = require('browser-window');
 var _ = require('underscore-plus');
 var fork = require('child_process').fork;
-var kill = require('./kill');
+var killChildProcess = require('./util/kill-childprocess');
 
 function AppWindow(options) {
   this.loadSettings = {
@@ -86,9 +86,9 @@ AppWindow.prototype.sendCommandToBrowserWindow = function() {
 };
 
 AppWindow.prototype.setupConnector = function() {
-  this.child = fork(path.join(__dirname, 'yo.js'));
+  this.yoProcess = fork(path.join(__dirname, 'yo.js'));
 
-  this.child.on('message', function (msg) {
+  this.yoProcess.on('message', function (msg) {
     console.log('APP', msg);
 
     this.window.webContents.send.apply(this.window.webContents, [msg.event, msg.data]);
@@ -98,18 +98,21 @@ AppWindow.prototype.setupConnector = function() {
   this.sendToChild('generator:init');
 };
 
+AppWindow.prototype.killYoProcess = function (name) {
+  if (this.yoProcess && this.yoProcess.pid) {
+    killChildProcess(this.yoProcess.pid, function(err) {
+      if (err) {
+        console.log(err);
+      }
+    });
+  }
+};
+
 AppWindow.prototype.sendToChild = function (name) {
   var args = Array.prototype.slice.call(arguments, 1);
 
   if (name === 'generator:cancel') {
-    kill(this.child.pid, function(err) {
-      if (err) {
-        return console.log(err);
-      }
-
-      console.log('Killed yeoman process');
-    });
-
+    this.killYoProcess();
     return;
   }
 
@@ -127,7 +130,7 @@ AppWindow.prototype.sendToChild = function (name) {
     return;
   }
 
-  this.child.send({
+  this.yoProcess.send({
     action: name,
     args: args
   });
