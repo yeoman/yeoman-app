@@ -8,7 +8,7 @@ var PromptStore = require('../stores/prompt-store');
 
 
 function onSelectFolder() {
-  ipc.send('context-generator', 'generator:open-dialog');
+  ipc.send('context-appwindow', 'open-dialog');
 }
 
 function onSubmitForm(answers) {
@@ -20,7 +20,7 @@ function onSubmitSelectedFolder(generatorName, answers){
 }
 
 function onCancel(){
-  ipc.send('context-generator', 'generator:cancel');
+  ipc.send('context-appwindow', 'generator-cancel');
 }
 
 // Sets user generated events to trigger browser actions

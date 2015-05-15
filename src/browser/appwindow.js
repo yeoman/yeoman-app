@@ -24,17 +24,7 @@ function AppWindow(options) {
   windowOpts = _.extend(windowOpts, this.loadSettings);
 
   this.window = new BrowserWindow(windowOpts);
-  this.window.on('closed', function(e) {
-    this.emit('closed', e);
-  }.bind(this));
-
-  this.window.on('devtools-opened', function() {
-    this.window.webContents.send('window:toggle-dev-tools', true);
-  }.bind(this));
-
-  this.window.on('devtools-closed', function() {
-    this.window.webContents.send('window:toggle-dev-tools', false);
-  }.bind(this));
+  this.handleEvents();
 }
 
 _.extend(AppWindow.prototype, EventEmitter.prototype);
@@ -75,8 +65,26 @@ AppWindow.prototype.close = function() {
   this.window = null;
 };
 
-AppWindow.prototype.sendCommandToBrowserWindow = function() {
-  this.window.webContents.send.apply(this.window.webContents, arguments);
+AppWindow.prototype.handleEvents = function () {
+
+  this.window.on('closed', function(e) {
+    this.emit('closed', e);
+  }.bind(this));
+
+  this.on('generator-cancel', this.killYoProcess);
+  this.on('open-dialog', this.selectTargetDirectory);
+};
+
+AppWindow.prototype.selectTargetDirectory = function () {
+  var opts = {
+    title: 'Select a folder to generate the project into',
+    properties: ['openDirectory', 'createDirectory']
+  };
+
+  dialog.showOpenDialog(this.window, opts, function(filenames) {
+    if (!filenames) return;
+    this.sendCommandToBrowserWindow('generator:directory-selected', filenames.shift());
+  }.bind(this));
 };
 
 AppWindow.prototype.initYoProcess = function () {
@@ -89,7 +97,7 @@ AppWindow.prototype.initYoProcess = function () {
 
   }.bind(this));
 
-  this.sendToChild('generator:init');
+  this.sendCommandToProcess('generator:init');
 };
 
 AppWindow.prototype.killYoProcess = function () {
@@ -102,27 +110,12 @@ AppWindow.prototype.killYoProcess = function () {
   }
 };
 
-AppWindow.prototype.sendToChild = function (name) {
+AppWindow.prototype.sendCommandToBrowserWindow = function() {
+  this.window.webContents.send.apply(this.window.webContents, arguments);
+};
+
+AppWindow.prototype.sendCommandToProcess = function (name) {
   var args = Array.prototype.slice.call(arguments, 1);
-
-  if (name === 'generator:cancel') {
-    this.killYoProcess();
-    return;
-  }
-
-  if ( name === 'generator:open-dialog') {
-    var opts = {
-      title: 'Select a folder to generate the project into',
-      properties: ['openDirectory', 'createDirectory']
-    };
-
-    dialog.showOpenDialog(this.window, opts, function(filenames) {
-      if (!filenames) return;
-      this.sendCommandToBrowserWindow('generator:directory-selected', filenames.shift());
-    }.bind(this));
-
-    return;
-  }
 
   this.yoProcess.send({
     action: name,

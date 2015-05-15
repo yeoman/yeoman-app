@@ -179,7 +179,7 @@ Application.prototype.handleEvents = function() {
   ipc.on('context-generator', function(event) {
     var args = Array.prototype.slice.call(arguments, 1);
     var appWindow = this.windowForEvent(event.sender);
-    appWindow.sendToChild.apply(appWindow, args);
+    appWindow.sendCommandToProcess.apply(appWindow, args);
   }.bind(this));
 };
 
