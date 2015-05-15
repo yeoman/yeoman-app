@@ -28,11 +28,11 @@ function AppWindow(options) {
     this.emit('closed', e);
   }.bind(this));
 
-  this.window.on('devtools-opened', function(e) {
+  this.window.on('devtools-opened', function() {
     this.window.webContents.send('window:toggle-dev-tools', true);
   }.bind(this));
 
-  this.window.on('devtools-closed', function(e) {
+  this.window.on('devtools-closed', function() {
     this.window.webContents.send('window:toggle-dev-tools', false);
   }.bind(this));
 }
@@ -52,7 +52,7 @@ AppWindow.prototype.show = function() {
   this.window.loadUrl(targetUrl);
 
   this.window.webContents.on('did-finish-load', function() {
-    this.setupConnector();
+    this.initYoProcess();
   }.bind(this));
 
   this.window.show();
@@ -79,20 +79,20 @@ AppWindow.prototype.sendCommandToBrowserWindow = function() {
   this.window.webContents.send.apply(this.window.webContents, arguments);
 };
 
-AppWindow.prototype.setupConnector = function() {
+AppWindow.prototype.initYoProcess = function () {
   this.yoProcess = fork(path.join(__dirname, 'yo', 'yo.js'));
 
   this.yoProcess.on('message', function (msg) {
     console.log('APP', msg);
 
-    this.window.webContents.send.apply(this.window.webContents, [msg.event, msg.data]);
+    this.sendCommandToBrowserWindow(msg.event, msg.data);
 
   }.bind(this));
 
   this.sendToChild('generator:init');
 };
 
-AppWindow.prototype.killYoProcess = function (name) {
+AppWindow.prototype.killYoProcess = function () {
   if (this.yoProcess && this.yoProcess.pid) {
     killChildProcess(this.yoProcess.pid, function(err) {
       if (err) {

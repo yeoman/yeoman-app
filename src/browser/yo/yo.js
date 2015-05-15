@@ -5,10 +5,9 @@ var _ = require('lodash');
 var findup = require('findup-sync');
 var environment = require('./environment');
 
-var win32 = process.platform === 'win32';
 var env = null;
 
-function sendToParent(name, data) {
+function sendCommandToAppWindow(name, data) {
   process.send({
     event: 'generator:' + name,
     data: data
@@ -45,7 +44,7 @@ function init () {
   env = environment();
 
   env.lookup(function () {
-    sendToParent('generators', getGenerators());
+    sendCommandToAppWindow('generators', getGenerators());
   });
 }
 
@@ -67,27 +66,27 @@ function run (generatorName, cwd) {
 
     if (err) {
       doneCalled = true;
-      return sendToParent('error', err);
+      return sendCommandToAppWindow('error', err);
     }
 
     if (doneCounter === 0) {
       doneCalled = true;
-      sendToParent('done');
+      sendCommandToAppWindow('done');
     }
   }
 
   function increaseDoneCounter(eventName) {
     doneCounter++;
-    sendToParent(eventName);
+    sendCommandToAppWindow(eventName);
   }
 
   function decreaseDoneCounter(eventName) {
     doneCounter--;
-    sendToParent(eventName);
+    sendCommandToAppWindow(eventName);
     done();
   }
 
-  var triggerInstall = _.once(_.partial(sendToParent, 'install'));
+  var triggerInstall = _.once(_.partial(sendCommandToAppWindow, 'install'));
 
   env.run(generatorName, done)
     .on('npmInstall', triggerInstall)
