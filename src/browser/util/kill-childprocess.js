@@ -19,7 +19,9 @@ module.exports = function kill(pid, signal, cb) {
   signal = signal || 'SIGKILL';
 
   psTree(pid, function (err, children) {
-    if (err) return cb(err);
+    if (err) {
+      return cb(err);
+    }
 
     children.forEach(function (child) {
       process.kill(child.PID, signal);

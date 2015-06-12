@@ -8,7 +8,7 @@ var _ = require('lodash');
 var async = require('async');
 var packager = require('electron-packager');
 var pkg = require('../package.json');
-var args = require('minimist')(process.argv.slice(2), {boolean: ['all']});
+var args = require('minimist')(process.argv.slice(2), { boolean: ['all'] });
 
 var buildPath = path.join(__dirname, '..', 'build');
 var resPath = path.join(__dirname, '..', 'resources');
@@ -33,7 +33,7 @@ var packagerOptions = {
 // Supported platforms and platfrom specific options
 var tasks = [
   { platform: 'darwin', arch: 'x64', icon: 'app.icns' }
-].map(function(item) {
+].map(function (item) {
   return _.assign({}, item, packagerOptions, {
     icon: path.join(resPath, item.icon),
     out: path.join(buildPath, item.platform, item.arch)

@@ -29,7 +29,7 @@ function AppWindow(options) {
 
 _.extend(AppWindow.prototype, EventEmitter.prototype);
 
-AppWindow.prototype.show = function() {
+AppWindow.prototype.show = function () {
   var targetPath = path.resolve(__dirname, '..', '..', 'static', 'index.html');
   var targetUrl = url.format({
     protocol: 'file',
@@ -41,33 +41,33 @@ AppWindow.prototype.show = function() {
   });
   this.window.loadUrl(targetUrl);
 
-  this.window.webContents.on('did-finish-load', function() {
+  this.window.webContents.on('did-finish-load', function () {
     this.initYoProcess();
   }.bind(this));
 
   this.window.show();
 };
 
-AppWindow.prototype.reload = function() {
+AppWindow.prototype.reload = function () {
   this.window.webContents.reload();
 };
 
-AppWindow.prototype.toggleFullScreen = function() {
+AppWindow.prototype.toggleFullScreen = function () {
   this.window.setFullScreen(!this.window.isFullScreen());
 };
 
-AppWindow.prototype.toggleDevTools = function() {
+AppWindow.prototype.toggleDevTools = function () {
   this.window.toggleDevTools();
 };
 
-AppWindow.prototype.close = function() {
+AppWindow.prototype.close = function () {
   this.window.close();
   this.window = null;
 };
 
 AppWindow.prototype.handleEvents = function () {
 
-  this.window.on('closed', function(e) {
+  this.window.on('closed', function (e) {
     this.emit('closed', e);
   }.bind(this));
 
@@ -81,8 +81,10 @@ AppWindow.prototype.selectTargetDirectory = function () {
     properties: ['openDirectory', 'createDirectory']
   };
 
-  dialog.showOpenDialog(this.window, opts, function(filenames) {
-    if (!filenames) return;
+  dialog.showOpenDialog(this.window, opts, function (filenames) {
+    if (!filenames) {
+      return;
+    }
     this.sendCommandToBrowserWindow('generator:directory-selected', filenames.shift());
   }.bind(this));
 };
@@ -102,7 +104,7 @@ AppWindow.prototype.initYoProcess = function () {
 
 AppWindow.prototype.killYoProcess = function () {
   if (this.yoProcess && this.yoProcess.pid) {
-    killChildProcess(this.yoProcess.pid, function(err) {
+    killChildProcess(this.yoProcess.pid, function (err) {
       if (err) {
         console.log(err);
       }
@@ -110,7 +112,7 @@ AppWindow.prototype.killYoProcess = function () {
   }
 };
 
-AppWindow.prototype.sendCommandToBrowserWindow = function() {
+AppWindow.prototype.sendCommandToBrowserWindow = function () {
   this.window.webContents.send.apply(this.window.webContents, arguments);
 };
 

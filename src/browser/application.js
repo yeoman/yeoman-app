@@ -22,7 +22,7 @@ var AppWindow = require('./appwindow');
  * @param {boolean} [options.exitWhenDone]  Boolean to determine whether to automatically exit.
  * @param {string}  [options.logfile]       The file path to log output to.
  */
-function Application() {
+function Application () {
   var options = {};
   this.resourcePath = options.resourcePath;
   this.devMode = options.devMode;
@@ -44,7 +44,7 @@ _.extend(Application.prototype, EventEmitter.prototype);
  * @param {boolean} [options.exitWhenDone]  Boolean to determine whether to automatically exit.
  * @param {string}  [options.logfile]       The file path to log output to.
  */
-Application.prototype.openWithOptions = function(options) {
+Application.prototype.openWithOptions = function (options) {
   var newWindow;
   var test = options.test;
 
@@ -56,7 +56,7 @@ Application.prototype.openWithOptions = function(options) {
 
   newWindow.show();
   this.windows.push(newWindow);
-  newWindow.on('closed', function() {
+  newWindow.on('closed', function () {
     this.removeAppWindow(newWindow);
   }.bind(this));
 };
@@ -68,7 +68,7 @@ Application.prototype.openWithOptions = function(options) {
  * @param {string}  [options.resourcePath] The path to include specs from.
  * @param {string} [options.logfile]       The file path to log output to.
  */
-Application.prototype.openSpecsWindow = function(options) {
+Application.prototype.openSpecsWindow = function (options) {
   var bootstrapScript;
   var exitWhenDone = options.exitWhenDone;
   var resourcePath = options.resourcePath;
@@ -99,14 +99,8 @@ Application.prototype.openSpecsWindow = function(options) {
 
 /**
  * Opens up a new AppWindow and runs the application.
- *
- * @param {string}  [options.resourcePath] The path to include specs from.
- * @param {boolean} [options.devMode]      Boolean to determine if the application is running in dev mode.
- * @param {boolean} [options.test]         Boolean to determine if the application is running in test mode.
- * @param {boolean} [options.exitWhenDone] Boolean to determine whether to automatically exit.
- * @param {string} [options.logfile]       The file path to log output to.
  */
-Application.prototype.openWindow = function(options) {
+Application.prototype.openWindow = function () {
   var appWindow;
   appWindow = new AppWindow({
     title: this.pkgJson.productName,
@@ -117,19 +111,19 @@ Application.prototype.openWindow = function(options) {
     pkg: this.pkgJson
   });
   this.menu.attachToWindow(appWindow);
-  this.menu.on('application:quit', function() {
+  this.menu.on('application:quit', function () {
     app.quit();
   });
 
-  this.menu.on('application:report-issue', function() {
+  this.menu.on('application:report-issue', function () {
     shell.openExternal(this.pkgJson.bugs);
   }.bind(this));
 
-  this.menu.on('window:reload', function() {
+  this.menu.on('window:reload', function () {
     BrowserWindow.getFocusedWindow().reload();
   });
 
-  this.menu.on('window:toggle-full-screen', function() {
+  this.menu.on('window:toggle-full-screen', function () {
     var focusedWindow = BrowserWindow.getFocusedWindow();
     var fullScreen = true;
     if (focusedWindow.isFullScreen()) {
@@ -139,11 +133,11 @@ Application.prototype.openWindow = function(options) {
     focusedWindow.setFullScreen(fullScreen);
   });
 
-  this.menu.on('window:toggle-dev-tools', function() {
+  this.menu.on('window:toggle-dev-tools', function () {
     BrowserWindow.getFocusedWindow().toggleDevTools();
   });
 
-  this.menu.on('application:run-specs', function() {
+  this.menu.on('application:run-specs', function () {
     return this.openWithOptions({
       test: true
     });
@@ -156,27 +150,27 @@ Application.prototype.openWindow = function(options) {
  *
  * @param {AppWindow} appWindow The AppWindow to be removed
  */
-Application.prototype.removeAppWindow = function(appWindow) {
-  this.windows.forEach(function(win, index) {
+Application.prototype.removeAppWindow = function (appWindow) {
+  this.windows.forEach(function (win, index) {
     if (win === appWindow) {
       this.windows.splice(index, 1);
     }
   }.bind(this));
 };
 
-Application.prototype.handleEvents = function() {
+Application.prototype.handleEvents = function () {
 
-  this.on('application:quit', function() {
+  this.on('application:quit', function () {
     return app.quit();
   });
 
-  ipc.on('context-appwindow', function(event) {
+  ipc.on('context-appwindow', function (event) {
     var args = Array.prototype.slice.call(arguments, 1);
     var appWindow = this.windowForEvent(event.sender);
     appWindow.emit.apply(appWindow, args);
   }.bind(this));
 
-  ipc.on('context-generator', function(event) {
+  ipc.on('context-generator', function (event) {
     var args = Array.prototype.slice.call(arguments, 1);
     var appWindow = this.windowForEvent(event.sender);
     appWindow.sendCommandToProcess.apply(appWindow, args);
@@ -184,9 +178,9 @@ Application.prototype.handleEvents = function() {
 };
 
 // Returns the {AppWindow} for the given ipc event.
-Application.prototype.windowForEvent = function(sender) {
+Application.prototype.windowForEvent = function (sender) {
   var win = BrowserWindow.fromWebContents(sender);
-  return _.find(this.windows, function(appWindow) {
+  return _.find(this.windows, function (appWindow) {
     return appWindow.window === win;
   });
 };

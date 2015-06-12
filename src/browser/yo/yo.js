@@ -15,15 +15,15 @@ function sendCommandToAppWindow(name, data) {
 }
 
 function getGenerators() {
-   var generatorsMeta = env.store.getGeneratorsMeta();
+  var generatorsMeta = env.store.getGeneratorsMeta();
 
-   // Remove sub generators from list
-   var list = _.filter(generatorsMeta, function (item) {
+  // Remove sub generators from list
+  var list = _.filter(generatorsMeta, function (item) {
     return item.namespace.split(':')[1] === 'app';
   });
 
-   list = list.map(function (item) {
-    var pkgPath = findup('package.json', {cwd: item.resolved});
+  list = list.map(function (item) {
+    var pkgPath = findup('package.json', { cwd: item.resolved });
     if (pkgPath) {
       var pkg = JSON.parse(fs.readFileSync(pkgPath));
 
@@ -62,7 +62,9 @@ function run (generatorName, cwd) {
   var doneCalled = false;
 
   function done(err) {
-    if (doneCalled) return;
+    if (doneCalled) {
+      return;
+    }
 
     if (err) {
       doneCalled = true;

@@ -14,20 +14,19 @@ function ApplicationMenu(options) {
 
 _.extend(ApplicationMenu.prototype, EventEmitter.prototype);
 
-ApplicationMenu.prototype.attachToWindow = function(window) {
+ApplicationMenu.prototype.attachToWindow = function () {
   this.menu = Menu.buildFromTemplate(_.deepClone(this.template));
   Menu.setApplicationMenu(this.menu);
 };
 
-ApplicationMenu.prototype.wireUpMenu = function(menu, command) {
-  menu.click = function() {
+ApplicationMenu.prototype.wireUpMenu = function (menu, command) {
+  menu.click = function () {
     this.emit(command);
   }.bind(this);
 };
 
-ApplicationMenu.prototype.translateTemplate = function(template, pkgJson) {
-  var emitter = this.emit;
-  template.forEach(function(item) {
+ApplicationMenu.prototype.translateTemplate = function (template, pkgJson) {
+  template.forEach(function (item) {
     if (item.metadata == null) {
       item.metadata = {};
     }
@@ -48,7 +47,7 @@ ApplicationMenu.prototype.translateTemplate = function(template, pkgJson) {
   return template;
 };
 
-ApplicationMenu.prototype.acceleratorForCommand = function(command, keystrokesByCommand) {
+ApplicationMenu.prototype.acceleratorForCommand = function (command, keystrokesByCommand) {
   var firstKeystroke = keystrokesByCommand[command];
   firstKeystroke = firstKeystroke != null ? firstKeystroke[0] : void 0;
   if (!firstKeystroke) {
@@ -57,7 +56,7 @@ ApplicationMenu.prototype.acceleratorForCommand = function(command, keystrokesBy
 
   var modifiers = firstKeystroke.split('-');
   var key = modifiers.pop();
-  modifiers = modifiers.map(function(modifier) {
+  modifiers = modifiers.map(function (modifier) {
     return modifier.replace(/shift/ig, 'Shift').replace(/cmd/ig, 'Command2').replace(/ctrl/ig, 'Ctrl').replace(/alt/ig, 'Alt');
   });
 

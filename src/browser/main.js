@@ -5,7 +5,7 @@ var Application = require('./application');
 
 var shellStartTime = Date.now();
 
-process.on('uncaughtException', function(error) {
+process.on('uncaughtException', function (error) {
   if (error == null) {
     error = {};
   }
@@ -25,7 +25,7 @@ app.commandLine.appendSwitch('js-flags', '--harmony');
 // Note: It's important that you don't do anything with Electron
 // unless it's after 'ready', or else mysterious bad things will happen
 // to you.
-app.on('ready', function() {
+app.on('ready', function () {
 
   new Application();
 

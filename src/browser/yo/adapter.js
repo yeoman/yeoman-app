@@ -4,7 +4,7 @@ var ProcessAdapter = module.exports = function ProcessAdapter() {
 
 };
 
-ProcessAdapter.prototype.prompt = function(questions, callback) {
+ProcessAdapter.prototype.prompt = function (questions, callback) {
   process.send({
     event: 'generator:prompt',
     data: questions
@@ -13,7 +13,7 @@ ProcessAdapter.prototype.prompt = function(questions, callback) {
   this.answerCallback = callback;
 };
 
-ProcessAdapter.prototype.diff = function(actual, expected) {
+ProcessAdapter.prototype.diff = function (actual, expected) {
   process.send({
     event: 'generator:diff',
     data: {
