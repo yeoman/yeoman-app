@@ -8,6 +8,12 @@ var environment = require('./environment');
 var env = null;
 
 function sendCommandToAppWindow(name, data) {
+
+  if (data instanceof Error) {
+    console.error(data);
+    data = data.toString();
+  }
+
   process.send({
     event: 'generator:' + name,
     data: data
@@ -50,8 +56,15 @@ function init () {
 
 function run (generatorName, cwd) {
 
+  if (!generatorName) {
+    return sendCommandToAppWindow('error', new Error('You must provide a generator name'));
+  }
+
+  if (!fs.existsSync(cwd)) {
+    return sendCommandToAppWindow('error', new Error('The given path does not exist or is not a directory'));
+  }
+
   process.chdir(cwd);
-  console.log(process.cwd());
 
   var prefix = 'generator-';
   if (generatorName.indexOf(prefix) === 0) {
