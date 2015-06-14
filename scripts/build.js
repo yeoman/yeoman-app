@@ -24,9 +24,7 @@ var packagerOptions = {
   prune: true,
   dir: '.',
   ignore: [
-    'node_modules/electron-prebuilt',
-    'node_modules/electron-packager',
-    '.git'
+    'node_modules/.bin'
   ]
 };
 
