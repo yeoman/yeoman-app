@@ -14,6 +14,7 @@
     "bootstrap": "^3.3.0",
     "color": "^0.8.0",
     "findup-sync": "^0.2.1",
+    "fix-path": "^1.1.0",
     "flux": "^2.0.1",
     "fs-plus": "^2.3.1",
     "jasmine": "2.3.1",

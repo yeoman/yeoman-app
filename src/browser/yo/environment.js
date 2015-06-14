@@ -12,6 +12,8 @@ var getNpmPaths = function () {
     return process.env.NODE_PATH.split(path.delimiter);
   }
 
+  require('fix-path')();
+
   // Get the npm path from the user env variables.
   var paths = process.env.PATH.split(path.delimiter).map(function (item) {
     return path.join(item, '..', 'lib', 'node_modules');
