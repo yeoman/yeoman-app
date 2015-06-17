@@ -1,0 +1,31 @@
+@font-face {
+	font-family: 'material-ui-icons';
+	src: url(./font-icons/fonts/material-ui-icons.woff2) format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="muidocs-icon-"], [class*=" muidocs-icon-"] {
+	font-family: 'material-ui-icons';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* Find more icons here: https://github.com/google/material-design-icons/blob/master/iconfont/codepoints */
+
+.muidocs-icon-action-home:before {
+	content: "\e88a";
+}
+
+.muidocs-icon-action-done:before {
+	content: "\e876";
+}
+

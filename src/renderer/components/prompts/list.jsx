@@ -1,9 +1,11 @@
 'use strict';
 
 var React = require('react');
-var RadioButton = require('material-ui/src/js/radio-button.jsx');
+var mui = require('material-ui');
 
 var PromptMixin = require('./prompt-mixin');
+
+var RadioButton = mui.RadioButton;
 
 
 var ListPrompt = React.createClass({
@@ -54,14 +56,14 @@ var ListPrompt = React.createClass({
     }, this);
 
     return (
-      <fieldset className="list-prompt">
+      <div className="list-prompt fieldset">
         <label style={{ background: this.props.color }}>
           {this.props.message}
         </label>
         <div className="list-prompt-list">
           {choices}
         </div>
-      </fieldset>
+      </div>
     );
   }
 

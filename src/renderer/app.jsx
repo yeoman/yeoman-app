@@ -1,11 +1,17 @@
 'use strict';
 
 var React = require('react');
-var classSet = require('react/addons').addons.classSet;
+var classSet = require('classnames');
 
 var Grid = require('./components/grid.jsx');
 var PromptForm = require('./components/prompt-form.jsx');
 var GeneratorStore = require('./stores/generator-store');
+
+var mui = require('material-ui');
+
+var ThemeManager = mui.Styles.ThemeManager();
+
+ThemeManager.setTheme(ThemeManager.types.LIGHT);
 
 // Starts communication channel with atom-shell browser side
 require('./utils/browser-utils');
@@ -14,6 +20,16 @@ require('./utils/browser-utils');
 
 
 var App = React.createClass({
+
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext() {
+    return {
+      muiTheme: ThemeManager.getCurrentTheme()
+    };
+  },
 
   getInitialState: function () {
     return {

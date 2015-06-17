@@ -1,10 +1,13 @@
 'use strict';
 
 var React = require('react');
-var RaisedButton = require('material-ui/src/js/raised-button.jsx');
-var classSet = require('react/addons').addons.classSet;
+var mui = require('material-ui');
+
+var classSet = require('classnames');
 
 var PromptMixin = require('./prompt-mixin');
+
+var RaisedButton = mui.RaisedButton;
 
 
 var ConfirmPrompt = React.createClass({
@@ -46,7 +49,7 @@ var ConfirmPrompt = React.createClass({
     });
 
     return (
-      <fieldset className="confirm-prompt">
+      <div className="confirm-prompt fieldset">
         <label style={{ background: this.props.color }}>{this.props.message}</label>
         <div className="confirm-options">
           <RaisedButton
@@ -60,7 +63,7 @@ var ConfirmPrompt = React.createClass({
             onClick={this._onClickYes}
           />
         </div>
-      </fieldset>
+      </div>
     );
   }
 

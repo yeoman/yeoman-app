@@ -3,12 +3,14 @@
 var _ = require('lodash');
 var React = require('react');
 var color = require('color');
-var Paper = require('material-ui/src/js/paper.jsx');
-var classSet = require('react/addons').addons.classSet;
+var mui = require('material-ui');
+var classSet = require('classnames');
 
 var GeneratorStore = require('../stores/generator-store');
 var GridActions = require('../actions/grid-actions');
 var colors = require('../utils/colors');
+
+var Paper = mui.Paper;
 
 
 var GridItem = React.createClass({

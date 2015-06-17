@@ -1,9 +1,9 @@
 'use strict';
 
 var React = require('react');
-var Paper = require('material-ui/src/js/paper.jsx');
-var FloatingActionButton = require('material-ui/src/js/floating-action-button.jsx');
-var classSet = require('react/addons').addons.classSet;
+var mui = require('material-ui');
+
+var classSet = require('classnames');
 
 var PromptFormActions = require('../actions/prompt-form-actions');
 var CheckboxPrompt = require('./prompts/checkbox.jsx');
@@ -12,6 +12,9 @@ var ExpandPrompt = require('./prompts/expand.jsx');
 var FolderPrompt = require('./prompts/folder.jsx');
 var InputPrompt = require('./prompts/input.jsx');
 var ListPrompt = require('./prompts/list.jsx');
+
+var Paper = mui.Paper;
+var FloatingActionButton = mui.FloatingActionButton;
 
 
 var PromptForm = React.createClass({
@@ -64,6 +67,10 @@ var PromptForm = React.createClass({
 
     // Factory to create new prompts
     function createPrompt(question) {
+
+      if (!question.type) {
+        question.type = 'input';
+      }
 
       var input = function () {
         return <InputPrompt
@@ -155,7 +162,7 @@ var PromptForm = React.createClass({
       <Paper className={classes}>
         <form>
           <div>{prompts}</div>
-          <FloatingActionButton className="submit-button" icon="action-done" onClick={this._onClick}/>
+          <FloatingActionButton iconClassName="muidocs-icon-action-done" onClick={this._onClick} />
         </form>
       </Paper>
     );
