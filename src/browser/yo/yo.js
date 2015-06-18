@@ -15,7 +15,7 @@ function sendCommandToAppWindow(name, data) {
   }
 
   process.send({
-    event: 'generator:' + name,
+    event: name,
     data: data
   });
 }
@@ -57,11 +57,11 @@ function init () {
 function run (generatorName, cwd) {
 
   if (!generatorName) {
-    return sendCommandToAppWindow('error', new Error('You must provide a generator name'));
+    return sendCommandToAppWindow('generator:error', new Error('You must provide a generator name'));
   }
 
   if (!fs.existsSync(cwd)) {
-    return sendCommandToAppWindow('error', new Error('The given path does not exist or is not a directory'));
+    return sendCommandToAppWindow('generator:error', new Error('The given path does not exist or is not a directory'));
   }
 
   process.chdir(cwd);
@@ -81,12 +81,12 @@ function run (generatorName, cwd) {
 
     if (err) {
       doneCalled = true;
-      return sendCommandToAppWindow('error', err);
+      return sendCommandToAppWindow('generator:error', err);
     }
 
     if (doneCounter === 0) {
       doneCalled = true;
-      sendCommandToAppWindow('done');
+      sendCommandToAppWindow('generator:done');
     }
   }
 
