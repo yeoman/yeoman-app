@@ -8,7 +8,7 @@ var BrowserActions = {
 
   generatorsDataReceived: function (data) {
     AppDispatcher.handleBrowserAction({
-      actionType: 'generator:data',
+      actionType: 'generator:installed-generators',
       generators: data
     });
   },

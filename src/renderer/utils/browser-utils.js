@@ -31,7 +31,7 @@ GeneratorStore.events.on('submit-selected-folder', onSubmitSelectedFolder);
 
 // List events to listen from browser and broadcast to view
 var BrowserUtils = {
-  'generator:generators': 'generatorsDataReceived',
+  'generator:installed-generators': 'generatorsDataReceived',
   'generator:prompt': 'questionPrompt',
   'generator:done': 'generatorDone',
   'generator:directory-selected': 'folderSelected'

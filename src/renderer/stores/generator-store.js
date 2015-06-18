@@ -31,8 +31,8 @@ var GeneratorStore = {
       },
 
       BROWSER_ACTION: {
-        'generator:data': function (action) {
-          GeneratorStore.events.emit('generator:data', action.generators);
+        'generator:installed-generators': function (action) {
+          GeneratorStore.events.emit('generator:installed-generators', action.generators);
         },
         'generator:prompt-questions': function (action) {
           GeneratorStore.events.emit('generator:prompt-questions', action.questions);
@@ -54,4 +54,3 @@ var GeneratorStore = {
 
 
 module.exports = GeneratorStore;
-

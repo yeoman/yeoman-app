@@ -82,7 +82,7 @@ var Grid = React.createClass({
   },
 
   componentDidMount: function () {
-    GeneratorStore.events.on('generator:data', this._onGeneratorData);
+    GeneratorStore.events.on('generator:installed-generators', this._onGeneratorData);
     GeneratorStore.events.on('generator:done', this._onGeneratorDone);
   },
 
@@ -119,4 +119,3 @@ var Grid = React.createClass({
 
 
 module.exports = Grid;
-

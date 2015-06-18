@@ -50,7 +50,7 @@ function init () {
   env = environment();
 
   env.lookup(function () {
-    sendCommandToAppWindow('generators', getGenerators());
+    sendCommandToAppWindow('generator:installed-generators', getGenerators());
   });
 }
 
