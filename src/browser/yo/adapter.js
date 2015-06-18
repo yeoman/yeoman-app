@@ -6,7 +6,7 @@ var ProcessAdapter = module.exports = function ProcessAdapter() {
 
 ProcessAdapter.prototype.prompt = function (questions, callback) {
   process.send({
-    event: 'generator:prompt',
+    event: 'generator:prompt-questions',
     data: questions
   });
 

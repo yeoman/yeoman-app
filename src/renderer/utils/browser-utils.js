@@ -12,7 +12,7 @@ function onSelectFolder() {
 }
 
 function onSubmitForm(answers) {
-  ipc.send('context-generator', 'generator:promptAnswer', answers);
+  ipc.send('context-generator', 'generator:prompt-answer', answers);
 }
 
 function onSubmitSelectedFolder(generatorName, answers){
@@ -32,7 +32,7 @@ GeneratorStore.events.on('submit-selected-folder', onSubmitSelectedFolder);
 // List events to listen from browser and broadcast to view
 var BrowserUtils = {
   'generator:installed-generators': 'generatorsDataReceived',
-  'generator:prompt': 'questionPrompt',
+  'generator:prompt-questions': 'questionPrompt',
   'generator:done': 'generatorDone',
   'generator:directory-selected': 'folderSelected'
 };

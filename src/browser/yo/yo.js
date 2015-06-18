@@ -121,18 +121,17 @@ function promptAnswer (answer) {
 }
 
 var api = {
-  init: init,
-  run: run,
-  promptAnswer: promptAnswer
+  'generator:init': init,
+  'generator:run': run,
+  'generator:prompt-answer': promptAnswer
 };
 
 process.on('message', function (msg) {
   console.log('YO-Process', msg);
 
-  msg.action = msg.action.split('generator:')[1];
-
-  if (typeof api[msg.action] === 'function') {
-    api[msg.action].apply(null, msg.args);
+  var action = api[msg.action];
+  if (action) {
+    action.apply(null, msg.args);
   } else {
     console.warn('No action "%s" in api found', msg.action);
   }
