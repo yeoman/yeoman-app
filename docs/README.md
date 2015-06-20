@@ -4,6 +4,8 @@
 - [Build instructions](development/build-instructions.md)
 - [Folder structure](development/folder-structure.md)
 
+## Events
+- [Events](events.md)
 
 ## Other documentation
 
