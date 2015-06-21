@@ -158,11 +158,17 @@ var PromptForm = React.createClass({
       'show': this.state.visibility
     });
 
+    var doneButtonStyle = {
+      position: 'absolute',
+      top: 122,
+      right: 20
+    };
+
     return (
       <Paper className={classes}>
         <form>
           <div>{prompts}</div>
-          <FloatingActionButton iconClassName="muidocs-icon-action-done" onClick={this._onClick} />
+          <FloatingActionButton style={doneButtonStyle} iconClassName="muidocs-icon-action-done" onClick={this._onClick} />
         </form>
       </Paper>
     );
