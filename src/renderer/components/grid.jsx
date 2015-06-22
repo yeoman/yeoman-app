@@ -5,6 +5,7 @@ var React = require('react');
 var color = require('color');
 var mui = require('material-ui');
 var classSet = require('classnames');
+var insight = require('../utils/insight.js');
 
 var GeneratorStore = require('../stores/generator-store');
 var GridActions = require('../actions/grid-actions');
@@ -93,6 +94,8 @@ var Grid = React.createClass({
   },
 
   _onGeneratorData: function (data) {
+    insight.sendEvent('generator', 'total-installed-generators', 'Total installed generators', data.length);
+
     this.setState({
       officialGenerators: data
     });
