@@ -21,5 +21,8 @@ require('node-jsx').install({extension: '.jsx', harmony: true});
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex
 require('array.prototype.findindex');
 
-// React entry-point
-require('./app.jsx');
+require('./utils/insight').init(function () {
+
+  // React entry-point
+  require('./app.jsx');
+});
