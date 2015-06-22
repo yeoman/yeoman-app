@@ -25,7 +25,7 @@ Insight.sendEvent = function (category, action, label, value) {
 };
 
 Insight.init = function (cb) {
-  if (getUserId()) {
+  if (getUserId() || Insight.isDisabled()) {
     cb();
   } else {
     createUserId(function (userId) {
@@ -33,6 +33,18 @@ Insight.init = function (cb) {
       cb();
     });
   }
+};
+
+Insight.isDisabled = function () {
+  return window.localStorage.getItem('insight.disabled') === 'true';
+};
+
+Insight.enable = function () {
+  window.localStorage.setItem('insight.disabled', false);
+};
+
+Insight.disable = function () {
+  window.localStorage.setItem('insight.disabled', true);
 };
 
 Insight.sendTiming = function (category, name, value) {
@@ -65,6 +77,11 @@ Insight.sendException = function (event) {
 };
 
 Insight.send = function (params) {
+  
+  if (this.isDisabled()) {
+    return;
+  }
+
   _.extend(params, this.defaultParams());
   request('https://www.google-analytics.com/collect?' + (querystring.stringify(params)));
 };
