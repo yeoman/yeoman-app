@@ -24,6 +24,11 @@ var GridItem = React.createClass({
   },
 
   _onClick: function () {
+    var generatorName = this.props.name.replace('generator-', '');
+    var generatorVersion = this.props.version;
+    var actionName = 'run-' + generatorName + '-' + generatorVersion;
+    insight.sendEvent('generator',  actionName, 'Run ' + generatorName + ' in version ' + generatorVersion);
+
     GridActions.gridItemSelected({
       name: this.props.name,
       color: color(this.state.color).darken(0.2).hexString()
@@ -110,7 +115,7 @@ var Grid = React.createClass({
 
     var items = this.state.officialGenerators.map(function (item) {
       return (
-        <GridItem key={item.name} name={item.name} active={item.name === this.props.selectedGenerator.name} />
+        <GridItem key={item.name} name={item.name} version={item.version} active={item.name === this.props.selectedGenerator.name} />
       );
     }.bind(this));
 
