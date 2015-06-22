@@ -102,6 +102,7 @@ var Grid = React.createClass({
   },
 
   _onGeneratorDone: function () {
+    insight.sendEvent('generator', 'done');
     // TODO: go back to grid state
   },
 
