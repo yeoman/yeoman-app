@@ -16,6 +16,13 @@
   "scripturl": true,
   "globals": {
     "window": true,
-    "document": true
+    "document": true,
+    "describe": true,
+    "it": true,
+    "beforeEach": true,
+    "afterEach": true,
+    "before": true,
+    "after": true,
+    "expect": true
   }
 }
