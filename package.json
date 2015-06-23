@@ -19,7 +19,6 @@
     "flux": "^2.0.1",
     "fs-plus": "^2.3.1",
     "getmac": "^1.0.7",
-    "jasmine": "2.3.1",
     "less": "^2.5.0",
     "lodash": "^3.6.0",
     "material-colors": "^1.0.0",
