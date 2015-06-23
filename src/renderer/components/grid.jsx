@@ -12,7 +12,8 @@ var GridActions = require('../actions/grid-actions');
 var colors = require('../utils/colors');
 
 var Paper = mui.Paper;
-
+var Card = mui.Card;
+var CardTitle = mui.CardTitle;
 
 var GridItem = React.createClass({
 
@@ -113,7 +114,17 @@ var Grid = React.createClass({
 
   render: function () {
 
-    var items = this.state.officialGenerators.map(function (item) {
+    var generatorList = this.state.officialGenerators;
+
+    if (!generatorList.length) {
+      return (
+        <Card>
+          <CardTitle title="No installed generators found!" subtitle="Please install at least one yeoman generator to continue."/>
+        </Card>
+      )
+    }
+
+    var items = generatorList.map(function (item) {
       return (
         <GridItem key={item.name} name={item.name} version={item.version} active={item.name === this.props.selectedGenerator.name} />
       );
