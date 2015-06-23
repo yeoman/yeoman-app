@@ -87,7 +87,10 @@ var GridItem = React.createClass({
 var Grid = React.createClass({
 
   getInitialState: function () {
-    return { officialGenerators: [] };
+    return {
+      visible: false,
+      officialGenerators: []
+    };
   },
 
   componentDidMount: function () {
@@ -103,7 +106,8 @@ var Grid = React.createClass({
     insight.sendEvent('generator', 'total-installed-generators', 'Total installed generators', data.length);
 
     this.setState({
-      officialGenerators: data
+      officialGenerators: data,
+      visible: true
     });
   },
 
@@ -113,6 +117,12 @@ var Grid = React.createClass({
   },
 
   render: function () {
+
+    if (!this.state.visible) {
+      return (
+        <div/>
+      )
+    }
 
     var generatorList = this.state.officialGenerators;
 
