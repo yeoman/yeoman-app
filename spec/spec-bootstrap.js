@@ -46,6 +46,8 @@ if (global.loadSettings.exitWhenDone) {
   require('../vendor/jasmine/lib/jasmine-2.1.3/jasmine-html');
   require('../vendor/jasmine/lib/jasmine-2.1.3/boot');
 
+  require('node-jsx').install({ extension: '.jsx', harmony: true });
+
   var specFiles = fs.listTreeSync(specRootPath);
   specFiles.forEach(function (specFilePath) {
     if (/-spec\.js$/.test(specFilePath)) {
