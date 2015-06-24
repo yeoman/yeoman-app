@@ -79,9 +79,9 @@ Application.prototype.openSpecsWindow = function (options) {
   }
 
   try {
-    bootstrapScript = require.resolve(path.resolve(__dirname, 'spec', 'spec-bootstrap'));
+    bootstrapScript = require.resolve(path.resolve(__dirname, 'spec', 'helpers', 'bootstrap'));
   } catch (error) {
-    bootstrapScript = require.resolve(path.resolve(__dirname, '..', '..', 'spec', 'spec-bootstrap'));
+    bootstrapScript = require.resolve(path.resolve(__dirname, '..', '..', 'spec', 'helpers', 'bootstrap'));
   }
 
   var isSpec = true;

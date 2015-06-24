@@ -4,7 +4,7 @@ var fs = require('fs-plus');
 var path = require('path');
 var remote = require('remote');
 var app = remote.require('app');
-var pkgJson = require('../package.json');
+var pkgJson = require('../../package.json');
 
 // Start the crash reporter before anything else
 require('crash-reporter').start({
@@ -12,7 +12,7 @@ require('crash-reporter').start({
   companyName: 'atom-shell-starter'
 });
 
-var specRootPath = path.resolve(__dirname);
+var specRootPath = path.resolve(__dirname, '..');
 
 if (global.loadSettings.exitWhenDone) {
   var jasmineFn = require('jasmine');
@@ -42,9 +42,9 @@ if (global.loadSettings.exitWhenDone) {
   link.rel = 'stylesheet';
   link.href = '../vendor/jasmine/lib/jasmine-2.1.3/jasmine.css';
   document.head.appendChild(link);
-  window.jasmineRequire = require('../vendor/jasmine/lib/jasmine-2.1.3/jasmine');
-  require('../vendor/jasmine/lib/jasmine-2.1.3/jasmine-html');
-  require('../vendor/jasmine/lib/jasmine-2.1.3/boot');
+  window.jasmineRequire = require('../../vendor/jasmine/lib/jasmine-2.1.3/jasmine');
+  require('../../vendor/jasmine/lib/jasmine-2.1.3/jasmine-html');
+  require('../../vendor/jasmine/lib/jasmine-2.1.3/boot');
 
   require('node-jsx').install({ extension: '.jsx', harmony: true });
 
