@@ -18,11 +18,11 @@ if (global.loadSettings.exitWhenDone) {
   var jasmineFn = require('jasmine');
   jasmineFn(global.jasmine);
   var reporter = new jasmineFn.ConsoleReporter({
-    print: function(str) {
+    print: function (str) {
       return process.stdout.write(str);
     },
 
-    onComplete: function(allPassed) {
+    onComplete: function (allPassed) {
       return app.exit(allPassed ? 0 : 1);
     }
   });
@@ -30,7 +30,7 @@ if (global.loadSettings.exitWhenDone) {
   var jasmineEnv = jasmine.getEnv();
   jasmineEnv.addReporter(reporter);
   var specFiles = fs.listTreeSync(specRootPath);
-  specFiles.forEach(function(specFilePath) {
+  specFiles.forEach(function (specFilePath) {
     if (/-spec\.js$/.test(specFilePath)) {
       require(specFilePath);
     }
@@ -47,7 +47,7 @@ if (global.loadSettings.exitWhenDone) {
   require('../vendor/jasmine/lib/jasmine-2.1.3/boot');
 
   var specFiles = fs.listTreeSync(specRootPath);
-  specFiles.forEach(function(specFilePath) {
+  specFiles.forEach(function (specFilePath) {
     if (/-spec\.js$/.test(specFilePath)) {
       require(specFilePath);
     }
