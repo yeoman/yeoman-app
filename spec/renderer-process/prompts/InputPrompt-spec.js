@@ -1,7 +1,7 @@
 'use strict';
 
 var createComponent = require('../helpers/createComponent.js');
-var PromptFrom = require('../../src/renderer/components/prompts/input.jsx');
+var PromptFrom = require('../../../src/renderer/components/prompts/input.jsx');
 
 describe('InputPrompt', function () {
   var renderOutput;
