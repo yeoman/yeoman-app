@@ -9,11 +9,17 @@ describe('Adapter', function () {
   var ProcessAdapter;
   var adapter;
   var processSendStub;
+  var fakeLogStub;
 
   beforeEach(function () {
     sandbox = sinon.sandbox.create();
     processSendStub = sandbox.stub();
+    fakeLogStub = sandbox.stub();
+
     ProcessAdapter = SandboxedModule.require('../../src/browser/yo/adapter', {
+      requires: {
+        'yeoman-environment/lib/util/log': fakeLogStub
+      },
       globals: {
         process: {
           send: processSendStub

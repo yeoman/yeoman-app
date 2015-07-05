@@ -23,5 +23,5 @@ ProcessAdapter.prototype.diff = function (actual, expected) {
   });
 };
 
-// //TODO: Implement logger
-// ProcessAdapter.prototype.log = require('yeoman-environment/lib/util/log')();
+// TODO: Implement logger
+ProcessAdapter.prototype.log = require('yeoman-environment/lib/util/log')();
