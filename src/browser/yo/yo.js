@@ -101,7 +101,7 @@ function run (generatorName, cwd) {
     done();
   }
 
-  var triggerInstall = _.once(_.partial(sendCommandToAppWindow, 'install'));
+  var triggerInstall = _.once(_.partial(sendCommandToAppWindow, 'generator:install'));
 
   env.run(generatorName, done)
     .on('npmInstall', triggerInstall)
