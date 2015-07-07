@@ -121,10 +121,6 @@ This event is used to send the ansers from the current prompt back to the genera
 This event is emitted once when the first installing task is started.
 
 
-### generator:install:end
-
-This event is emitted when all installing task are completed.
-
 ### generator:bowerInstall
 
 This event is emitted when `bower` starts installing the dependencies.
