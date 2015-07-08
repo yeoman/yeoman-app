@@ -71,34 +71,10 @@ function run (generatorName, cwd) {
     generatorName = generatorName.slice(prefix.length);
   }
 
-  var doneCounter = 0;
-  var doneCalled = false;
-
   function done(err) {
-    if (doneCalled) {
-      return;
-    }
-
     if (err) {
-      doneCalled = true;
       return sendCommandToAppWindow('generator:error', err);
     }
-
-    if (doneCounter === 0) {
-      doneCalled = true;
-      sendCommandToAppWindow('generator:done');
-    }
-  }
-
-  function increaseDoneCounter(eventName) {
-    doneCounter++;
-    sendCommandToAppWindow(eventName);
-  }
-
-  function decreaseDoneCounter(eventName) {
-    doneCounter--;
-    sendCommandToAppWindow(eventName);
-    done();
   }
 
   var triggerInstall = _.once(_.partial(sendCommandToAppWindow, 'generator:install'));
@@ -106,14 +82,7 @@ function run (generatorName, cwd) {
   env.run(generatorName, done)
     .on('npmInstall', triggerInstall)
     .on('bowerInstall', triggerInstall)
-
-    // In generators < v0.18 the done callback is triggered too early.
-    // We count the callbacks of *Install and *Install:end to solve that issue.
-    // https://github.com/yeoman/yeoman-app/issues/10#issuecomment-62968879
-    .on('npmInstall', _.wrap('npmInstall', increaseDoneCounter))
-    .on('bowerInstall', _.wrap('bowerInstall', increaseDoneCounter))
-    .on('npmInstall:end', _.wrap('npmInstall:end', decreaseDoneCounter))
-    .on('bowerInstall:end', _.wrap('bowerInstall:end', decreaseDoneCounter));
+    .on('end', function () { sendCommandToAppWindow('generator:done'); });
 }
 
 function promptAnswer (answer) {
