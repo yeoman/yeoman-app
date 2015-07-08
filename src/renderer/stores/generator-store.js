@@ -37,6 +37,9 @@ var GeneratorStore = {
         'generator:prompt-questions': function (action) {
           GeneratorStore.events.emit('generator:prompt-questions', action.questions);
         },
+        'generator:install': function () {
+          GeneratorStore.events.emit('generator:install');
+        },
         'generator:done': function () {
           GeneratorStore.events.emit('generator:done');
         }

@@ -33,6 +33,7 @@ GeneratorStore.events.on('submit-selected-folder', onSubmitSelectedFolder);
 var BrowserUtils = {
   'generator:installed-generators': 'generatorsDataReceived',
   'generator:prompt-questions': 'questionPrompt',
+  'generator:install': 'generatorInstall',
   'generator:done': 'generatorDone',
   'generator:directory-selected': 'folderSelected'
 };

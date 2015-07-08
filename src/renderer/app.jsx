@@ -33,6 +33,7 @@ var App = React.createClass({
 
   getInitialState: function () {
     return {
+      isLoading: 'none',
       actualFormType: '',
       questions: [],
       selectedGenerator: {}
@@ -45,6 +46,8 @@ var App = React.createClass({
     GeneratorStore.events
       .on('generator:prompt-questions', this._onQuestionPrompt);
     GeneratorStore.events
+      .on('generator:install', this._onGeneratorStart);
+    GeneratorStore.events
       .on('generator:done', this._onGeneratorDone);
   },
 
@@ -53,6 +56,8 @@ var App = React.createClass({
       .removeListener('grid-item-selected', this._onItemSelected);
     GeneratorStore.events
       .removeListener('generator:prompt-questions', this._onQuestionPrompt);
+    GeneratorStore.events
+      .removeListener('generator:install', this._onGeneratorStart);
     GeneratorStore.events
       .removeListener('generator:done', this._onGeneratorDone);
   },
@@ -72,10 +77,17 @@ var App = React.createClass({
     });
   },
 
+  _onGeneratorStart: function () {
+    this.setState({
+      isLoading: 'block',
+      actualFormType: '',
+      questions: []
+    });
+  },
+
   _onGeneratorDone: function () {
     this.setState({
-      actualFormType: '',
-      questions: [],
+      isLoading: 'none',
       selectedGenerator: {}
     });
   },
@@ -91,6 +103,17 @@ var App = React.createClass({
       display: this.state.selectedGenerator.name ? 'block' : 'none'
     };
 
+    var preloaderStyle = {
+      width: 100,
+      height: 100,
+      position: 'absolute',
+      left: '50%',
+      top: '50%',
+      marginLeft: -50,
+      marginTop: -50,
+      display: this.state.isLoading
+    };
+
     return (
       <section>
         <div className="grid-wrap">
@@ -99,6 +122,7 @@ var App = React.createClass({
           </div>
         </div>
         <div className="content" style={promptContainerStyle}>
+          <img style={preloaderStyle} src="img/rings.svg" />
           <PromptForm
             generator={this.state.selectedGenerator}
             questions={this.state.questions}

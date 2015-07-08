@@ -20,6 +20,12 @@ var BrowserActions = {
     });
   },
 
+  generatorInstall: function () {
+    AppDispatcher.handleBrowserAction({
+      actionType: 'generator:install'
+    });
+  },
+
   generatorDone: function () {
     AppDispatcher.handleBrowserAction({
       actionType: 'generator:done'
