@@ -3,6 +3,7 @@
 var fs = require('fs');
 var _ = require('lodash');
 var findup = require('findup-sync');
+var semver = require('semver');
 var environment = require('./environment');
 
 var env = null;
@@ -30,18 +31,25 @@ function getGenerators() {
 
   list = list.map(function (item) {
     var pkgPath = findup('package.json', { cwd: item.resolved });
-    if (pkgPath) {
-      var pkg = JSON.parse(fs.readFileSync(pkgPath));
-
-      // Indicator to verify official generators
-      pkg.officialGenerator = false;
-      if (pkg.repository && pkg.repository.url) {
-        pkg.officialGenerator = pkg.repository.url.indexOf('github.com/yeoman/') > -1;
-      }
-
-      return _.pick(pkg, 'name', 'version', 'description', 'officialGenerator');
+    if (!pkgPath) {
+      return null;
     }
-    return null;
+
+    var pkg = JSON.parse(fs.readFileSync(pkgPath));
+    var generatorVersion = pkg.dependencies['yeoman-generator'];
+    var generatorMeta = _.pick(pkg, 'name', 'version', 'description');
+
+    // Flag generator to indecate if the generator version is fully supported or not.
+    // https://github.com/yeoman/yeoman-app/issues/16#issuecomment-121054821
+    generatorMeta.isCompatible = semver.ltr('0.18.10', generatorVersion);
+
+    // Indicator to verify official generators
+    generatorMeta.officialGenerator = false;
+    if (generatorMeta.repository && generatorMeta.repository.url) {
+      generatorMeta.officialGenerator = generatorMeta.repository.url.indexOf('github.com/yeoman/') > -1;
+    }
+
+    return generatorMeta;
   });
   return _.compact(list);
 }
