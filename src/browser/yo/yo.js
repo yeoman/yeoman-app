@@ -41,7 +41,7 @@ function getGenerators() {
 
     // Flag generator to indecate if the generator version is fully supported or not.
     // https://github.com/yeoman/yeoman-app/issues/16#issuecomment-121054821
-    generatorMeta.isCompatible = semver.ltr('0.18.10', generatorVersion);
+    generatorMeta.isCompatible = semver.ltr('0.17.6', generatorVersion);
 
     // Indicator to verify official generators
     generatorMeta.officialGenerator = false;

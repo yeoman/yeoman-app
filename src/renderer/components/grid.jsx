@@ -32,6 +32,7 @@ var GridItem = React.createClass({
 
     GridActions.gridItemSelected({
       name: this.props.name,
+      isCompatible: this.props.isCompatible,
       color: color(this.state.color).darken(0.2).hexString()
     });
   },
@@ -136,7 +137,7 @@ var Grid = React.createClass({
 
     var items = generatorList.map(function (item) {
       return (
-        <GridItem key={item.name} name={item.name} version={item.version} active={item.name === this.props.selectedGenerator.name} />
+        <GridItem key={item.name} name={item.name} version={item.version} active={item.name === this.props.selectedGenerator.name} isCompatible={item.isCompatible} />
       );
     }.bind(this));
 

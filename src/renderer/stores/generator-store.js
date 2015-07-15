@@ -27,6 +27,9 @@ var GeneratorStore = {
         },
         'submit-form': function (action) {
           GeneratorStore.events.emit('submit-form', action.answers);
+        },
+        'compatibility-link-clicked': function () {
+          GeneratorStore.events.emit('compatibility-link-clicked');
         }
       },
 

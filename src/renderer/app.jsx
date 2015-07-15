@@ -3,6 +3,7 @@
 var React = require('react');
 var classSet = require('classnames');
 
+var CompatibilityWarning = require('./components/compatibility-warning.jsx');
 var Grid = require('./components/grid.jsx');
 var PromptForm = require('./components/prompt-form.jsx');
 var GeneratorStore = require('./stores/generator-store');
@@ -122,6 +123,7 @@ var App = React.createClass({
           </div>
         </div>
         <div className="content" style={promptContainerStyle}>
+          <CompatibilityWarning active={this.state.selectedGenerator.isCompatible} />
           <img style={preloaderStyle} src="img/rings.svg" />
           <PromptForm
             generator={this.state.selectedGenerator}

@@ -19,6 +19,10 @@ function onSubmitSelectedFolder(generatorName, answers){
   ipc.send('context-generator', 'generator:run', generatorName, answers.cwd);
 }
 
+function onCompatibilityLinkClicked(){
+  require('shell').openExternal('https://github.com/yeoman/yeoman-app');
+}
+
 function onCancel(){
   ipc.send('context-appwindow', 'generator-cancel');
 }
@@ -27,6 +31,7 @@ function onCancel(){
 PromptStore.events.on('select-folder', onSelectFolder);
 GeneratorStore.events.on('submit-form', onSubmitForm);
 GeneratorStore.events.on('submit-selected-folder', onSubmitSelectedFolder);
+GeneratorStore.events.on('compatibility-link-clicked', onCompatibilityLinkClicked);
 
 
 // List events to listen from browser and broadcast to view
