@@ -2,15 +2,15 @@
 
 > A desktop app that scaffolds projects using [Yeoman](https://github.com/yeoman/yeoman).
 
+Yo, my friend. This is the first official Yeoman application with a fresh user interface from 2015. The app is unfortunately still in heavy development and **we are looking for help!** Let us know if something doesn't work like you expected by raising an issue or fix it straight away with a PR.
 
-It was never easier to start a new project by using Yeoman.
 
 ![Screenshot](http://i.imgur.com/QHYXruQ.jpg)
 
 
 ## Documentation
 
-For a Getting started guide, API docs etc. see the [documenation page](./docs).
+The project is based mainly on [electron](http://electron.atom.io) and [Material UI](http://material-ui.com/). For a Getting started guide, API docs etc. see the [documenation page](./docs). If something is missing, wrong or unclear, please open an issue. Thank you!
 
 
 ## Contributing
