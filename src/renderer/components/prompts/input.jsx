@@ -5,7 +5,7 @@ var mui = require('material-ui');
 
 var PromptMixin = require('./prompt-mixin');
 
-var Input = mui.Input;
+var TextField = mui.TextField;
 
 
 var InputPrompt = React.createClass({
@@ -32,7 +32,7 @@ var InputPrompt = React.createClass({
     return (
       <div className="input-prompt fieldset">
         <label htmlFor={this.props.name} style={{ background: this.props.color }}>{this.props.message}</label>
-        <Input
+        <TextField
           ref={this._getRefName()}
           className="input-prompt-elem"
           type={this.props.type}
