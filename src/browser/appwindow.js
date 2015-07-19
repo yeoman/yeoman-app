@@ -90,6 +90,10 @@ AppWindow.prototype.selectTargetDirectory = function () {
 };
 
 AppWindow.prototype.initYoProcess = function () {
+  if (this.loadSettings.isSpec) {
+    return;
+  }
+
   this.yoProcess = fork(path.join(__dirname, 'yo', 'yo.js'));
 
   this.yoProcess.on('message', function (msg) {

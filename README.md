@@ -1,4 +1,5 @@
-# Yeoman App
+# Yeoman App [![Build Status](https://travis-ci.org/yeoman/yeoman-app.svg)](https://travis-ci.org/yeoman/yeoman-app)
+
 
 > A desktop app that scaffolds projects using [Yeoman](https://github.com/yeoman/yeoman).
 

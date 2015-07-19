@@ -18,8 +18,8 @@ var AppWindow = require('./appwindow');
  * @param {boolean} [options.test]          Boolean to determine if the application is running in test mode.
  * @param {boolean} [options.exitWhenDone]  Boolean to determine whether to automatically exit.
  */
-function Application () {
-  var options = {};
+function Application (options) {
+  options = options || {};
   this.pkgJson = require('../../package.json');
   this.windows = [];
 
@@ -40,6 +40,9 @@ Application.prototype.openWithOptions = function (options) {
   var test = options.test;
 
   if (test) {
+    if (options.exitWhenDone === undefined) {
+      options.exitWhenDone = true;
+    }
     newWindow = this.openSpecsWindow(options);
   } else {
     newWindow = this.openWindow(options);
@@ -67,11 +70,10 @@ Application.prototype.openSpecsWindow = function (options) {
     bootstrapScript = require.resolve(path.resolve(__dirname, '..', '..', 'spec', 'renderer-process', 'helpers', 'bootstrap'));
   }
 
-  var isSpec = true;
   return new AppWindow({
     bootstrapScript: bootstrapScript,
     exitWhenDone: exitWhenDone,
-    isSpec: isSpec,
+    isSpec: true,
     title: this.pkgJson.productName + '\'s Spec Suite'
   });
 };
@@ -118,7 +120,8 @@ Application.prototype.openWindow = function () {
 
   this.menu.on('application:run-specs', function () {
     return this.openWithOptions({
-      test: true
+      test: true,
+      exitWhenDone: false
     });
   }.bind(this));
   return appWindow;
