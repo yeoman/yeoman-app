@@ -19,6 +19,7 @@
     "flux": "^2.0.1",
     "fs-plus": "^2.3.1",
     "getmac": "^1.0.7",
+    "jasmine": "^2.1.1",
     "less": "^2.5.0",
     "lodash": "^3.6.0",
     "material-colors": "^1.0.0",
@@ -32,6 +33,7 @@
     "semver": "^5.0.1",
     "underscore-plus": "^1.6.1",
     "vm-compatibility-layer": "0.1.0",
+    "yargs": "^3.15.0",
     "yeoman-environment": "^1.2.5"
   },
   "devDependencies": {
@@ -46,7 +48,9 @@
   },
   "scripts": {
     "start": "electron .",
-    "test": "mocha spec/main-process",
+    "test": "npm run test-renderer && npm run test-main",
+    "test-main": "mocha spec/main-process",
+    "test-renderer": "scripts/test-renderer.js",
     "build": "node scripts/build.js"
   },
   "license": "MIT"

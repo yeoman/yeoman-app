@@ -1,7 +1,6 @@
 'use strict';
 
 var app = require('app');
-var fs = require('fs-plus');
 var ipc = require('ipc');
 var path = require('path');
 var shell = require('shell');
@@ -16,16 +15,11 @@ var AppWindow = require('./appwindow');
  *
  * It's the entry point into the application and maintains the global state of the application.
  *
- * @param {string}  [options.resourcePath]  The path to include specs from.
- * @param {boolean} [options.devMode]       Boolean to determine if the application is running in dev mode.
  * @param {boolean} [options.test]          Boolean to determine if the application is running in test mode.
  * @param {boolean} [options.exitWhenDone]  Boolean to determine whether to automatically exit.
- * @param {string}  [options.logfile]       The file path to log output to.
  */
-function Application () {
-  var options = {};
-  this.resourcePath = options.resourcePath;
-  this.devMode = options.devMode;
+function Application (options) {
+  options = options || {};
   this.pkgJson = require('../../package.json');
   this.windows = [];
 
@@ -38,17 +32,17 @@ _.extend(Application.prototype, EventEmitter.prototype);
 /**
  * Opens a new window based on the options provided.
  *
- * @param {string}  [options.resourcePath]  The path to include specs from.
- * @param {boolean} [options.devMode]       Boolean to determine if the application is running in dev mode.
  * @param {boolean} [options.test]          Boolean to determine if the application is running in test mode.
  * @param {boolean} [options.exitWhenDone]  Boolean to determine whether to automatically exit.
- * @param {string}  [options.logfile]       The file path to log output to.
  */
 Application.prototype.openWithOptions = function (options) {
   var newWindow;
   var test = options.test;
 
   if (test) {
+    if (options.exitWhenDone === undefined) {
+      options.exitWhenDone = true;
+    }
     newWindow = this.openSpecsWindow(options);
   } else {
     newWindow = this.openWindow(options);
@@ -65,18 +59,10 @@ Application.prototype.openWithOptions = function (options) {
  * Opens up a new AtomWindow to run specs within.
  *
  * @param {boolean} [options.exitWhenDone] Boolean to determine whether to automatically exit.
- * @param {string}  [options.resourcePath] The path to include specs from.
- * @param {string} [options.logfile]       The file path to log output to.
  */
 Application.prototype.openSpecsWindow = function (options) {
   var bootstrapScript;
   var exitWhenDone = options.exitWhenDone;
-  var resourcePath = options.resourcePath;
-  var logFile = options.logFile;
-
-  if (resourcePath !== this.resourcePath && !fs.existsSync(resourcePath)) {
-    resourcePath = this.resourcePath;
-  }
 
   try {
     bootstrapScript = require.resolve(path.resolve(__dirname, 'spec', 'renderer-process', 'helpers', 'bootstrap'));
@@ -84,15 +70,10 @@ Application.prototype.openSpecsWindow = function (options) {
     bootstrapScript = require.resolve(path.resolve(__dirname, '..', '..', 'spec', 'renderer-process', 'helpers', 'bootstrap'));
   }
 
-  var isSpec = true;
-  var devMode = true;
   return new AppWindow({
     bootstrapScript: bootstrapScript,
     exitWhenDone: exitWhenDone,
-    resourcePath: resourcePath,
-    isSpec: isSpec,
-    devMode: devMode,
-    logFile: logFile,
+    isSpec: true,
     title: this.pkgJson.productName + '\'s Spec Suite'
   });
 };
@@ -139,7 +120,8 @@ Application.prototype.openWindow = function () {
 
   this.menu.on('application:run-specs', function () {
     return this.openWithOptions({
-      test: true
+      test: true,
+      exitWhenDone: false
     });
   }.bind(this));
   return appWindow;

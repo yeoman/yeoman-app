@@ -2,6 +2,7 @@
 
 var app = require('app');
 var Application = require('./application');
+var yargs = require('yargs');
 
 var shellStartTime = Date.now();
 
@@ -27,7 +28,20 @@ app.commandLine.appendSwitch('js-flags', '--harmony');
 // to you.
 app.on('ready', function () {
 
-  new Application();
+  var args = parseCommandLine();
+  new Application(args);
 
   console.log('App load time: ' + (Date.now() - shellStartTime) + 'ms');
 });
+
+function parseCommandLine() {
+  var options = yargs(process.argv.slice(1)).wrap(100);
+
+  options.alias('t', 'test').boolean('t').describe('t', 'Run the specs and exit with error code on failures.');
+
+  var args = options.argv;
+
+  return {
+    test: args.test
+  };
+}
