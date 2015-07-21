@@ -35,7 +35,6 @@ describe('Adapter', function () {
   });
 
   describe('#prompt', function () {
-
     it('send a "generator:prompt-questions" ipc message when prompt was called', function () {
       adapter.prompt('data', sandbox.stub());
 
@@ -58,6 +57,28 @@ describe('Adapter', function () {
       adapter.answerCallback();
 
       assert.equal(callbackStub.callCount, 1);
+    });
+  });
+
+  describe('#diff', function () {
+    it('send a "generator:diff" ipc message when diff was called', function () {
+      adapter.diff('foooo', 'foo');
+
+      assert.equal(processSendStub.callCount, 1);
+      assert.equal(processSendStub.args[0][0].event, 'generator:diff');
+    });
+
+    it('send diff object along with ipc message when diff was called', function () {
+      adapter.diff('foooo', 'foo');
+
+      assert.equal(processSendStub.args[0][0].data.actual, 'foooo');
+      assert.equal(processSendStub.args[0][0].data.expected, 'foo');
+    });
+  });
+
+  describe('#log', function () {
+    it('implements log utility from yeoman-environment', function () {
+      assert.equal(fakeLogStub.callCount, 1);
     });
   });
 
