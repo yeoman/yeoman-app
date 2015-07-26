@@ -18,15 +18,13 @@ var ExpandPrompt = React.createClass({
     };
   },
 
-  _getRefName: function (name) {
+  _getKeyName: function (name) {
     return 'expand-item-' + name;
   },
 
-  _onClick: function (event) {
-    // Currently looking up on elems using query selector because material-ui
-    // doesn't provide a better api for accessing value of RadioButton elem
+  _onClick: function (answer) {
     this.setState({
-      answer: event.currentTarget.querySelector('input[type=radio]').value
+      answer: answer
     });
   },
 
@@ -38,16 +36,15 @@ var ExpandPrompt = React.createClass({
 
     var choices = this.props.choices.map(function (choice) {
 
-      var ref = this._getRefName(choice.name);
+      var key = this._getKeyName(choice.name);
 
       return (
         <RadioButton
-          key={ref}
-          ref={ref}
+          key={key}
           name={this.props.name}
           value={choice.value}
           label={choice.name}
-          onClick={this._onClick}
+          onClick={this._onClick.bind(this, choice.value)}
           defaultChecked={choice.value && this.state.answer === choice.value}
           className="list-prompt-list-item"
         />
