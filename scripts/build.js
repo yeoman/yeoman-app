@@ -26,7 +26,8 @@ var packagerOptions = {
   prune: true,
   dir: '.',
   ignore: [
-    'node_modules/.bin'
+    'node_modules/.bin',
+    'node_modules/electron-compile/node_modules/electron-compilers'
   ]
 };
 

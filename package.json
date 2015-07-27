@@ -48,11 +48,11 @@
     "sinon": "^1.15.3"
   },
   "scripts": {
-    "start": "electron .",
+    "start": "electron . -r",
     "test": "npm run test-renderer && npm run test-main",
     "test-main": "mocha spec/main-process",
     "test-renderer": "scripts/test-renderer.js",
-    "build": "node scripts/build.js"
+    "build": "electron-compile --target ./cache src/ static/ && node scripts/build.js"
   },
   "license": "MIT"
 }
