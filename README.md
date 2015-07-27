@@ -11,7 +11,7 @@ Yo, my friend. This is the first official Yeoman application with a fresh user i
 
 ## Documentation
 
-The project is based mainly on [electron](http://electron.atom.io) and [Material UI](http://material-ui.com/). For a Getting started guide, API docs etc. see the [documenation page](./docs). If something is missing, wrong or unclear, please open an issue. Thank you!
+The project is based mainly on [electron](http://electron.atom.io) and [Material UI](http://material-ui.com/). For a Getting started guide, API docs etc. see the [documentation page](./docs). If something is missing, wrong or unclear, please open an issue. Thank you!
 
 
 ## Contributing
