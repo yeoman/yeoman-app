@@ -143,16 +143,14 @@ class Application extends EventEmitter {
       return app.quit();
     });
 
-    ipc.on('context-appwindow', (event) => {
-      let args = Array.prototype.slice.call(arguments, 1);
+    ipc.on('context-appwindow', (event, ...args) => {
       let appWindow = this.windowForEvent(event.sender);
-      appWindow.emit.apply(appWindow, args);
+      appWindow.emit(...args);
     });
 
-    ipc.on('context-generator', (event) => {
-      let args = Array.prototype.slice.call(arguments, 1);
+    ipc.on('context-generator', (event, ...args) => {
       let appWindow = this.windowForEvent(event.sender);
-      appWindow.sendCommandToProcess.apply(appWindow, args);
+      appWindow.sendCommandToProcess(...args);
     });
   }
 
