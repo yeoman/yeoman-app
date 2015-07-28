@@ -106,7 +106,7 @@ This event is emitted with the questions from the current running yeoman generat
 
 ### generator:prompt-answer
 
-This event is used to send the ansers from the current prompt back to the generator.
+This event is used to send the answers from the current prompt back to the generator.
 
 **Payload:**
 ```js
