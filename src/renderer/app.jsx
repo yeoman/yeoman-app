@@ -68,6 +68,11 @@ var App = React.createClass({
       actualFormType: 'cwd',
       questions: questions,
       selectedGenerator: generator
+    }, function () {
+      // Scroll to the top of the body.
+      // Otherwise, with a lot of generators users
+      // will sometimes see a blank screen.
+      document.body.scrollTop = 0;
     });
   },
 
