@@ -1,12 +1,12 @@
-import app              from 'app';
-import ipc              from 'ipc';
-import path             from 'path';
-import shell            from 'shell';
-import BrowserWindow    from 'browser-window';
+import app from 'app';
+import ipc from 'ipc';
+import path from 'path';
+import shell from 'shell';
+import BrowserWindow from 'browser-window';
 import { EventEmitter } from 'events';
-import _                from 'underscore-plus';
-import AppMenu          from './appmenu';
-import AppWindow        from './appwindow';
+import _ from 'underscore-plus';
+import AppMenu from './appmenu';
+import AppWindow from './appwindow';
 
 class Application extends EventEmitter {
 
