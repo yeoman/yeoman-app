@@ -18,14 +18,11 @@ var ListPrompt = React.createClass({
     };
   },
 
-  _getRefName: function (name) {
+  _getKeyName: function (name) {
     return 'list-item-' + name;
   },
 
-  _onClick: function (event) {
-    // Currently looking up on elems using query selector because material-ui
-    // doesn't provide a better api for accessing value of RadioButton elem
-    var value = event.currentTarget.querySelector('input[type=radio]').value;
+  _onClick: function (value) {
     this.setState({
       answer: this.props.choices.findIndex(function (item) {
         var itemValue = item.value || item;
@@ -39,16 +36,15 @@ var ListPrompt = React.createClass({
     var choices = this.props.choices.map(function (choice, index) {
 
       var name = choice.name || choice;
-      var ref = this._getRefName(name);
+      var key = this._getKeyName(name);
 
       return (
         <RadioButton
-          key={ref}
-          ref={ref}
+          key={key}
           name={this.props.name}
           value={name}
           label={name}
-          onClick={this._onClick}
+          onClick={this._onClick.bind(this, value)}
           defaultChecked={this.state.answer === index}
           className="list-prompt-list-item"
         />
