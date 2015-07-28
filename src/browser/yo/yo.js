@@ -90,7 +90,9 @@ function run (generatorName, cwd) {
   env.run(generatorName, done)
     .on('npmInstall', triggerInstall)
     .on('bowerInstall', triggerInstall)
-    .on('end', function () { sendCommandToAppWindow('generator:done'); });
+    .on('end', function () {
+      sendCommandToAppWindow('generator:done', cwd);
+    });
 }
 
 function promptAnswer (answer) {
