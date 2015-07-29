@@ -80,9 +80,12 @@ class Application extends EventEmitter {
    * Opens up a new AppWindow and runs the application.
    */
   openWindow () {
+    let iconPath =  path.resolve(__dirname, '..', '..', 'resources', 'app.png');
+
     let appWindow;
     appWindow = new AppWindow({
       title: this.pkgJson.productName,
+      icon: iconPath,
       width: 1024,
       height: 700
     });
