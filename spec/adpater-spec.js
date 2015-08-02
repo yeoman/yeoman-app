@@ -16,7 +16,7 @@ describe('Adapter', function () {
     processSendStub = sandbox.stub();
     fakeLogStub = sandbox.stub();
 
-    ProcessAdapter = SandboxedModule.require('../../src/browser/yo/adapter', {
+    ProcessAdapter = SandboxedModule.require('../src/browser/yo/adapter', {
       requires: {
         'yeoman-environment/lib/util/log': fakeLogStub
       },

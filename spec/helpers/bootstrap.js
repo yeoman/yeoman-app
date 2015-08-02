@@ -4,15 +4,13 @@ var fs = require('fs-plus');
 var path = require('path');
 var remote = require('remote');
 var app = remote.require('app');
-var pkgJson = require('../../../package.json');
+var pkgJson = require('../../package.json');
 
 // Start the crash reporter before anything else
 require('crash-reporter').start({
   productName: pkgJson.name,
   companyName: 'atom-shell-starter'
 });
-
-require('node-jsx').install({ extension: '.jsx', harmony: true });
 
 var specRootPath = path.resolve(__dirname, '..');
 

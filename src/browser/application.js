@@ -63,9 +63,9 @@ class Application extends EventEmitter {
     let exitWhenDone = options.exitWhenDone;
 
     try {
-      bootstrapScript = require.resolve(path.resolve(__dirname, 'spec', 'renderer-process', 'helpers', 'bootstrap'));
+      bootstrapScript = require.resolve(path.resolve(__dirname, 'spec', 'helpers', 'bootstrap'));
     } catch (error) {
-      bootstrapScript = require.resolve(path.resolve(__dirname, '..', '..', 'spec', 'renderer-process', 'helpers', 'bootstrap'));
+      bootstrapScript = require.resolve(path.resolve(__dirname, '..', '..', 'spec', 'helpers', 'bootstrap'));
     }
 
     return new AppWindow({
