@@ -4,7 +4,8 @@ var fs = require('fs-plus');
 var path = require('path');
 var remote = require('remote');
 var app = remote.require('app');
-var pkgJson = require('../../../package.json');
+var pkgJson = require('../../package.json');
+var newLine = require('os').EOL;
 
 // Start the crash reporter before anything else
 require('crash-reporter').start({
@@ -12,16 +13,20 @@ require('crash-reporter').start({
   companyName: 'atom-shell-starter'
 });
 
-require('node-jsx').install({ extension: '.jsx', harmony: true });
-
 var specRootPath = path.resolve(__dirname, '..');
 
 if (global.loadSettings.exitWhenDone) {
   var jasmineFn = require('jasmine');
   jasmineFn(global.jasmine);
+  var out = '';
   var reporter = new jasmineFn.ConsoleReporter({
     print: function (str) {
-      process.stderr.write(str);
+      if (str === newLine) {
+        console.log(out);
+        out = '';
+        return;
+      }
+      out += str;
     },
 
     onComplete: function (allPassed) {

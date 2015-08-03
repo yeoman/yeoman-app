@@ -25,7 +25,6 @@
     "lodash": "^3.6.0",
     "material-colors": "^1.0.0",
     "material-ui": "^0.10.1",
-    "node-jsx": "^0.13.3",
     "node-uuid": "^1.4.3",
     "ps-tree": "^1.0.0",
     "q": "^1.0.1",
@@ -49,9 +48,7 @@
   },
   "scripts": {
     "start": "electron . -r",
-    "test": "npm run test-renderer && npm run test-main",
-    "test-main": "mocha spec/main-process",
-    "test-renderer": "scripts/test-renderer.js",
+    "test": "scripts/test.js",
     "build": "electron-compile --target ./cache src/ static/ && node scripts/build.js"
   },
   "license": "MIT"

@@ -13,7 +13,7 @@ describe('environment', function () {
   var yoEnv;
 
   function reloadEnvironment(platform, env) {
-    return SandboxedModule.require('../../src/browser/yo/environment', {
+    return SandboxedModule.require('../src/browser/yo/environment', {
       singleOnly: true,
       requires: {
         'yeoman-environment': fakeEnvironment,
