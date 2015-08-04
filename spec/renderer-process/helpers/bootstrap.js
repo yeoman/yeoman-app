@@ -12,8 +12,6 @@ require('crash-reporter').start({
   companyName: 'atom-shell-starter'
 });
 
-require('node-jsx').install({ extension: '.jsx', harmony: true });
-
 var specRootPath = path.resolve(__dirname, '..');
 
 if (global.loadSettings.exitWhenDone) {
