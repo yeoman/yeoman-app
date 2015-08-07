@@ -1,6 +1,7 @@
 language: node_js
 node_js:
-  - 'iojs'
+  - '0.12'
+  - 'iojs-v2.5.0'
 before_install:
   - "sh -e /etc/init.d/xvfb start"
 env:
