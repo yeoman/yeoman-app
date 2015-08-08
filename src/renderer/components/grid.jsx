@@ -5,6 +5,7 @@ var React = require('react');
 var color = require('color');
 var mui = require('material-ui');
 var classSet = require('classnames');
+var humanize = require('underscore-plus').humanizeEventName;
 var insight = require('../utils/insight.js');
 
 var GeneratorStore = require('../stores/generator-store');
@@ -55,12 +56,19 @@ var GridItem = React.createClass({
     var contentHeight =
       window.document.getElementById('content').clientHeight + headerHeight;
     var filename = 'img/' + this.props.name + '.png';
+    var generatorName = humanize(this.props.name.replace('generator-', ''));
     var classes = classSet({
       'grid-item': true,
       'active': this.props.active
     });
     var style = {
       minHeight: (this.props.active ? contentHeight : 329) + 'px'
+    };
+
+    var headingStyle = {
+      'white-space': 'nowrap',
+      'overflow': 'hidden',
+      'text-overflow': 'ellipsis'
     };
 
     return (
@@ -77,7 +85,7 @@ var GridItem = React.createClass({
           className="grid-img"
           style={{backgroundImage: 'url(' + filename + ')'}}>
         </figure>
-        <h3 className="grid-item-heading">{this.props.name}</h3>
+        <h3 className="grid-item-heading" style={headingStyle}>{{generatorName}}</h3>
       </Paper>
     );
   }
