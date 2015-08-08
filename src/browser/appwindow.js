@@ -7,6 +7,7 @@ var EventEmitter = require('events').EventEmitter;
 var BrowserWindow = require('browser-window');
 var fork = require('child_process').fork;
 var _ = require('underscore-plus');
+var shell = require('shell');
 var killChildProcess = require('./util/kill-childprocess');
 
 function AppWindow(options) {
@@ -73,6 +74,7 @@ AppWindow.prototype.handleEvents = function () {
 
   this.on('generator-cancel', this.killYoProcess);
   this.on('open-dialog', this.selectTargetDirectory);
+  this.on('generator:done', this.openProject);
 };
 
 AppWindow.prototype.selectTargetDirectory = function () {
@@ -89,6 +91,14 @@ AppWindow.prototype.selectTargetDirectory = function () {
   }.bind(this));
 };
 
+AppWindow.prototype.openProject = function (cwd) {
+  if (!cwd) {
+    return;
+  }
+
+  shell.showItemInFolder(cwd);
+}
+
 AppWindow.prototype.initYoProcess = function () {
   if (this.loadSettings.isSpec) {
     return;
@@ -100,6 +110,7 @@ AppWindow.prototype.initYoProcess = function () {
     console.log('APP', msg);
 
     this.sendCommandToBrowserWindow(msg.event, msg.data);
+    this.emitCommandToAppWindow(msg.event, msg.data);
 
   }.bind(this));
 
@@ -115,6 +126,14 @@ AppWindow.prototype.killYoProcess = function () {
     });
   }
 };
+
+AppWindow.prototype.emitCommandToAppWindow = function (event, data) {
+  if (!event) {
+    return;
+  }
+
+  this.emit(event, data);
+}
 
 AppWindow.prototype.sendCommandToBrowserWindow = function () {
   this.window.webContents.send.apply(this.window.webContents, arguments);
