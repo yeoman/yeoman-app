@@ -128,6 +128,10 @@ AppWindow.prototype.killYoProcess = function () {
 };
 
 AppWindow.prototype.emitCommandToAppWindow = function (event, data) {
+  if (!event) {
+    return;
+  }
+
   this.emit(event, data);
 }
 
