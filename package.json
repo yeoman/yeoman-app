@@ -29,6 +29,7 @@
     "ps-tree": "^1.0.0",
     "q": "^1.0.1",
     "react": "^0.13.1",
+    "react-tap-event-plugin": "^0.1.7",
     "season": "^5.3.0",
     "semver": "^5.0.1",
     "underscore-plus": "^1.6.1",

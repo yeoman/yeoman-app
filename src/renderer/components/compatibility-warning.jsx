@@ -18,6 +18,8 @@ var CompatibilityWarning = React.createClass({
 
     var alertStyle = {
       display: this.props.active ? 'none' : 'block',
+      visibility: this.props.active ? 'hidden' : 'visible',
+      opacity: this.props.active ? 0 : 1,
       height: 'auto',
       lineHeight: '20px',
       paddingTop: 10,
