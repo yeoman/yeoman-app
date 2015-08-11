@@ -1,6 +1,9 @@
 'use strict';
 
 var React = require('react');
+
+require('react-tap-event-plugin')();
+
 var classSet = require('classnames');
 
 var CompatibilityWarning = require('./components/compatibility-warning.jsx');
