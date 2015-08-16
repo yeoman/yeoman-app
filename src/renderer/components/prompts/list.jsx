@@ -6,6 +6,7 @@ var mui = require('material-ui');
 var PromptMixin = require('./prompt-mixin');
 
 var RadioButton = mui.RadioButton;
+var RadioButtonGroup = mui.RadioButtonGroup;
 
 
 var ListPrompt = React.createClass({
@@ -24,10 +25,7 @@ var ListPrompt = React.createClass({
 
   _onClick: function (value) {
     this.setState({
-      answer: this.props.choices.findIndex(function (item) {
-        var itemValue = item.value || item;
-        return itemValue === value;
-      }, null)
+      answer: value
     });
   },
 
@@ -42,10 +40,9 @@ var ListPrompt = React.createClass({
         <RadioButton
           key={key}
           name={this.props.name}
-          value={name}
+          value={choice.value}
           label={name}
-          onClick={this._onClick.bind(this, value)}
-          defaultChecked={this.state.answer === index}
+          onClick={this._onClick.bind(this, choice.value)}
           className="list-prompt-list-item"
         />
       );
@@ -57,7 +54,9 @@ var ListPrompt = React.createClass({
           {this.props.message}
         </label>
         <div className="list-prompt-list">
-          {choices}
+          <RadioButtonGroup name={this.props.name} defaultSelected={this.state.answer}>
+            {choices}
+          </RadioButtonGroup>
         </div>
       </div>
     );

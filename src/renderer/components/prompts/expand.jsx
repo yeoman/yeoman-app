@@ -6,7 +6,7 @@ var mui = require('material-ui');
 var PromptMixin = require('./prompt-mixin');
 
 var RadioButton = mui.RadioButton;
-
+var RadioButtonGroup = mui.RadioButtonGroup;
 
 var ExpandPrompt = React.createClass({
 
@@ -45,7 +45,6 @@ var ExpandPrompt = React.createClass({
           value={choice.value}
           label={choice.name}
           onClick={this._onClick.bind(this, choice.value)}
-          defaultChecked={choice.value && this.state.answer === choice.value}
           className="list-prompt-list-item"
         />
       );
@@ -57,7 +56,9 @@ var ExpandPrompt = React.createClass({
           {this.props.message}
         </label>
         <div className="list-prompt-list">
-          {choices}
+          <RadioButtonGroup name={this.props.name} defaultSelected={this.state.answer}>
+            {choices}
+          </RadioButtonGroup>
         </div>
       </div>
     );
