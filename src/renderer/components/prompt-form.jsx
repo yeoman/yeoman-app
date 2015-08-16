@@ -84,18 +84,6 @@ var PromptForm = React.createClass({
         />;
       };
 
-      var list = function (defaultValue) {
-        return <ListPrompt
-          key={question.name}
-          ref={question.name}
-          name={question.name}
-          choices={question.choices}
-          message={question.message}
-          defaultAnswer={question.default || defaultValue}
-          color={color}
-        />;
-      };
-
       var promptsByType = {
         input: input,
         password: input,
@@ -119,9 +107,17 @@ var PromptForm = React.createClass({
             color={color}
           />;
         },
-        // list prompt should start with at least first item selected
-        list: list.bind(null, 0),
-        rawlist: list,
+        list: function (defaultValue) {
+          return <ListPrompt
+            key={question.name}
+            ref={question.name}
+            name={question.name}
+            choices={question.choices}
+            message={question.message}
+            defaultAnswer={question.default || question.choices[0].value}
+            color={color}
+          />;
+        },
         expand: function createExpand() {
           console.log('createExpand');
           console.log(question);
