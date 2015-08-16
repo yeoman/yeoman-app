@@ -2,7 +2,7 @@
 
 var path = require('path');
 var yo = require('yeoman-environment');
-var Adpater = require('./adapter');
+var Adapter = require('./adapter');
 
 var win32 = process.platform === 'win32';
 
@@ -33,7 +33,7 @@ module.exports = function (args, opts) {
   args = args || [];
   opts = opts || {};
 
-  var env = yo.createEnv(args, opts, new Adpater());
+  var env = yo.createEnv(args, opts, new Adapter());
 
   // TODO:
   // Consider a better approach to get the npm pahts.

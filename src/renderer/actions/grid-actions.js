@@ -1,18 +1,14 @@
-'use strict';
+import {
+  GRID_ITEM_SELECTED
+} from './action-types';
 
-var AppDispatcher = require('../dispatcher/app-dispatcher');
-
-
-var GridActions = {
-
-  gridItemSelected: function(selectedGenerator) {
-    AppDispatcher.handleViewAction({
-      actionType: 'grid-item-selected',
-      generator: selectedGenerator
-    });
-  }
+export function gridItemSelected({ name, isCompatible, color }) {
+  return {
+    type: GRID_ITEM_SELECTED,
+    generator: {
+      name,
+      isCompatible,
+      color
+    }
+  };
 };
-
-
-module.exports = GridActions;
-

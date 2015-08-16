@@ -1,44 +1,45 @@
-'use strict';
+import {
+  GENERATOR_INSTALLED_GENERATORS,
+  GENERATOR_PROMPT_QUESTIONS,
+  GENERATOR_INSTALL,
+  GENERATOR_DONE,
+  FOLDER_SELECTED
+} from './action-types';
 
+import insight from '../utils/insight.js';
 
-var AppDispatcher = require('../dispatcher/app-dispatcher');
+export function generatorsDataReceived(generators) {
+  insight.sendEvent('generator', 'total-installed-generators', 'Total installed generators', generators.length);
 
-
-var BrowserActions = {
-
-  generatorsDataReceived: function (data) {
-    AppDispatcher.handleBrowserAction({
-      actionType: 'generator:installed-generators',
-      generators: data
-    });
-  },
-
-  questionPrompt: function (data) {
-    AppDispatcher.handleBrowserAction({
-      actionType: 'generator:prompt-questions',
-      questions: data
-    });
-  },
-
-  generatorInstall: function () {
-    AppDispatcher.handleBrowserAction({
-      actionType: 'generator:install'
-    });
-  },
-
-  generatorDone: function () {
-    AppDispatcher.handleBrowserAction({
-      actionType: 'generator:done'
-    });
-  },
-
-  folderSelected: function (data) {
-    AppDispatcher.handleBrowserAction({
-      actionType: 'folder-selected',
-      cwd: data
-    });
-  }
+  return {
+    type: GENERATOR_INSTALLED_GENERATORS,
+    generators
+  };
 };
 
+export function questionPrompt(questions) {
+  return {
+    type: GENERATOR_PROMPT_QUESTIONS,
+    questions
+  };
+};
 
-module.exports = BrowserActions;
+export function generatorInstall() {
+  return {
+    type: GENERATOR_INSTALL
+  };
+};
+
+export function generatorDone() {
+  insight.sendEvent('generator', 'done');
+  return {
+    type: GENERATOR_DONE
+  };
+};
+
+export function folderSelected(cwd) {
+  return {
+    type: FOLDER_SELECTED,
+    cwd
+  };
+};

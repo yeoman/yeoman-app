@@ -1,14 +1,12 @@
-'use strict';
+import React from 'react';
+import {
+  TextField
+} from 'material-ui';
 
-var React = require('react');
-var mui = require('material-ui');
+import PromptMixin from './prompt-mixin';
 
-var PromptMixin = require('./prompt-mixin');
-
-var TextField = mui.TextField;
-
-
-var InputPrompt = React.createClass({
+export default InputPrompt = React.createClass({
+  displayName: 'InputPrompt',
 
   mixins: [PromptMixin],
 
@@ -18,9 +16,9 @@ var InputPrompt = React.createClass({
     };
   },
 
-  _onChange: function (answer) {
+  _onChange: function (e) {
     this.setState({
-      answer: answer
+      answer: e.target.value
     });
   },
 
@@ -33,14 +31,9 @@ var InputPrompt = React.createClass({
           type={this.props.type}
           name={this.props.name}
           value={this.state.answer}
-          onChange={this._onChange.bind(this, this.state.answer)}
+          onChange={this._onChange}
         />
       </div>
     );
   }
-
 });
-
-
-module.exports = InputPrompt;
-

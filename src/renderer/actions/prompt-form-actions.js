@@ -1,32 +1,30 @@
-'use strict';
+import ipc from 'ipc';
+import {
+  SUBMIT_FORM,
+  SELECT_FOLDER,
+  SUBMIT_SELECTED_FOLDER
+} from './action-types';
 
-var AppDispatcher = require('../dispatcher/app-dispatcher');
-
-
-var PromptFormActions = {
-
-  submitForm: function (generatorName, answers) {
-    AppDispatcher.handleViewAction({
-      actionType: 'submit-form',
-      answers: answers
-    });
-  },
-
-  selectFolder: function () {
-    AppDispatcher.handleViewAction({
-      actionType: 'select-folder'
-    });
-  },
-
-  submitSelectedFolder: function (generatorName, answers) {
-    AppDispatcher.handleViewAction({
-      actionType: 'submit-selected-folder',
-      generatorName: generatorName,
-      answers: answers
-    });
-  }
+export function submitForm(generatorName, answers) {
+  ipc.send('context-generator', 'generator:prompt-answer', answers);
+  return {
+    type: SUBMIT_FORM,
+    answers
+  };
 };
 
+export function selectFolder() {
+  ipc.send('context-appwindow', 'open-dialog');
+  return {
+    type: SELECT_FOLDER
+  };
+}
 
-module.exports = PromptFormActions;
-
+export function submitSelectedFolder(generatorName, answers) {
+  ipc.send('context-generator', 'generator:run', generatorName, answers.cwd);
+  return {
+    type: SUBMIT_SELECTED_FOLDER,
+    generatorName,
+    answers
+  };
+};

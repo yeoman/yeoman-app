@@ -20,7 +20,8 @@ document.body.appendChild(lessCompiler);
 require('array.prototype.findindex');
 
 require('./utils/insight').init(function () {
-
   // React entry-point
-  require('./app.jsx');
+  const Root = require('./containers/root.jsx');
+
+  React.render(<Root />, document.getElementById('content'));
 });

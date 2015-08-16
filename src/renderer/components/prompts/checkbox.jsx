@@ -1,14 +1,10 @@
-'use strict';
+import React from 'react';
+import { Checkbox } from 'material-ui';
 
-var React = require('react');
-var mui = require('material-ui');
+import PromptMixin from './prompt-mixin';
 
-var Checkbox = mui.Checkbox;
-
-var PromptMixin = require('./prompt-mixin');
-
-
-var CheckboxPrompt = React.createClass({
+export default CheckboxPrompt = React.createClass({
+  displayName: 'CheckboxPrompt',
 
   mixins: [PromptMixin],
 
@@ -43,14 +39,22 @@ var CheckboxPrompt = React.createClass({
     });
   },
 
+  _isChoiceChecked(choice) {
+    return (
+      (
+        choice.checked ||
+        Array.isArray(this.props.defaultAnswer)
+      ) &&
+      this.props.defaultAnswer.indexOf(choice.value) > -1
+    );
+  },
+
   render: function () {
 
-    var choices = this.props.choices.map(function (choice) {
+    const choices = this.props.choices.map((choice) => {
 
-      var ref = this._getRefName(choice);
-      var checked = choice.checked ||
-        Array.isArray(this.props.defaultAnswer) &&
-        this.props.defaultAnswer.indexOf(choice.value) > -1;
+      const ref = this._getRefName(choice);
+      const checked = this._isChoiceChecked(choice);
 
       return (
         <Checkbox
@@ -65,20 +69,17 @@ var CheckboxPrompt = React.createClass({
         />
       );
 
-    }, this);
+    });
 
     return (
       <div className="checkbox-prompt fieldset">
-        <label style={{ background: this.props.color }}>{this.props.message}</label>
+        <label style={{ background: this.props.color }}>
+          {this.props.message}
+        </label>
         <div className="checkbox-prompt-list" style={{ margin: 20 }}>
           {choices}
         </div>
       </div>
     );
   }
-
 });
-
-
-module.exports = CheckboxPrompt;
-

@@ -1,17 +1,10 @@
-'use strict';
+import {
+  COMPATIBILITY_LINK_CLICKED
+} from './action-types';
 
-var AppDispatcher = require('../dispatcher/app-dispatcher');
-
-
-var CompatibilityWarningActions = {
-
-  linkClicked: function() {
-    AppDispatcher.handleViewAction({
-      actionType: 'compatibility-link-clicked'
-    });
-  }
-};
-
-
-module.exports = CompatibilityWarningActions;
-
+export function linkClicked() {
+  require('shell').openExternal('https://github.com/yeoman/yeoman-app');
+  return {
+    type: COMPATIBILITY_LINK_CLICKED
+  };
+}

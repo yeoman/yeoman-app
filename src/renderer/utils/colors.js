@@ -1,22 +1,15 @@
-'use strict';
+import materialColors from 'material-colors/dist/colors.json';
 
-var materialColors = require('material-colors/dist/colors.json');
+let arr = [];
+const stripColors = ['white', 'black'];
 
-module.exports = (function getAvailableColors(fromColors) {
-
-  var arr = [];
-  var stripColors = ['white', 'black'];
-
-  Object.keys(fromColors).forEach(function (key) {
-
-    if (stripColors.indexOf(key) > -1) {
-      return;
-    }
-    Object.keys(fromColors[key]).forEach(function (colorKey) {
-      arr.push(fromColors[key][colorKey]);
+Object.keys(materialColors)
+  .filter(color => stripColors.indexOf(color) === -1)
+  .forEach(function (key) {
+    Object.keys(materialColors[key]).forEach((colorKey) => {
+      arr.push(materialColors[key][colorKey]);
     });
   });
 
-  return arr;
-})(materialColors);
+export default arr;
 

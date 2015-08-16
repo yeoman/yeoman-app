@@ -1,15 +1,13 @@
-'use strict';
+import React from 'react';
+import {
+  RadioButton,
+  RadioButtonGroup
+} from 'material-ui';
 
-var React = require('react');
-var mui = require('material-ui');
+import PromptMixin from './prompt-mixin';
 
-var PromptMixin = require('./prompt-mixin');
-
-var RadioButton = mui.RadioButton;
-var RadioButtonGroup = mui.RadioButtonGroup;
-
-
-var ListPrompt = React.createClass({
+export default ListPrompt = React.createClass({
+  displayName: 'ListPrompt',
 
   mixins: [PromptMixin],
 
@@ -20,7 +18,7 @@ var ListPrompt = React.createClass({
   },
 
   _getKeyName: function (name) {
-    return 'list-item-' + name;
+    return `list-item-${name}`;
   },
 
   _onClick: function (value) {
@@ -31,10 +29,10 @@ var ListPrompt = React.createClass({
 
   render: function () {
 
-    var choices = this.props.choices.map(function (choice, index) {
+    const choices = this.props.choices.map((choice, index) => {
 
-      var name = choice.name || choice;
-      var key = this._getKeyName(name);
+      const name = choice.name || choice;
+      const key = this._getKeyName(name);
 
       return (
         <RadioButton
@@ -42,11 +40,11 @@ var ListPrompt = React.createClass({
           name={this.props.name}
           value={choice.value}
           label={name}
-          onClick={this._onClick.bind(this, choice.value)}
+          onClick={() => this._onClick(choice.value)}
           className="list-prompt-list-item"
         />
       );
-    }, this);
+    });
 
     return (
       <div className="list-prompt fieldset">
@@ -61,9 +59,4 @@ var ListPrompt = React.createClass({
       </div>
     );
   }
-
 });
-
-
-module.exports = ListPrompt;
-

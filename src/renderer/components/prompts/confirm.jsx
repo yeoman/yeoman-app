@@ -1,16 +1,12 @@
-'use strict';
+import React from 'react';
+import { RaisedButton } from 'material-ui';
 
-var React = require('react');
-var mui = require('material-ui');
+import classSet from 'classnames';
 
-var classSet = require('classnames');
+import PromptMixin from './prompt-mixin';
 
-var PromptMixin = require('./prompt-mixin');
-
-var RaisedButton = mui.RaisedButton;
-
-
-var ConfirmPrompt = React.createClass({
+export default ConfirmPrompt = React.createClass({
+  displayName: 'ConfirmPrompt',
 
   mixins: [PromptMixin],
 
@@ -36,15 +32,15 @@ var ConfirmPrompt = React.createClass({
 
   render: function () {
 
-    var classesButtonNo = classSet({
-      'confirm-button': true,
-      'button-no': true,
+    const classesButtonNo = classSet(
+      'confirm-button',
+      'button-no', {
       'active': !this.state.answer
     });
 
-    var classesButtonYes = classSet({
-      'confirm-button': true,
-      'button-yes': true,
+    const classesButtonYes = classSet(
+      'confirm-button',
+      'button-yes', {
       'active': this.state.answer
     });
 
@@ -66,9 +62,4 @@ var ConfirmPrompt = React.createClass({
       </div>
     );
   }
-
 });
-
-
-module.exports = ConfirmPrompt;
-
