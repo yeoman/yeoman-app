@@ -41,11 +41,11 @@ export default CheckboxPrompt = React.createClass({
 
   _isChoiceChecked(choice) {
     return (
+      choice.checked ||
       (
-        choice.checked ||
-        Array.isArray(this.props.defaultAnswer)
-      ) &&
-      this.props.defaultAnswer.indexOf(choice.value) > -1
+        Array.isArray(this.props.defaultAnswer) &&
+        this.props.defaultAnswer.indexOf(choice.value) > -1
+      )
     );
   },
 
