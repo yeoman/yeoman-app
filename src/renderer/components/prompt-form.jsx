@@ -1,28 +1,31 @@
-'use strict';
+import React, { PropTypes } from 'react';
+import {
+  Paper,
+  FloatingActionButton
+} from 'material-ui';
 
-var React = require('react');
-var mui = require('material-ui');
+import classSet from 'classnames';
 
-var classSet = require('classnames');
+import PromptFormActions from '../actions/prompt-form-actions';
+import CheckboxPrompt from './prompts/checkbox.jsx';
+import ConfirmPrompt from './prompts/confirm.jsx';
+import ExpandPrompt from './prompts/expand.jsx';
+import FolderPrompt from './prompts/folder.jsx';
+import InputPrompt from './prompts/input.jsx';
+import ListPrompt from './prompts/list.jsx';
 
-var PromptFormActions = require('../actions/prompt-form-actions');
-var CheckboxPrompt = require('./prompts/checkbox.jsx');
-var ConfirmPrompt = require('./prompts/confirm.jsx');
-var ExpandPrompt = require('./prompts/expand.jsx');
-var FolderPrompt = require('./prompts/folder.jsx');
-var InputPrompt = require('./prompts/input.jsx');
-var ListPrompt = require('./prompts/list.jsx');
-
-var Paper = mui.Paper;
-var FloatingActionButton = mui.FloatingActionButton;
-
-
-var PromptForm = React.createClass({
+export default PromptForm = React.createClass({
+  displayName: 'PromptForm',
 
   propTypes: {
-    generator: React.PropTypes.object.isRequired,
-    type: React.PropTypes.string.isRequired,
-    questions: React.PropTypes.arrayOf(React.PropTypes.object)
+    generator: PropTypes.object.isRequired,
+    type: PropTypes.string.isRequired,
+    questions: PropTypes.arrayOf(PropTypes.object),
+    selectedFolder: PropTypes.string,
+
+    selectFolder: PropTypes.func,
+    submitSelectedFolder: PropTypes.func,
+    submitForm: PropTypes.func
   },
 
   getInitialState: function () {
@@ -38,119 +41,46 @@ var PromptForm = React.createClass({
   },
 
   _onClick: function (event) {
+    const {
+      type,
+      generator,
+      questions,
+      selectedFolder,
+      submitSelectedFolder,
+      submitForm
+    } = this.props;
 
-    var answers = {};
-    var refs = this.refs;
-    var action = this.props.type === 'cwd' ?
-      PromptFormActions.submitSelectedFolder :
-      PromptFormActions.submitForm;
+    const refs = this.refs;
+    let answers = questions.reduce((ans, question) => {
+      if (type === 'cwd') {
+        ans[question.name] = selectedFolder;
+      } else {
+        ans[question.name] = refs[question.name].state.answer;
+      }
+      return ans;
+    }, {});
 
-    this.props.questions.forEach(function mapAnswers(question) {
-      answers[question.name] = refs[question.name].state.answer;
-    });
+    const action = type === 'cwd' ?
+      submitSelectedFolder :
+      submitForm;
 
     action(
-      this.props.generator.name,
+      generator.name,
       answers
     );
     event.preventDefault();
   },
 
   render: function () {
-
-    var questions = this.props.questions;
-    var color = this.props.generator.color;
+    const { questions } = this.props;
 
     if (questions.length === 0) {
       return null;
     }
 
-    // Factory to create new prompts
-    function createPrompt(question) {
-
-      if (!question.type) {
-        question.type = 'input';
-      }
-
-      var input = function () {
-        return <InputPrompt
-          key={question.name}
-          ref={question.name}
-          name={question.name}
-          type={question.type}
-          message={question.message}
-          defaultAnswer={question.default}
-          color={color}
-        />;
-      };
-
-      var promptsByType = {
-        input: input,
-        password: input,
-        confirm: function createConfirm() {
-          return <ConfirmPrompt
-            key={question.name}
-            ref={question.name}
-            name={question.name}
-            message={question.message}
-            defaultAnswer={question.default}
-            color={color}
-          />;
-        },
-        folder: function createFolder() {
-          return <FolderPrompt
-            key={question.name}
-            ref={question.name}
-            name={question.name}
-            message={question.message}
-            defaultAnswer={question.default}
-            color={color}
-          />;
-        },
-        list: function (defaultValue) {
-          return <ListPrompt
-            key={question.name}
-            ref={question.name}
-            name={question.name}
-            choices={question.choices}
-            message={question.message}
-            defaultAnswer={question.default || question.choices[0].value}
-            color={color}
-          />;
-        },
-        expand: function createExpand() {
-          console.log('createExpand');
-          console.log(question);
-          return <ExpandPrompt
-            key={question.name}
-            ref={question.name}
-            name={question.name}
-            choices={question.choices}
-            message={question.message}
-            defaultAnswer={question.default || question.choices[0].value}
-            color={color}
-          />;
-        },
-        checkbox: function createCheckbox() {
-          return <CheckboxPrompt
-            key={question.name}
-            ref={question.name}
-            name={question.name}
-            choices={question.choices}
-            message={question.message}
-            defaultAnswer={question.default}
-            color={color}
-          />;
-        }
-      };
-
-      return promptsByType[question.type]();
-    }
-
     // Builds required prompts from active questions
-    var prompts = questions.map(createPrompt);
-    var classes = classSet({
-      'prompt': true,
+    var prompts = questions.map(this._renderQuestion);
+    var classes = classSet('prompt', {
       'show': this.state.visibility
     });
 
@@ -164,12 +94,103 @@ var PromptForm = React.createClass({
       <Paper className={classes}>
         <form>
           <div>{prompts}</div>
-          <FloatingActionButton style={doneButtonStyle} iconClassName="muidocs-icon-action-done" onClick={this._onClick} />
+          <FloatingActionButton
+            style={doneButtonStyle}
+            iconClassName="muidocs-icon-action-done"
+            onClick={this._onClick} />
         </form>
       </Paper>
     );
-  }
+  },
 
+  _renderQuestion(question) {
+    const {
+      generator: { color }
+    } = this.props;
+
+    if (!question.type) {
+      question.type = 'input';
+    }
+
+    switch (question.type) {
+      case 'string':
+      case 'input':
+      case 'password':
+        return (
+          <InputPrompt
+            key={question.name}
+            ref={question.name}
+            name={question.name}
+            type={question.type}
+            message={question.message}
+            defaultAnswer={question.default}
+            color={color}
+          />
+        );
+      case 'confirm':
+        return (
+          <ConfirmPrompt
+            key={question.name}
+            ref={question.name}
+            name={question.name}
+            message={question.message}
+            defaultAnswer={question.default}
+            color={color}
+          />
+        );
+      case 'folder':
+        return (
+          <FolderPrompt
+            key={question.name}
+            ref={question.name}
+            name={question.name}
+            message={question.message}
+            defaultAnswer={question.default}
+            color={color}
+            selectedFolder={this.props.selectedFolder}
+            selectFolder={this.props.selectFolder}
+          />
+        );
+      case 'list':
+        return (
+          <ListPrompt
+            key={question.name}
+            ref={question.name}
+            name={question.name}
+            choices={question.choices}
+            message={question.message}
+            defaultAnswer={question.default || question.choices[0].value}
+            color={color}
+          />
+        );
+      case 'expand':
+        return (
+          <ExpandPrompt
+            key={question.name}
+            ref={question.name}
+            name={question.name}
+            choices={question.choices}
+            message={question.message}
+            defaultAnswer={question.default || question.choices[0].value}
+            color={color}
+          />
+        );
+      case 'checkbox':
+        return (
+          <CheckboxPrompt
+            key={question.name}
+            ref={question.name}
+            name={question.name}
+            choices={question.choices}
+            message={question.message}
+            defaultAnswer={question.default}
+            color={color}
+          />
+        );
+      default:
+        return <span key={question.name} />;
+    }
+  }
 });
 
 

@@ -1,72 +1,51 @@
-'use strict';
+import React, { PropTypes } from 'react';
+import {
+  RaisedButton
+} from 'material-ui';
 
-var React = require('react');
-var mui = require('material-ui');
+import PromptMixin from './prompt-mixin';
 
-var PromptMixin = require('./prompt-mixin');
-var PromptFormActions = require('../../actions/prompt-form-actions');
-var PromptStore = require('../../stores/prompt-store');
+export default FolderPrompt = React.createClass({
+  displayName: 'FolderPrompt',
 
-var RaisedButton = mui.RaisedButton;
+  propTypes: {
+    selectedFolder: PropTypes.string,
 
-
-var FolderPrompt = React.createClass({
+    selectFolder: PropTypes.func
+  },
 
   mixins: [PromptMixin],
 
-  getInitialState: function () {
-    return {
-      answer: this.props.defaultAnswer,
-      isEmpty: true
-    };
-  },
-
-  componentDidMount: function () {
-    PromptStore.events
-      .on('folder-selected', this._onFolderSelected);
-  },
-
-  componentWillUnmount: function () {
-    PromptStore.events
-      .removeListener('folder-selected', this._onFolderSelected);
-  },
-
-  _onFolderSelected: function (cwd) {
-    this.setState({
-      answer: cwd,
-      isEmpty: false
-    });
-  },
-
   _onClick: function (e) {
-    PromptFormActions.selectFolder();
+    this.props.selectFolder();
     e.preventDefault();
   },
 
   render: function () {
 
-    var raisedButtonStyle = {
+    const raisedButtonStyle = {
       margin: '56px 24px 0px 24px'
     };
 
+    const isEmpty = !!this.props.selectedFolder;
+
     return (
       <div className="select-folder-prompt fieldset">
-        <label style={{ background: this.props.color }}>{this.props.message}</label>
+        <label style={{ background: this.props.color }}>
+          {this.props.message}
+        </label>
         <div className="prompt-elements">
           <RaisedButton
             label="Select a folder"
             style={raisedButtonStyle}
-            primary={this.state.isEmpty}
+            primary={!!isEmpty}
             onClick={this._onClick}
           />
-          <span className="select-folder-prompt-display">{this.state.answer}</span>
+          <span className="select-folder-prompt-display">
+            {this.props.selectedFolder}
+          </span>
         </div>
       </div>
     );
   }
-
 });
-
-
-module.exports = FolderPrompt;
-

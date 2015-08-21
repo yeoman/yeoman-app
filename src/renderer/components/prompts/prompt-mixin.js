@@ -1,26 +1,18 @@
-'use strict';
+import React, { PropTypes } from 'react';
 
-var React = require('react');
-
-
-var PromptMixin = {
-
+export default PromptMixin = {
   propTypes: {
-    name: React.PropTypes.string.isRequired,
-    message: React.PropTypes.string.isRequired,
-    defaultAnswer: React.PropTypes.any,
-    filter: React.PropTypes.func,
-    choices: React.PropTypes.arrayOf(React.PropTypes.any)
+    name: PropTypes.string.isRequired,
+    message: PropTypes.string.isRequired,
+    defaultAnswer: PropTypes.any,
+    filter: PropTypes.func,
+    choices: PropTypes.arrayOf(PropTypes.any)
   },
 
   getDefaultProps: function () {
     return {
-      filter: function (value) { return value; },
+      filter: (value) => value,
       choices: []
     };
   }
 };
-
-
-module.exports = PromptMixin;
-

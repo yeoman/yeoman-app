@@ -1,14 +1,13 @@
-'use strict';
+import React from 'react';
+import {
+  RadioButton,
+  RadioButtonGroup
+} from 'material-ui';
 
-var React = require('react');
-var mui = require('material-ui');
+import PromptMixin from './prompt-mixin';
 
-var PromptMixin = require('./prompt-mixin');
-
-var RadioButton = mui.RadioButton;
-var RadioButtonGroup = mui.RadioButtonGroup;
-
-var ExpandPrompt = React.createClass({
+export default ExpandPrompt = React.createClass({
+  displayName: 'ExpandPrompt',
 
   mixins: [PromptMixin],
 
@@ -19,7 +18,7 @@ var ExpandPrompt = React.createClass({
   },
 
   _getKeyName: function (name) {
-    return 'expand-item-' + name;
+    return `expand-item-${name}`;
   },
 
   _onClick: function (answer) {
@@ -29,14 +28,8 @@ var ExpandPrompt = React.createClass({
   },
 
   render: function () {
-
-    console.log('expand.render');
-    console.log(this.props.defaultAnswer);
-    console.log(this.state.answer);
-
-    var choices = this.props.choices.map(function (choice) {
-
-      var key = this._getKeyName(choice.name);
+    const choices = this.props.choices.map((choice) => {
+      const key = this._getKeyName(choice.name);
 
       return (
         <RadioButton
@@ -48,7 +41,7 @@ var ExpandPrompt = React.createClass({
           className="list-prompt-list-item"
         />
       );
-    }, this);
+    });
 
     return (
       <div className="list-prompt fieldset">
@@ -63,9 +56,4 @@ var ExpandPrompt = React.createClass({
       </div>
     );
   }
-
 });
-
-
-module.exports = ExpandPrompt;
-
