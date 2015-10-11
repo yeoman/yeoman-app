@@ -1,7 +1,8 @@
 language: node_js
 node_js:
+  - '0.10'
   - '0.12'
-  - 'iojs-v2.5.0'
+  - 'stable'
 before_install:
   - "sh -e /etc/init.d/xvfb start"
 env:
