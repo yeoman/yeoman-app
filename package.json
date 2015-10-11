@@ -14,7 +14,7 @@
     "bootstrap": "^3.3.0",
     "classnames": "^2.1.2",
     "color": "^0.8.0",
-    "electron-compile": "^0.7.1",
+    "electron-compile": "^1.0.0",
     "findup-sync": "^0.2.1",
     "fix-path": "^1.1.0",
     "flux": "^2.0.1",
@@ -41,8 +41,9 @@
     "yeoman-environment": "^1.2.5"
   },
   "devDependencies": {
+    "electron-compilers": "^1.0.0",
     "electron-packager": "^5.0.1",
-    "electron-prebuilt": "0.30.3",
+    "electron-prebuilt": "0.33.7",
     "minimist": "^1.1.1",
     "mkdirp": "^0.5.0",
     "mocha": "^2.2.5",
