@@ -56,5 +56,9 @@
     "test": "scripts/test.js",
     "build": "electron-compile --target ./cache src/ static/ && node scripts/build.js"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yeoman/yeoman-app"
+  }
 }
