@@ -18,7 +18,7 @@ export default Grid = React.createClass({
   render: function () {
     const { generators } = this.props;
 
-    if (!this.props.generators) {
+    if (!generators) {
       return <div />;
     }
 
