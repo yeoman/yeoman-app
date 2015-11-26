@@ -1,15 +1,15 @@
 'use strict';
 
-var createComponent = require('../helpers/createComponent.js');
-var PromptFrom = require('../../src/renderer/components/prompts/input.jsx');
+import createComponent from '../../helpers/createComponent.js';
+import InputPrompt from '../../../src/renderer/components/prompts/input.jsx';
 
 describe('InputPrompt', function () {
-  var renderOutput;
-  var labelComponent;
-  var inputComponent;
+  let renderOutput;
+  let labelComponent;
+  let inputComponent;
 
   beforeEach(function () {
-    renderOutput = createComponent(PromptFrom, {
+    renderOutput = createComponent(InputPrompt, {
       defaultAnswer: 'Sushi',
       type: 'input',
       name: 'food',
