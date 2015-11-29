@@ -1,27 +1,21 @@
-'use strict';
-
 var yargs = require('yargs');
 
 var shellStartTime = Date.now();
 
 process.on('uncaughtException', function (error) {
-  if (error == null) {
+  if (!error) {
     error = {};
   }
-
-  if (error.message != null) {
+  if (error.message) {
     console.error(error.message);
   }
-
-  if (error.stack != null) {
+  if (error.stack) {
     console.error(error.stack);
   }
 });
 
-var Application = require('./application');
-
 var args = parseCommandLine();
-new Application(args);
+require('./application')(args);
 
 console.log('App load time: ' + (Date.now() - shellStartTime) + 'ms');
 
@@ -30,9 +24,9 @@ function parseCommandLine() {
 
   options.alias('t', 'test').boolean('t').describe('t', 'Run the specs and exit with error code on failures.');
 
-  var args = options.argv;
+  var argv = options.argv;
 
   return {
-    test: args.test
+    test: argv.test
   };
 }

@@ -1,3 +1,5 @@
+/*global React*/
+
 var header = document.createElement('header');
 document.body.appendChild(header);
 

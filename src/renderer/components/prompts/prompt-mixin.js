@@ -1,6 +1,6 @@
-import React, { PropTypes } from 'react';
+import { PropTypes } from 'react';
 
-export default PromptMixin = {
+export default {
   propTypes: {
     name: PropTypes.string.isRequired,
     message: PropTypes.string.isRequired,

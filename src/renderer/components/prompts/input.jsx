@@ -5,7 +5,7 @@ import {
 
 import PromptMixin from './prompt-mixin';
 
-export default InputPrompt = React.createClass({
+export default React.createClass({
   displayName: 'InputPrompt',
 
   mixins: [PromptMixin],

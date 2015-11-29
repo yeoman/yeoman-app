@@ -19,11 +19,11 @@ const BrowserEvents = {
   [FOLDER_SELECTED]: 'folderSelected'
 };
 
-export default function({ dispatch }) {
+export default function ({ dispatch }) {
   Object.keys(BrowserEvents).forEach((event) => {
     ipc.on(event, function (data) {
       let eventFn = BrowserEvents[event];
       dispatch(BrowserActions[eventFn](data));
     });
   });
-};
+}

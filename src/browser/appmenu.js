@@ -1,5 +1,3 @@
-'use strict';
-
 var Menu = require('menu');
 var path = require('path');
 var season = require('season');
@@ -27,18 +25,15 @@ ApplicationMenu.prototype.wireUpMenu = function (menu, command) {
 
 ApplicationMenu.prototype.translateTemplate = function (template, pkgJson) {
   template.forEach(function (item) {
-    if (item.metadata == null) {
+    if (!item.metadata) {
       item.metadata = {};
     }
-
     if (item.label) {
-      item.label = (_.template(item.label))(pkgJson);
+      item.label = _.template(item.label)(pkgJson);
     }
-
     if (item.command) {
       this.wireUpMenu(item, item.command);
     }
-
     if (item.submenu) {
       this.translateTemplate(item.submenu, pkgJson);
     }
@@ -49,7 +44,7 @@ ApplicationMenu.prototype.translateTemplate = function (template, pkgJson) {
 
 ApplicationMenu.prototype.acceleratorForCommand = function (command, keystrokesByCommand) {
   var firstKeystroke = keystrokesByCommand[command];
-  firstKeystroke = firstKeystroke != null ? firstKeystroke[0] : void 0;
+  firstKeystroke = firstKeystroke && firstKeystroke.length ? firstKeystroke[0] : null;
   if (!firstKeystroke) {
     return null;
   }

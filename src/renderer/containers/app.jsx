@@ -12,8 +12,8 @@ import * as GridActions from '../actions/grid-actions';
 import * as CompatibilityWarningActions from '../actions/compatibility-warning-actions';
 import * as PromptFormActions from '../actions/prompt-form-actions';
 
-let ThemeManager = mui.Styles.ThemeManager();
-ThemeManager.setTheme(ThemeManager.types.LIGHT);
+let themeManager = mui.Styles.themeManager();
+themeManager.setTheme(themeManager.types.LIGHT);
 
 const App = React.createClass({
   displayName: 'App',
@@ -24,7 +24,7 @@ const App = React.createClass({
 
   getChildContext() {
     return {
-      muiTheme: ThemeManager.getCurrentTheme()
+      muiTheme: themeManager.getCurrentTheme()
     };
   },
 
@@ -41,10 +41,9 @@ const App = React.createClass({
 
     const gridActions = bindActionCreators(GridActions, dispatch);
     const compatibilityWarningActions = bindActionCreators(CompatibilityWarningActions, dispatch);
-    const promptFormActions = bindActionCreators(PromptFormActions, dispatch);
 
     const gridClasses = classSet('grid', {
-      'desactive': selectedGenerator.name
+      desactive: selectedGenerator.name
     });
 
     const promptContainerStyle = {

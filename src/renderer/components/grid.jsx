@@ -1,14 +1,8 @@
 import React, { PropTypes } from 'react';
-import classSet from 'classnames';
-import insight from '../utils/insight.js';
-
-import {
-  Card,
-  CardTitle
-} from 'material-ui';
+import { Card, CardTitle } from 'material-ui';
 import GridItem from './grid-item.jsx';
 
-export default Grid = React.createClass({
+export default React.createClass({
   propTypes: {
     selectedGenerator: PropTypes.object,
     generators: PropTypes.array,

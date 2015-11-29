@@ -5,7 +5,7 @@ import classSet from 'classnames';
 
 import PromptMixin from './prompt-mixin';
 
-export default ConfirmPrompt = React.createClass({
+export default React.createClass({
   displayName: 'ConfirmPrompt',
 
   mixins: [PromptMixin],
@@ -35,14 +35,16 @@ export default ConfirmPrompt = React.createClass({
     const classesButtonNo = classSet(
       'confirm-button',
       'button-no', {
-      'active': !this.state.answer
-    });
+        active: !this.state.answer
+      }
+    );
 
     const classesButtonYes = classSet(
       'confirm-button',
       'button-yes', {
-      'active': this.state.answer
-    });
+        active: this.state.answer
+      }
+    );
 
     return (
       <div className="confirm-prompt fieldset">

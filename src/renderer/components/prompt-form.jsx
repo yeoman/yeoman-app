@@ -1,12 +1,8 @@
 import React, { PropTypes } from 'react';
-import {
-  Paper,
-  FloatingActionButton
-} from 'material-ui';
+import { Paper, FloatingActionButton } from 'material-ui';
 
 import classSet from 'classnames';
 
-import PromptFormActions from '../actions/prompt-form-actions';
 import CheckboxPrompt from './prompts/checkbox.jsx';
 import ConfirmPrompt from './prompts/confirm.jsx';
 import ExpandPrompt from './prompts/expand.jsx';
@@ -14,7 +10,7 @@ import FolderPrompt from './prompts/folder.jsx';
 import InputPrompt from './prompts/input.jsx';
 import ListPrompt from './prompts/list.jsx';
 
-export default PromptForm = React.createClass({
+export default React.createClass({
   displayName: 'PromptForm',
 
   propTypes: {
@@ -81,7 +77,7 @@ export default PromptForm = React.createClass({
     // Builds required prompts from active questions
     var prompts = questions.map(this._renderQuestion);
     var classes = classSet('prompt', {
-      'show': this.state.visibility
+      show: this.state.visibility
     });
 
     var doneButtonStyle = {
@@ -192,7 +188,3 @@ export default PromptForm = React.createClass({
     }
   }
 });
-
-
-module.exports = PromptForm;
-

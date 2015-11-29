@@ -1,5 +1,3 @@
-'use strict';
-
 var fs = require('fs-plus');
 var path = require('path');
 var remote = require('remote');
@@ -36,8 +34,7 @@ if (global.loadSettings.exitWhenDone) {
 
   var jasmineEnv = jasmine.getEnv();
   jasmineEnv.addReporter(reporter);
-  var specFiles = fs.listTreeSync(specRootPath);
-  specFiles.forEach(function (specFilePath) {
+  fs.listTreeSync(specRootPath).forEach(function (specFilePath) {
     if (/-spec\.js$/.test(specFilePath)) {
       require(specFilePath);
     }
@@ -53,8 +50,7 @@ if (global.loadSettings.exitWhenDone) {
   require('../../vendor/jasmine/lib/jasmine-2.1.3/jasmine-html');
   require('../../vendor/jasmine/lib/jasmine-2.1.3/boot');
 
-  var specFiles = fs.listTreeSync(specRootPath);
-  specFiles.forEach(function (specFilePath) {
+  fs.listTreeSync(specRootPath).forEach(function (specFilePath) {
     if (/-spec\.js$/.test(specFilePath)) {
       require(specFilePath);
     }

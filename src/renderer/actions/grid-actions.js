@@ -11,4 +11,4 @@ export function gridItemSelected({ name, isCompatible, color }) {
       color
     }
   };
-};
+}

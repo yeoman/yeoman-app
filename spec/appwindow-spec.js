@@ -1,9 +1,6 @@
-'use strict';
-
 var assert = require('assert');
 var sinon = require('sinon');
 var SandboxedModule = require('sandboxed-module');
-var remote = require('remote');
 
 describe('AppWindow', function () {
 
@@ -27,20 +24,20 @@ describe('AppWindow', function () {
 
     this.fakeDialog = {
       showOpenDialog: this.sandbox.stub()
-    }
+    };
 
     this.fakeShell = {
       showItemInFolder: this.sandbox.stub()
-    }
+    };
 
     this.fakeKillChildProcess = this.sandbox.stub();
 
     var AppWindow = SandboxedModule.require('../src/browser/appwindow', {
       singleOnly: true,
       requires: {
-        'dialog': this.fakeDialog,
+        dialog: this.fakeDialog,
         'browser-window': this.fakeBrowserWindow,
-        'shell': this.fakeShell,
+        shell: this.fakeShell,
         './util/kill-childprocess': this.fakeKillChildProcess
       }
     });
@@ -188,7 +185,7 @@ describe('AppWindow', function () {
   });
 
   describe('#initYoProcess', function () {
-    it ('do not create child process in test mode', function () {
+    it('do not create child process in test mode', function () {
       this.appWindow.loadSettings.isSpec = true;
       this.appWindow.sendCommandToProcess = this.sandbox.stub();
       this.appWindow.initYoProcess();
@@ -199,7 +196,7 @@ describe('AppWindow', function () {
   });
 
   describe('#emitCommandToAppWindow', function () {
-    it ('emit events to appWindow with no data', function () {
+    it('emit events to appWindow with no data', function () {
       this.appWindow.emit = this.sandbox.stub();
 
       this.appWindow.emitCommandToAppWindow('test');
@@ -208,7 +205,7 @@ describe('AppWindow', function () {
       assert.equal(this.appWindow.emit.args[0][0], 'test');
     });
 
-    it ('emit events to appWindow with data', function () {
+    it('emit events to appWindow with data', function () {
       this.appWindow.emit = this.sandbox.stub();
 
       var data = { foo: 'bar' };
@@ -219,7 +216,7 @@ describe('AppWindow', function () {
   });
 
   describe('#sendCommandToBrowserWindow', function () {
-    it ('send data to browserWindow through webContents with no arguments', function () {
+    it('send data to browserWindow through webContents with no arguments', function () {
       var browserWindow = this.appWindow.window;
       this.appWindow.sendCommandToBrowserWindow();
 
@@ -227,7 +224,7 @@ describe('AppWindow', function () {
       assert(browserWindow.webContents.send.args, [[]]);
     });
 
-    it ('send data to browserWindow through webContents with more than one arguments', function () {
+    it('send data to browserWindow through webContents with more than one arguments', function () {
       var msg1 = { foo: 'bar' };
       var msg2 = { bar: 'foo' };
       var browserWindow = this.appWindow.window;

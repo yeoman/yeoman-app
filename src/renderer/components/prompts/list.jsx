@@ -6,7 +6,7 @@ import {
 
 import PromptMixin from './prompt-mixin';
 
-export default ListPrompt = React.createClass({
+export default React.createClass({
   displayName: 'ListPrompt',
 
   mixins: [PromptMixin],
@@ -29,7 +29,7 @@ export default ListPrompt = React.createClass({
 
   render: function () {
 
-    const choices = this.props.choices.map((choice, index) => {
+    const choices = this.props.choices.map(choice => {
 
       const name = choice.name || choice;
       const key = this._getKeyName(name);

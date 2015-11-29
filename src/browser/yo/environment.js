@@ -1,5 +1,3 @@
-'use strict';
-
 var path = require('path');
 var yo = require('yeoman-environment');
 var Adapter = require('./adapter');

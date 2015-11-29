@@ -3,7 +3,7 @@ import { Checkbox } from 'material-ui';
 
 import PromptMixin from './prompt-mixin';
 
-export default CheckboxPrompt = React.createClass({
+export default React.createClass({
   displayName: 'CheckboxPrompt',
 
   mixins: [PromptMixin],

@@ -51,4 +51,4 @@ export default function generator(state = initialState, action) {
     default:
       return state;
   }
-};
+}

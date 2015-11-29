@@ -1,5 +1,3 @@
-'use strict';
-
 var Insight = require('../src/renderer/utils/insight.js');
 
 describe('Insight', function () {

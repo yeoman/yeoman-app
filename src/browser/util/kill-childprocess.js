@@ -1,5 +1,3 @@
-'use strict';
-
 var psTree = require('ps-tree');
 
 module.exports = function kill(pid, signal, cb) {
