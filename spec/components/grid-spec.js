@@ -1,5 +1,3 @@
-'use strict';
-
 import sinon from 'sinon';
 
 import createComponent from '../helpers/createComponent.js';

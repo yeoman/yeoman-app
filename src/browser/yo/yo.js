@@ -1,5 +1,3 @@
-'use strict';
-
 var fs = require('fs');
 var _ = require('lodash');
 var findup = require('findup-sync');
@@ -9,12 +7,10 @@ var environment = require('./environment');
 var env = null;
 
 function sendCommandToAppWindow(name, data) {
-
   if (data instanceof Error) {
     console.error(data);
     data = data.toString();
   }
-
   process.send({
     event: name,
     data: data
@@ -54,7 +50,7 @@ function getGenerators() {
   return _.compact(list);
 }
 
-function init () {
+function init() {
   env = environment();
 
   env.lookup(function () {
@@ -62,7 +58,7 @@ function init () {
   });
 }
 
-function run (generatorName, cwd) {
+function run(generatorName, cwd) {
 
   if (!generatorName) {
     return sendCommandToAppWindow('generator:error', new Error('You must provide a generator name'));
@@ -95,7 +91,7 @@ function run (generatorName, cwd) {
     });
 }
 
-function promptAnswer (answer) {
+function promptAnswer(answer) {
   env.adapter.answerCallback(answer);
 }
 

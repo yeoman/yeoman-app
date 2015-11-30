@@ -1,12 +1,10 @@
-'use strict';
-
-var Insight;
+var Insight = function () {};
 var crypto = require('crypto');
 var querystring = require('querystring');
 var _ = require('lodash');
 var pkgJson = require('../../../package.json');
 
-module.exports = Insight = function Insight() {};
+export default Insight;
 
 Insight.sendEvent = function (category, action, label, value) {
   var params;
@@ -15,10 +13,10 @@ Insight.sendEvent = function (category, action, label, value) {
     ec: category,
     ea: action
   };
-  if (label != null) {
+  if (label !== null && label !== undefined) {
     params.el = label;
   }
-  if (value != null) {
+  if (value !== null && label !== undefined) {
     params.ev = value;
   }
   return this.send(params);
@@ -77,7 +75,7 @@ Insight.sendException = function (event) {
 };
 
 Insight.send = function (params) {
-  
+
   if (this.isDisabled()) {
     return;
   }
@@ -102,21 +100,21 @@ Insight.defaultParams = function () {
   };
 };
 
-function post (url) {
+function post(url) {
   var xhr = new window.XMLHttpRequest();
   xhr.open('POST', url);
   xhr.send(null);
 }
 
-function request (url) {
+function request(url) {
   if (window.navigator.onLine) {
     return post(url);
   }
 }
 
-function createUserId (cb) {
+function createUserId(cb) {
 
-  function createUUID () {
+  function createUUID() {
     return cb(require('node-uuid').v4());
   }
 
@@ -133,10 +131,10 @@ function createUserId (cb) {
   }
 }
 
-function getUserId () {
+function getUserId() {
   return window.localStorage.getItem('insight.userId');
 }
 
-function stripPath (message) {
+function stripPath(message) {
   return message.replace(/'?((\/|\\|[a-z]:\\)[^\s']+)+'?/ig, '<path>');
 }

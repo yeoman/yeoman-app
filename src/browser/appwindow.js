@@ -1,5 +1,3 @@
-'use strict';
-
 var dialog = require('dialog');
 var path = require('path');
 var url = require('url');
@@ -97,7 +95,7 @@ AppWindow.prototype.openProject = function (cwd) {
   }
 
   shell.showItemInFolder(cwd);
-}
+};
 
 AppWindow.prototype.initYoProcess = function () {
   if (this.loadSettings.isSpec) {
@@ -133,7 +131,7 @@ AppWindow.prototype.emitCommandToAppWindow = function (event, data) {
   }
 
   this.emit(event, data);
-}
+};
 
 AppWindow.prototype.sendCommandToBrowserWindow = function () {
   this.window.webContents.send.apply(this.window.webContents, arguments);

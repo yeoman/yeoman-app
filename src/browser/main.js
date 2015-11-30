@@ -1,6 +1,6 @@
-var app  = require('app');
+var app = require('app');
 var path = require('path');
-var fs   = require('fs');
+var fs = require('fs');
 
 // ROOT/src/browser/../../cache
 var cachePath = path.join(__dirname, '..', '..', 'cache');

@@ -6,7 +6,7 @@ import {
 
 import PromptMixin from './prompt-mixin';
 
-export default ExpandPrompt = React.createClass({
+export default React.createClass({
   displayName: 'ExpandPrompt',
 
   mixins: [PromptMixin],

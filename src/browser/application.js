@@ -18,7 +18,7 @@ class Application extends EventEmitter {
    * @param {boolean} [options.test]          Boolean to determine if the application is running in test mode.
    * @param {boolean} [options.exitWhenDone]  Boolean to determine whether to automatically exit.
    */
-  constructor (options = {}) {
+  constructor(options = {}) {
     super();
     this.pkgJson = require('../../package.json');
     this.windows = [];
@@ -33,7 +33,7 @@ class Application extends EventEmitter {
    * @param {boolean} [options.test]          Boolean to determine if the application is running in test mode.
    * @param {boolean} [options.exitWhenDone]  Boolean to determine whether to automatically exit.
    */
-  openWithOptions (options) {
+  openWithOptions(options) {
     let newWindow;
     let { test } = options;
 
@@ -58,7 +58,7 @@ class Application extends EventEmitter {
    *
    * @param {boolean} [options.exitWhenDone] Boolean to determine whether to automatically exit.
    */
-  openSpecsWindow (options) {
+  openSpecsWindow(options) {
     let bootstrapScript;
     let exitWhenDone = options.exitWhenDone;
 
@@ -79,8 +79,8 @@ class Application extends EventEmitter {
   /**
    * Opens up a new AppWindow and runs the application.
    */
-  openWindow () {
-    let iconPath =  path.resolve(__dirname, '..', '..', 'resources', 'app.png');
+  openWindow() {
+    let iconPath = path.resolve(__dirname, '..', '..', 'resources', 'app.png');
 
     let appWindow;
     appWindow = new AppWindow({
@@ -133,7 +133,7 @@ class Application extends EventEmitter {
    *
    * @param {AppWindow} appWindow The AppWindow to be removed
    */
-  removeAppWindow (appWindow) {
+  removeAppWindow(appWindow) {
     this.windows.forEach((win, index) => {
       if (win === appWindow) {
         this.windows.splice(index, 1);
@@ -141,7 +141,7 @@ class Application extends EventEmitter {
     });
   }
 
-  handleEvents () {
+  handleEvents() {
     this.on('application:quit', function () {
       return app.quit();
     });
@@ -158,7 +158,7 @@ class Application extends EventEmitter {
   }
 
   // Returns the {AppWindow} for the given ipc event.
-  windowForEvent (sender) {
+  windowForEvent(sender) {
     let win = BrowserWindow.fromWebContents(sender);
     return _.find(this.windows, function (appWindow) {
       return appWindow.window === win;
@@ -167,4 +167,6 @@ class Application extends EventEmitter {
 
 }
 
-export default Application;
+export default function getApp(args) {
+  return new Application(args);
+}

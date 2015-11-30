@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Snackbar } from 'material-ui';
 
-export default CompatibilityWarning = React.createClass({
+export default React.createClass({
   displayName: 'CompatibilityWarning',
 
   propTypes: {

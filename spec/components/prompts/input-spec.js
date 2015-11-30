@@ -1,5 +1,3 @@
-'use strict';
-
 import createComponent from '../../helpers/createComponent.js';
 import InputPrompt from '../../../src/renderer/components/prompts/input.jsx';
 

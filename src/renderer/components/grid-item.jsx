@@ -1,18 +1,13 @@
 import { sample } from 'lodash';
 import React, { PropTypes } from 'react';
 import color from 'color';
-import {
-  Paper
-} from 'material-ui';
+import { Paper } from 'material-ui';
 import classSet from 'classnames';
-import {
-  humanizeEventName as humanize
-} from 'underscore-plus';
+import { humanizeEventName as humanize } from 'underscore-plus';
 import insight from '../utils/insight.js';
-
 import colors from '../utils/colors';
 
-export default GridItem = React.createClass({
+export default React.createClass({
   propTypes: {
     name: PropTypes.string,
     version: PropTypes.string,
@@ -22,7 +17,7 @@ export default GridItem = React.createClass({
     gridItemSelected: PropTypes.func
   },
 
-  getInitialState: function() {
+  getInitialState: function () {
     return {
       color: sample(colors),
       zDepth: 1
@@ -34,7 +29,7 @@ export default GridItem = React.createClass({
 
     const generatorName = name.replace('generator-', '');
     const actionName = `run-${generatorName}-${version}`;
-    insight.sendEvent('generator',  actionName, `Run ${generatorName} in version ${version}`);
+    insight.sendEvent('generator', actionName, `Run ${generatorName} in version ${version}`);
 
     gridItemSelected({
       name,
@@ -45,13 +40,13 @@ export default GridItem = React.createClass({
     document.body.scrollTop = 0;
   },
 
-  _onMouseOver: function() {
+  _onMouseOver: function () {
     this.setState({
       zDepth: 4
     });
   },
 
-  _onMouseOut: function() {
+  _onMouseOut: function () {
     this.setState({
       zDepth: 1
     });
@@ -67,16 +62,16 @@ export default GridItem = React.createClass({
     const filename = `img/${this.props.name}.png`;
     const generatorName = humanize(this.props.name.replace('generator-', ''));
     const classes = classSet('grid-item', {
-      'active': this.props.active
+      active: this.props.active
     });
     const style = {
       minHeight: (this.props.active ? contentHeight : 329) + 'px'
     };
 
     const headingStyle = {
-      'whiteSpace': 'nowrap',
-      'overflow': 'hidden',
-      'textOverflow': 'ellipsis'
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis'
     };
 
     return (

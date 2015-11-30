@@ -11,7 +11,7 @@ export function submitForm(generatorName, answers) {
     type: SUBMIT_FORM,
     answers
   };
-};
+}
 
 export function selectFolder() {
   ipc.send('context-appwindow', 'open-dialog');
@@ -27,4 +27,4 @@ export function submitSelectedFolder(generatorName, answers) {
     generatorName,
     answers
   };
-};
+}

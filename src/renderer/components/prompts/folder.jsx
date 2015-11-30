@@ -5,7 +5,7 @@ import {
 
 import PromptMixin from './prompt-mixin';
 
-export default FolderPrompt = React.createClass({
+export default React.createClass({
   displayName: 'FolderPrompt',
 
   propTypes: {
