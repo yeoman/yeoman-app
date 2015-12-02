@@ -12,7 +12,7 @@ import * as GridActions from '../actions/grid-actions';
 import * as CompatibilityWarningActions from '../actions/compatibility-warning-actions';
 import * as PromptFormActions from '../actions/prompt-form-actions';
 
-let themeManager = mui.Styles.themeManager();
+let themeManager = mui.Styles.ThemeManager();
 themeManager.setTheme(themeManager.types.LIGHT);
 
 const App = React.createClass({
@@ -38,6 +38,8 @@ const App = React.createClass({
       questions,
       isLoading
     } = generator;
+
+    const filter = (g) => g.name.indexOf('inair') > -1;
 
     const gridActions = bindActionCreators(GridActions, dispatch);
     const compatibilityWarningActions = bindActionCreators(CompatibilityWarningActions, dispatch);
@@ -67,7 +69,7 @@ const App = React.createClass({
           <div id="generators-grid" className={gridClasses}>
             <Grid
               selectedGenerator={selectedGenerator}
-              generators={generators}
+              generators={generators && generators.filter(filter)}
               gridItemSelected={gridActions.gridItemSelected} />
           </div>
         </div>

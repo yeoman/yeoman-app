@@ -19,7 +19,7 @@ export default React.createClass({
 
   getInitialState: function () {
     return {
-      color: sample(colors),
+      color: '#666',
       zDepth: 1
     };
   },
@@ -60,7 +60,7 @@ export default React.createClass({
     const contentHeight =
       window.document.getElementById('content').clientHeight + headerHeight;
     const filename = `img/${this.props.name}.png`;
-    const generatorName = humanize(this.props.name.replace('generator-', ''));
+    const generatorName = humanize(this.props.name.replace('generator-', '').replace('inair', 'InAiR').replace('app', 'App'));
     const classes = classSet('grid-item', {
       active: this.props.active
     });

@@ -24,7 +24,7 @@
     "less": "^2.5.0",
     "lodash": "^3.6.0",
     "material-colors": "^1.0.0",
-    "material-ui": "^0.10.1",
+    "material-ui": "^0.10.4",
     "node-uuid": "^1.4.3",
     "ps-tree": "^1.0.0",
     "q": "^1.0.1",
@@ -41,7 +41,7 @@
     "yeoman-environment": "^1.2.5"
   },
   "devDependencies": {
-    "electron-compilers": "^1.0.0",
+    "electron-compilers": "^1.0.1",
     "electron-packager": "^5.0.1",
     "electron-prebuilt": "0.33.7",
     "eslint": "^1.10.2",
