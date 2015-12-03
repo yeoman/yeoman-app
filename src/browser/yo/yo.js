@@ -4,6 +4,8 @@ var findup = require('findup-sync');
 var semver = require('semver');
 var environment = require('./environment');
 
+var logger = require('../logger')
+
 var env = null;
 
 function sendCommandToAppWindow(name, data) {
@@ -19,6 +21,8 @@ function sendCommandToAppWindow(name, data) {
 
 function getGenerators() {
   var generatorsMeta = env.store.getGeneratorsMeta();
+
+  logger.log('info', generatorsMeta);
 
   // Remove sub generators from list
   var list = _.filter(generatorsMeta, function (item) {
@@ -53,7 +57,10 @@ function getGenerators() {
 function init() {
   env = environment();
 
+  logger.log('info', 'init');
+
   env.lookup(function () {
+    logger.log('info', 'lookup');
     sendCommandToAppWindow('generator:installed-generators', getGenerators());
   });
 }

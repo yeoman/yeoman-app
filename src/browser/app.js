@@ -2,6 +2,8 @@ var yargs = require('yargs');
 
 var shellStartTime = Date.now();
 
+var logger = require('./logger')
+
 process.on('uncaughtException', function (error) {
   if (!error) {
     error = {};

@@ -1,6 +1,7 @@
 var path = require('path');
 var yo = require('yeoman-environment');
 var Adapter = require('./adapter');
+var logger = require('../logger')
 
 var win32 = process.platform === 'win32';
 
@@ -26,6 +27,8 @@ var getNpmPaths = function () {
 
   // Paths for built-in generators
   paths.push(path.normalize(path.join(__dirname, '../../../node_modules')));
+
+  logger.log('info', path.normalize(path.join(__dirname, '../../../node_modules')));
 
   return paths.reverse();
 };
