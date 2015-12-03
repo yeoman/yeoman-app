@@ -1,11 +1,11 @@
-import { sample } from 'lodash';
+// import { sample } from 'lodash';
 import React, { PropTypes } from 'react';
 import color from 'color';
 import { Paper } from 'material-ui';
 import classSet from 'classnames';
 import { humanizeEventName as humanize } from 'underscore-plus';
 import insight from '../utils/insight.js';
-import colors from '../utils/colors';
+// import colors from '../utils/colors';
 
 export default React.createClass({
   propTypes: {
@@ -19,7 +19,7 @@ export default React.createClass({
 
   getInitialState: function () {
     return {
-      color: sample(colors),
+      color: '#666',
       zDepth: 1
     };
   },
@@ -60,7 +60,7 @@ export default React.createClass({
     const contentHeight =
       window.document.getElementById('content').clientHeight + headerHeight;
     const filename = `img/${this.props.name}.png`;
-    const generatorName = humanize(this.props.name.replace('generator-', ''));
+    const generatorName = humanize(this.props.name.replace('generator-', '').replace('inair', 'InAiR').replace('app', 'App'));
     const classes = classSet('grid-item', {
       active: this.props.active
     });

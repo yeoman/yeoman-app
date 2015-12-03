@@ -21,7 +21,7 @@ export default React.createClass({
         <Card>
           <CardTitle
             title="No installed generators found!"
-            subtitle="Please install at least one yeoman generator to continue."/>
+            subtitle="Please install at least one InAiR generator to continue."/>
         </Card>
       );
     }

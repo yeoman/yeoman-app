@@ -19,3 +19,10 @@ app.on('ready', function () {
 
   require('./app');
 });
+
+// https://github.com/maxogden/electron-packager/issues/188
+app.on('window-all-closed', function() {
+  if (process.platform != 'darwin') {
+    app.quit();
+  }
+});
