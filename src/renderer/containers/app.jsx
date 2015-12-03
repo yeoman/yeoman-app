@@ -12,7 +12,7 @@ import * as GridActions from '../actions/grid-actions';
 import * as CompatibilityWarningActions from '../actions/compatibility-warning-actions';
 import * as PromptFormActions from '../actions/prompt-form-actions';
 
-let themeManager = mui.Styles.ThemeManager();
+let themeManager = new mui.Styles.ThemeManager();
 themeManager.setTheme(themeManager.types.LIGHT);
 
 const App = React.createClass({

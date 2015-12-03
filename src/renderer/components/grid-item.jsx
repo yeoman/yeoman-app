@@ -1,11 +1,11 @@
-import { sample } from 'lodash';
+// import { sample } from 'lodash';
 import React, { PropTypes } from 'react';
 import color from 'color';
 import { Paper } from 'material-ui';
 import classSet from 'classnames';
 import { humanizeEventName as humanize } from 'underscore-plus';
 import insight from '../utils/insight.js';
-import colors from '../utils/colors';
+// import colors from '../utils/colors';
 
 export default React.createClass({
   propTypes: {
