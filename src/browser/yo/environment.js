@@ -24,6 +24,9 @@ var getNpmPaths = function () {
     paths.push('/usr/lib/node_modules');
   }
 
+  // Paths for built-in generators
+  paths.push(path.normalize(path.join(__dirname, '../../../node_modules')));
+
   return paths.reverse();
 };
 
