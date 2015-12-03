@@ -15,6 +15,7 @@
     "classnames": "^2.1.2",
     "color": "^0.8.0",
     "electron-compile": "^1.0.0",
+    "filelogger": "^1.0.3",
     "findup-sync": "^0.2.1",
     "fix-path": "^1.1.0",
     "flux": "^2.0.1",
