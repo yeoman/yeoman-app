@@ -21,8 +21,8 @@ app.on('ready', function () {
 });
 
 // https://github.com/maxogden/electron-packager/issues/188
-app.on('window-all-closed', function() {
-  if (process.platform != 'darwin') {
+app.on('window-all-closed', function () {
+  if (process.platform !== 'darwin') {
     app.quit();
   }
 });
