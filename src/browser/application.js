@@ -72,7 +72,7 @@ class Application extends EventEmitter {
       bootstrapScript: bootstrapScript,
       exitWhenDone: exitWhenDone,
       isSpec: true,
-      title: `${this.pkgJson.productName}\'s Spec Suite`
+      title: 'Spec Suite'
     });
   }
 
