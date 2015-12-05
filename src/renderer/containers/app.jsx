@@ -12,8 +12,7 @@ import * as GridActions from '../actions/grid-actions';
 import * as CompatibilityWarningActions from '../actions/compatibility-warning-actions';
 import * as PromptFormActions from '../actions/prompt-form-actions';
 
-let themeManager = mui.Styles.themeManager();
-themeManager.setTheme(themeManager.types.LIGHT);
+let themeManager = mui.Styles.ThemeManager;
 
 const App = React.createClass({
   displayName: 'App',
@@ -24,7 +23,7 @@ const App = React.createClass({
 
   getChildContext() {
     return {
-      muiTheme: themeManager.getCurrentTheme()
+      muiTheme: themeManager.getMuiTheme(mui.Styles.LightRawTheme)
     };
   },
 
@@ -72,9 +71,6 @@ const App = React.createClass({
           </div>
         </div>
         <div className="content" style={promptContainerStyle}>
-          <CompatibilityWarning
-            active={selectedGenerator.isCompatible}
-            linkClicked={compatibilityWarningActions.linkClicked} />
           <img style={preloaderStyle} src="img/rings.svg" />
           <PromptForm
             generator={selectedGenerator}
@@ -86,6 +82,9 @@ const App = React.createClass({
             submitForm={PromptFormActions.submitForm}
           />
         </div>
+        <CompatibilityWarning
+          active={selectedGenerator.isCompatible}
+          linkClicked={compatibilityWarningActions.linkClicked} />
       </section>
     );
   }
