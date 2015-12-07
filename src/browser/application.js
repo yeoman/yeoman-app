@@ -125,6 +125,12 @@ class Application extends EventEmitter {
         exitWhenDone: false
       });
     });
+
+    if (process.env.NODE_ENV && process.env.NODE_ENV === 'development') {
+      const client = require('electron-connect').client;
+      client.create(appWindow);
+    }
+
     return appWindow;
   }
 
