@@ -8,8 +8,6 @@ import _ from 'underscore-plus';
 import AppMenu from './appmenu';
 import AppWindow from './appwindow';
 
-import { client } from 'electron-connect';
-
 class Application extends EventEmitter {
 
   /**
@@ -129,6 +127,7 @@ class Application extends EventEmitter {
     });
 
     if (process.env.NODE_ENV && process.env.NODE_ENV === 'development') {
+      const client = require('electron-connect').client;
       client.create(appWindow);
     }
 
