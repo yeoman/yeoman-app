@@ -9,7 +9,7 @@ document.body.appendChild(main);
 
 if (process.env.NODE_ENV && process.env.NODE_ENV === 'development') {
   require('electron-connect').client.create();
-};
+}
 
 // var style = document.createElement('link');
 // style.rel = 'stylesheet/less';
