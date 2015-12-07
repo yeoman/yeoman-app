@@ -8,6 +8,8 @@ import _ from 'underscore-plus';
 import AppMenu from './appmenu';
 import AppWindow from './appwindow';
 
+import { client } from 'electron-connect';
+
 class Application extends EventEmitter {
 
   /**
@@ -72,7 +74,7 @@ class Application extends EventEmitter {
       bootstrapScript: bootstrapScript,
       exitWhenDone: exitWhenDone,
       isSpec: true,
-      title: `${this.pkgJson.productName}\'s Spec Suite`
+      title: 'Spec Suite'
     });
   }
 
@@ -125,6 +127,11 @@ class Application extends EventEmitter {
         exitWhenDone: false
       });
     });
+
+    if (process.env.NODE_ENV && process.env.NODE_ENV === 'development') {
+      client.create(appWindow);
+    }
+
     return appWindow;
   }
 

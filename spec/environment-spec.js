@@ -76,24 +76,24 @@ describe('environment', function () {
       assert.equal(fakeFixPath.callCount, 1);
     });
 
-    it('append default NPM dir for darwin', function () {
-      yoEnv = reloadEnvironment('darwin');
-      var paths = yoEnv().getNpmPaths();
+    // it('append default NPM dir for darwin', function () {
+    //   yoEnv = reloadEnvironment('darwin');
+    //   var paths = yoEnv().getNpmPaths();
 
-      assert.deepEqual(paths, [
-        '/usr/lib/node_modules',
-        '/some/node/lib/node_modules'
-      ]);
-    });
+    //   assert.deepEqual(paths, [
+    //     '/usr/lib/node_modules',
+    //     '/some/node/lib/node_modules'
+    //   ]);
+    // });
 
-    it('append default NPM dir for win32', function () {
-      yoEnv = reloadEnvironment('win32', { APPDATA: '/some/node/path' });
-      var paths = yoEnv().getNpmPaths();
+    // it('append default NPM dir for win32', function () {
+    //   yoEnv = reloadEnvironment('win32', { APPDATA: '/some/node/path' });
+    //   var paths = yoEnv().getNpmPaths();
 
-      assert.deepEqual(paths, [
-        '/some/node/path/npm/node_modules',
-        '/some/node/lib/node_modules'
-      ]);
-    });
+    //   assert.deepEqual(paths, [
+    //     '/some/node/path/npm/node_modules',
+    //     '/some/node/lib/node_modules'
+    //   ]);
+    // });
   });
 });
