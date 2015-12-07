@@ -12,8 +12,10 @@ var devMode = (process.argv || []).indexOf('-r') !== -1;
 app.on('ready', function () {
   // Enable ES6 from this point on
   if (fs.statSyncNoException(cachePath) && !devMode) {
+    process.env.NODE_ENV = 'production';
     require('electron-compile').initForProduction(cachePath);
   } else {
+    process.env.NODE_ENV = 'development';
     require('electron-compile').init();
   }
 
