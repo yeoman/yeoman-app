@@ -9,11 +9,19 @@ export default React.createClass({
     linkClicked: PropTypes.func
   },
 
+  // wrap the active props around the Snackbar api
+  componentDidUpdate: function () {
+    this.refs['compatibility-warning-snackbar'][
+      (this.props.active === false) ? 'show' : 'dismiss'
+    ]();
+  },
+
   render: function () {
+    const showWarn = this.props.active === false;
     const alertStyle = {
-      display: this.props.active ? 'none' : 'block',
-      visibility: this.props.active ? 'hidden' : 'visible',
-      opacity: this.props.active ? 0 : 1,
+      display: showWarn ? 'block' : 'none',
+      visibility: showWarn ? 'visible' : 'hidden',
+      opacity: showWarn ? 1 : 0,
       height: 'auto',
       lineHeight: '20px',
       paddingTop: 10,
@@ -22,8 +30,8 @@ export default React.createClass({
 
     return (
       <Snackbar
-        style={alertStyle}
-        openOnMount={true}
+        ref="compatibility-warning-snackbar"
+        bodyStyle={alertStyle}
         message="COMPATIBILITY WARNING: This generator does not meet the minimum requirements to be used with the Yeoman App"
         action="Click here to learn more about it"
         onActionTouchTap={this.props.linkClicked}
