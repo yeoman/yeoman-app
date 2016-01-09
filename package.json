@@ -54,10 +54,16 @@
     "sandboxed-module": "^2.0.2",
     "sinon": "^1.15.3"
   },
+  "peerDependencies": {
+    "node-inspector": "^0.12.5"
+  },
   "scripts": {
     "start": "electron . -r",
     "test": "scripts/test.js",
     "pretest": "npm run lint",
+    "debug": "electron --debug . -r",
+    "preinspector": "open http://127.0.0.1:8080/?ws=127.0.0.1:8080&port=5858",
+    "inspector" : "node-inspector",
     "lint": "eslint --ext=js --ext=jsx src spec",
     "build": "electron-compile --target ./cache src/ static/ && node scripts/build.js"
   },
