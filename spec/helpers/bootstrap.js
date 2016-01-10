@@ -1,14 +1,14 @@
 var fs = require('fs-plus');
 var path = require('path');
-var remote = require('remote');
-var app = remote.require('app');
+var electron = require('electron');
+var app = electron.remote.app;
 var pkgJson = require('../../package.json');
 var newLine = require('os').EOL;
 
 // Start the crash reporter before anything else
-require('crash-reporter').start({
+electron.crashReporter.start({
   productName: pkgJson.name,
-  companyName: 'atom-shell-starter'
+  companyName: pkgJson.author
 });
 
 var specRootPath = path.resolve(__dirname, '..');
@@ -20,7 +20,7 @@ if (global.loadSettings.exitWhenDone) {
   var reporter = new jasmineFn.ConsoleReporter({
     print: function (str) {
       if (str === newLine) {
-        console.log(out);
+        electron.remote.getGlobal('console').log(out);
         out = '';
         return;
       }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { container } from '../../styles/components/prompts';
+import styles from '../../styles/components/prompts';
 
 export default React.createClass({
   propTypes: {
@@ -7,7 +7,7 @@ export default React.createClass({
   },
   render() {
     return (
-      <div style={container}>{this.props.children}</div>
+      <div style={styles.container}>{this.props.children}</div>
     );
   }
 });

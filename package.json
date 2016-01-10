@@ -39,9 +39,9 @@
     "yeoman-environment": "^1.2.5"
   },
   "devDependencies": {
-    "electron-compilers": "^1.0.0",
-    "electron-packager": "^5.0.1",
-    "electron-prebuilt": "0.33.7",
+    "electron-compilers": "^2.0.4",
+    "electron-packager": "^5.2.0",
+    "electron-prebuilt": "0.36.3",
     "eslint": "^1.10.2",
     "eslint-plugin-react": "^3.10.0",
     "minimist": "^1.1.1",
@@ -60,7 +60,7 @@
     "pretest": "npm run lint",
     "debug": "electron --debug . -r",
     "preinspector": "open http://127.0.0.1:8080/?ws=127.0.0.1:8080&port=5858",
-    "inspector" : "node-inspector",
+    "inspector": "node-inspector",
     "lint": "eslint --ext=js --ext=jsx src spec",
     "build": "electron-compile --target ./cache src/ static/ && node scripts/build.js"
   },

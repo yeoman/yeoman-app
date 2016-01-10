@@ -1,4 +1,4 @@
-var Menu = require('menu');
+var Menu = require('electron').Menu;
 var path = require('path');
 var season = require('season');
 var EventEmitter = require('events').EventEmitter;

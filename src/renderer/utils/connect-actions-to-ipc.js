@@ -1,4 +1,4 @@
-import ipc from 'ipc';
+import { ipcRenderer } from 'electron';
 
 import {
   GENERATOR_INSTALLED_GENERATORS,
@@ -21,7 +21,7 @@ const BrowserEvents = {
 
 export default function ({ dispatch }) {
   Object.keys(BrowserEvents).forEach((event) => {
-    ipc.on(event, function (data) {
+    ipcRenderer.on(event, function (e, data) {
       let eventFn = BrowserEvents[event];
       dispatch(BrowserActions[eventFn](data));
     });

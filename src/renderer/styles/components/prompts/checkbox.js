@@ -1,4 +1,4 @@
-import { margin } from '../prompt-form';
+import base from '../prompt-form';
 const checkboxItemHeight = 38;
 
 export default {
@@ -10,11 +10,11 @@ export default {
     flexDirection: 'row',
     height: checkboxItemHeight,
     alignItems: 'center',
-    margin: `0px ${margin}px`
+    margin: `0px ${base.margin}px`
   },
   label: {
     order: 2,
-    marginLeft: (margin / 2)
+    marginLeft: (base.margin / 2)
   }
 };
 

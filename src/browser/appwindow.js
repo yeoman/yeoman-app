@@ -1,12 +1,13 @@
-var dialog = require('dialog');
-var path = require('path');
-var url = require('url');
-var EventEmitter = require('events').EventEmitter;
-var BrowserWindow = require('browser-window');
-var fork = require('child_process').fork;
-var _ = require('underscore-plus');
-var shell = require('shell');
-var killChildProcess = require('./util/kill-childprocess');
+const electron = require('electron');
+const dialog = electron.dialog;
+const BrowserWindow = electron.BrowserWindow;
+const shell = electron.shell;
+const path = require('path');
+const url = require('url');
+const EventEmitter = require('events').EventEmitter;
+const fork = require('child_process').fork;
+const _ = require('underscore-plus');
+const killChildProcess = require('./util/kill-childprocess');
 
 function AppWindow(options) {
   this.loadSettings = {
@@ -38,7 +39,7 @@ AppWindow.prototype.show = function () {
       loadSettings: JSON.stringify(this.loadSettings)
     }
   });
-  this.window.loadUrl(targetUrl);
+  this.window.loadURL(targetUrl);
 
   this.window.webContents.on('did-finish-load', function () {
     this.initYoProcess();

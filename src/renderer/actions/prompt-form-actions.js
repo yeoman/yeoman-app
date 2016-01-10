@@ -1,4 +1,4 @@
-import ipc from 'ipc';
+import { ipcRenderer } from 'electron';
 import {
   SUBMIT_FORM,
   SELECT_FOLDER,
@@ -6,7 +6,7 @@ import {
 } from './action-types';
 
 export function submitForm(generatorName, answers) {
-  ipc.send('context-generator', 'generator:prompt-answer', answers);
+  ipcRenderer.send('context-generator', 'generator:prompt-answer', answers);
   return {
     type: SUBMIT_FORM,
     answers
@@ -14,14 +14,14 @@ export function submitForm(generatorName, answers) {
 }
 
 export function selectFolder() {
-  ipc.send('context-appwindow', 'open-dialog');
+  ipcRenderer.send('context-appwindow', 'open-dialog');
   return {
     type: SELECT_FOLDER
   };
 }
 
 export function submitSelectedFolder(generatorName, answers) {
-  ipc.send('context-generator', 'generator:run', generatorName, answers.cwd);
+  ipcRenderer.send('context-generator', 'generator:run', generatorName, answers.cwd);
   return {
     type: SUBMIT_SELECTED_FOLDER,
     generatorName,
