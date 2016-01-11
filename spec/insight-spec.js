@@ -1,4 +1,4 @@
-var Insight = require('../src/renderer/utils/insight.js');
+import Insight from '../src/renderer/utils/insight.js';
 
 describe('Insight', function () {
 

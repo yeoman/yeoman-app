@@ -46,6 +46,8 @@ if (global.loadSettings.exitWhenDone) {
   link.rel = 'stylesheet';
   link.href = '../vendor/jasmine/lib/jasmine-2.1.3/jasmine.css';
   document.head.appendChild(link);
+
+  window.getJasmineRequireObj = undefined;
   window.jasmineRequire = require('../../vendor/jasmine/lib/jasmine-2.1.3/jasmine');
   require('../../vendor/jasmine/lib/jasmine-2.1.3/jasmine-html');
   require('../../vendor/jasmine/lib/jasmine-2.1.3/boot');
