@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { Card, CardTitle } from 'material-ui';
 import GridItem from './grid-item.jsx';
 
+
 export default React.createClass({
   propTypes: {
     selectedGenerator: PropTypes.object,
@@ -12,6 +13,7 @@ export default React.createClass({
   render: function () {
     const { generators } = this.props;
 
+    // TODO: Display proper error message
     if (!generators) {
       return <div />;
     }
@@ -33,13 +35,20 @@ export default React.createClass({
           name={item.name}
           version={item.version}
           active={item.name === this.props.selectedGenerator.name}
+          enabled={!this.props.selectedGenerator.name}
           isCompatible={item.isCompatible}
           gridItemSelected={this.props.gridItemSelected} />
       );
     });
 
+    const gridStyle = {
+      display: 'flex',
+      flexFlow: 'row wrap',
+      justifyContent: 'space-around'
+    };
+
     return (
-      <div className="grid">
+      <div style={gridStyle}>
         {items}
       </div>
     );

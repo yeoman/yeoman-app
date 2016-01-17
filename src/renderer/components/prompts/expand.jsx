@@ -1,10 +1,9 @@
 import React from 'react';
-import {
-  RadioButton,
-  RadioButtonGroup
-} from 'material-ui';
-
+import { RadioButton, RadioButtonGroup } from 'material-ui';
 import PromptMixin from './prompt-mixin';
+import Container from '../prompt-form/container';
+import Label from '../prompt-form/label';
+import styles from '../../styles/components/prompts/list';
 
 export default React.createClass({
   displayName: 'ExpandPrompt',
@@ -38,22 +37,23 @@ export default React.createClass({
           value={choice.value}
           label={choice.name}
           onClick={this._onClick.bind(this, choice.value)}
-          className="list-prompt-list-item"
+          style={styles.listItem}
         />
       );
     });
 
     return (
-      <div className="list-prompt fieldset">
-        <label style={{ background: this.props.color }}>
-          {this.props.message}
-        </label>
-        <div className="list-prompt-list">
+      <Container>
+        <Label
+          message={this.props.message}
+          color={this.props.color}
+        />
+        <div style={styles.list}>
           <RadioButtonGroup name={this.props.name} defaultSelected={this.state.answer}>
             {choices}
           </RadioButtonGroup>
         </div>
-      </div>
+      </Container>
     );
   }
 });

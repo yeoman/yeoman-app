@@ -1,21 +1,25 @@
 /*global React*/
 
-var header = document.createElement('header');
+const header = document.createElement('header');
+Object.assign(header.style, {
+  background: '#FFDE00 url("./img/header.png") no-repeat scroll top center',
+  width: '100%',
+  height: '300px'
+});
 document.body.appendChild(header);
 
 var main = document.createElement('main');
+Object.assign(main.style, {
+  marginTop: '45px'
+});
 main.id = 'content';
 document.body.appendChild(main);
 
 var style = document.createElement('link');
-style.rel = 'stylesheet/less';
+style.rel = 'stylesheet';
 style.type = 'text/css';
-style.href = 'less/main.less';
+style.href = 'fonts.css';
 document.head.appendChild(style);
-
-var lessCompiler = document.createElement('script');
-lessCompiler.src = '../node_modules/less/dist/less.js';
-document.body.appendChild(lessCompiler);
 
 // Array.prototype.findIndex polyfill, we can remove this as soon as Chrome starts supporting it
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex

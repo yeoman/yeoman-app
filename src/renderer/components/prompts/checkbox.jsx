@@ -1,7 +1,10 @@
 import React from 'react';
 import { Checkbox } from 'material-ui';
-
 import PromptMixin from './prompt-mixin';
+import Container from '../prompt-form/container';
+import Label from '../prompt-form/label';
+import styles from '../../styles/components/prompts/checkbox';
+
 
 export default React.createClass({
   displayName: 'CheckboxPrompt',
@@ -65,21 +68,23 @@ export default React.createClass({
           label={choice.name}
           value={choice.value}
           defaultChecked={checked}
-          style={{ marginBottom: 10 }}
+          style={styles.item}
+          labelStyle={styles.label}
         />
       );
 
     });
 
     return (
-      <div className="checkbox-prompt fieldset">
-        <label style={{ background: this.props.color }}>
-          {this.props.message}
-        </label>
-        <div className="checkbox-prompt-list" style={{ margin: 20 }}>
+      <Container>
+        <Label
+          message={this.props.message}
+          color={this.props.color}
+        />
+        <div style={styles.list}>
           {choices}
         </div>
-      </div>
+      </Container>
     );
   }
 });
