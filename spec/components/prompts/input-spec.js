@@ -22,9 +22,8 @@ describe('InputPrompt', function () {
 
   describe('label', function () {
     it('pass options to the component', function () {
-      expect(labelComponent.props.children).toBe('What is your favourite food');
-      expect(labelComponent.props.htmlFor).toBe('food');
-      expect(labelComponent.props.style.background).toBe('#dd002a');
+      expect(labelComponent.props.message).toBe('What is your favourite food');
+      expect(labelComponent.props.color).toBe('#dd002a');
     });
   });
 

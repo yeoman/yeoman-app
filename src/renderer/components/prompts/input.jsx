@@ -1,9 +1,10 @@
 import React from 'react';
-import {
-  TextField
-} from 'material-ui';
-
+import { TextField } from 'material-ui';
 import PromptMixin from './prompt-mixin';
+import Container from '../prompt-form/container';
+import Label from '../prompt-form/label';
+import styles from '../../styles/components/prompts/input';
+
 
 export default React.createClass({
   displayName: 'InputPrompt',
@@ -24,16 +25,19 @@ export default React.createClass({
 
   render: function () {
     return (
-      <div className="input-prompt fieldset">
-        <label htmlFor={this.props.name} style={{ background: this.props.color }}>{this.props.message}</label>
+      <Container>
+        <Label
+          message={this.props.message}
+          color={this.props.color}
+        />
         <TextField
-          className="input-prompt-elem"
+          style={styles.textfield}
           type={this.props.type}
           name={this.props.name}
           value={this.state.answer}
           onChange={this._onChange}
         />
-      </div>
+      </Container>
     );
   }
 });

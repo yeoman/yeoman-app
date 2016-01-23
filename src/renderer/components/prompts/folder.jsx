@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react';
-import {
-  RaisedButton
-} from 'material-ui';
-
+import { RaisedButton } from 'material-ui';
 import PromptMixin from './prompt-mixin';
+import Container from '../prompt-form/container';
+import Label from '../prompt-form/label';
+import styles from '../../styles/components/prompts/folder';
+
 
 export default React.createClass({
   displayName: 'FolderPrompt',
@@ -23,29 +24,26 @@ export default React.createClass({
 
   render: function () {
 
-    const raisedButtonStyle = {
-      margin: '56px 24px 0px 24px'
-    };
-
     const isEmpty = !!this.props.selectedFolder;
 
     return (
-      <div className="select-folder-prompt fieldset">
-        <label style={{ background: this.props.color }}>
-          {this.props.message}
-        </label>
+      <Container>
+        <Label
+          message={this.props.message}
+          color={this.props.color}
+        />
         <div className="prompt-elements">
           <RaisedButton
             label="Select a folder"
-            style={raisedButtonStyle}
+            style={styles.button}
             primary={!!isEmpty}
             onClick={this._onClick}
           />
-          <span className="select-folder-prompt-display">
+          <span style={styles.display}>
             {this.props.selectedFolder}
           </span>
         </div>
-      </div>
+      </Container>
     );
   }
 });

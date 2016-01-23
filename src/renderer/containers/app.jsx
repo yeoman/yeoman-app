@@ -1,12 +1,11 @@
 import React from 'react';
-import classSet from 'classnames';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import mui from 'material-ui';
 
 import CompatibilityWarning from '../components/compatibility-warning.jsx';
 import Grid from '../components/grid.jsx';
-import PromptForm from '../components/prompt-form.jsx';
+import PromptForm from '../components/prompt-form/index.jsx';
 
 import * as GridActions from '../actions/grid-actions';
 import * as CompatibilityWarningActions from '../actions/compatibility-warning-actions';
@@ -41,11 +40,13 @@ const App = React.createClass({
     const gridActions = bindActionCreators(GridActions, dispatch);
     const compatibilityWarningActions = bindActionCreators(CompatibilityWarningActions, dispatch);
 
-    const gridClasses = classSet('grid', {
-      desactive: selectedGenerator.name
-    });
-
     const promptContainerStyle = {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      zIndex: 3,
+      width: '100%',
+      height: '100%',
       display: selectedGenerator.name ? 'block' : 'none'
     };
 
@@ -63,7 +64,7 @@ const App = React.createClass({
     return (
       <section>
         <div className="grid-wrap">
-          <div id="generators-grid" className={gridClasses}>
+          <div id="generators-grid">
             <Grid
               selectedGenerator={selectedGenerator}
               generators={generators}

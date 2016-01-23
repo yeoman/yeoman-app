@@ -1,9 +1,10 @@
 import React from 'react';
 import { RaisedButton } from 'material-ui';
-
-import classSet from 'classnames';
-
 import PromptMixin from './prompt-mixin';
+import Container from '../prompt-form/container';
+import Label from '../prompt-form/label';
+import styles from '../../styles/components/prompts/confirm';
+
 
 export default React.createClass({
   displayName: 'ConfirmPrompt',
@@ -32,36 +33,25 @@ export default React.createClass({
 
   render: function () {
 
-    const classesButtonNo = classSet(
-      'confirm-button',
-      'button-no', {
-        active: !this.state.answer
-      }
-    );
-
-    const classesButtonYes = classSet(
-      'confirm-button',
-      'button-yes', {
-        active: this.state.answer
-      }
-    );
-
     return (
-      <div className="confirm-prompt fieldset">
-        <label style={{ background: this.props.color }}>{this.props.message}</label>
-        <div className="confirm-options">
+      <Container>
+        <Label
+          message={this.props.message}
+          color={this.props.color}
+        />
+        <div style={styles.options}>
           <RaisedButton
-            className={classesButtonNo}
             label="No"
             onClick={this._onClickNo}
+            labelStyle={!this.state.answer && styles.noActive}
           />
           <RaisedButton
-            className={classesButtonYes}
             label="Yes"
             onClick={this._onClickYes}
+            labelStyle={this.state.answer && styles.yesActive}
           />
         </div>
-      </div>
+      </Container>
     );
   }
 });
