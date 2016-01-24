@@ -1,8 +1,5 @@
-import app from 'app';
-import ipc from 'ipc';
+import { app, BrowserWindow, ipcMain, shell } from 'electron';
 import path from 'path';
-import shell from 'shell';
-import BrowserWindow from 'browser-window';
 import { EventEmitter } from 'events';
 import _ from 'underscore-plus';
 import AppMenu from './appmenu';
@@ -146,12 +143,12 @@ class Application extends EventEmitter {
       return app.quit();
     });
 
-    ipc.on('context-appwindow', (event, ...args) => {
+    ipcMain.on('context-appwindow', (event, ...args) => {
       let appWindow = this.windowForEvent(event.sender);
       appWindow.emit(...args);
     });
 
-    ipc.on('context-generator', (event, ...args) => {
+    ipcMain.on('context-generator', (event, ...args) => {
       let appWindow = this.windowForEvent(event.sender);
       appWindow.sendCommandToProcess(...args);
     });

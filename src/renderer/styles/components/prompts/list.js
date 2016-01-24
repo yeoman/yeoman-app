@@ -1,4 +1,4 @@
-import { margin } from '../prompt-form';
+import base from '../prompt-form';
 
 const itemHeight = 16;
 
@@ -10,7 +10,7 @@ export default {
   },
   listItem: {
     height: itemHeight,
-    margin: `12px ${margin}px`
+    margin: `12px ${base.margin}px`
   }
 };
 

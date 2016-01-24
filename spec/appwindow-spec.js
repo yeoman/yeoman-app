@@ -7,27 +7,29 @@ describe('AppWindow', function () {
   beforeEach(function () {
     this.sandbox = sinon.sandbox.create();
 
-    this.fakeBrowserWindow = this.sandbox.stub().returns({
-      loadUrl: this.sandbox.stub(),
-      show: this.sandbox.stub(),
-      on: this.sandbox.stub(),
-      webContents: {
-        reload: this.sandbox.stub(),
+    this.fakeElectron = {
+      BrowserWindow: this.sandbox.stub().returns({
+        loadURL: this.sandbox.stub(),
+        show: this.sandbox.stub(),
         on: this.sandbox.stub(),
-        send: this.sandbox.stub()
+        webContents: {
+          reload: this.sandbox.stub(),
+          on: this.sandbox.stub(),
+          send: this.sandbox.stub()
+        },
+        setFullScreen: this.sandbox.stub(),
+        toggleDevTools: this.sandbox.stub(),
+        close: this.sandbox.stub(),
+        isFullScreen: this.sandbox.stub()
+      }),
+
+      dialog: {
+        showOpenDialog: this.sandbox.stub()
       },
-      setFullScreen: this.sandbox.stub(),
-      toggleDevTools: this.sandbox.stub(),
-      close: this.sandbox.stub(),
-      isFullScreen: this.sandbox.stub()
-    });
 
-    this.fakeDialog = {
-      showOpenDialog: this.sandbox.stub()
-    };
-
-    this.fakeShell = {
-      showItemInFolder: this.sandbox.stub()
+      shell: {
+        showItemInFolder: this.sandbox.stub()
+      }
     };
 
     this.fakeKillChildProcess = this.sandbox.stub();
@@ -35,9 +37,7 @@ describe('AppWindow', function () {
     var AppWindow = SandboxedModule.require('../src/browser/appwindow', {
       singleOnly: true,
       requires: {
-        dialog: this.fakeDialog,
-        'browser-window': this.fakeBrowserWindow,
-        shell: this.fakeShell,
+        electron: this.fakeElectron,
         './util/kill-childprocess': this.fakeKillChildProcess
       }
     });
@@ -77,13 +77,13 @@ describe('AppWindow', function () {
     it('call with no arguments', function () {
       this.appWindow.openProject();
 
-      assert(this.fakeShell.showItemInFolder.notCalled);
+      assert(this.fakeElectron.shell.showItemInFolder.notCalled);
     });
 
     it('call with argument directory', function () {
       this.appWindow.openProject('/some/test/path');
 
-      assert(this.fakeShell.showItemInFolder.calledOnce);
+      assert(this.fakeElectron.shell.showItemInFolder.calledOnce);
     });
   });
 
@@ -122,8 +122,8 @@ describe('AppWindow', function () {
       var targetPath = '../../static/index.html';
       this.appWindow.show();
 
-      browserWindow.loadUrl.calledWith(targetPath);
-      assert(browserWindow.loadUrl.calledOnce);
+      browserWindow.loadURL.calledWith(targetPath);
+      assert(browserWindow.loadURL.calledOnce);
     });
 
     it('Start listening for did-finish-load', function () {
@@ -167,7 +167,7 @@ describe('AppWindow', function () {
     it('open dialog', function () {
       this.appWindow.selectTargetDirectory();
 
-      assert(this.fakeDialog.showOpenDialog.calledOnce);
+      assert(this.fakeElectron.dialog.showOpenDialog.calledOnce);
     });
 
     it('open dialog with options', function () {
@@ -177,7 +177,7 @@ describe('AppWindow', function () {
       };
       this.appWindow.selectTargetDirectory();
 
-      assert(this.fakeDialog.showOpenDialog.calledWithMatch(this.appWindow.window, opts));
+      assert(this.fakeElectron.dialog.showOpenDialog.calledWithMatch(this.appWindow.window, opts));
     });
 
     xit('send command to the process', function () {

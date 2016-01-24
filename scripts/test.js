@@ -1,13 +1,12 @@
 #!/usr/bin/env node
 
-var path = require('path');
-var proc = require('child_process')
-var electron = require('electron-prebuilt')
+const path = require('path');
+const proc = require('child_process');
 
-var args = [path.resolve(__dirname, '..'), '-r', '--test'];
-var opts = { stdio: 'inherit' };
-var child = proc.spawn(electron, args, opts);
+const args = [path.resolve(__dirname, '..'), '-r', '--test'];
+const opts = { stdio: 'inherit' };
+const child = proc.spawn('electron', args, opts);
 
-child.on('exit', function (exitCode) {
+child.on('exit', (exitCode) => {
   process.exit(exitCode);
 });

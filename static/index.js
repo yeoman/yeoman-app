@@ -14,7 +14,7 @@ window.onload = function() {
     window.loadSettings = loadSettings;
 
     require(loadSettings.bootstrapScript);
-    require('ipc').sendChannel('window-command', 'window:loaded');
+    require('electron').ipcRenderer.send('window-command', 'window:loaded');
   }
   catch (error) {
     var currentWindow = require('remote').getCurrentWindow();

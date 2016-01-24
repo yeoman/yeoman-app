@@ -1,14 +1,14 @@
 var fs = require('fs-plus');
 var path = require('path');
-var remote = require('remote');
-var app = remote.require('app');
+var electron = require('electron');
+var app = electron.remote.app;
 var pkgJson = require('../../package.json');
 var newLine = require('os').EOL;
 
 // Start the crash reporter before anything else
-require('crash-reporter').start({
+electron.crashReporter.start({
   productName: pkgJson.name,
-  companyName: 'atom-shell-starter'
+  companyName: pkgJson.author
 });
 
 var specRootPath = path.resolve(__dirname, '..');
@@ -20,7 +20,7 @@ if (global.loadSettings.exitWhenDone) {
   var reporter = new jasmineFn.ConsoleReporter({
     print: function (str) {
       if (str === newLine) {
-        console.log(out);
+        electron.remote.getGlobal('console').log(out);
         out = '';
         return;
       }
@@ -46,6 +46,8 @@ if (global.loadSettings.exitWhenDone) {
   link.rel = 'stylesheet';
   link.href = '../vendor/jasmine/lib/jasmine-2.1.3/jasmine.css';
   document.head.appendChild(link);
+
+  window.getJasmineRequireObj = undefined;
   window.jasmineRequire = require('../../vendor/jasmine/lib/jasmine-2.1.3/jasmine');
   require('../../vendor/jasmine/lib/jasmine-2.1.3/jasmine-html');
   require('../../vendor/jasmine/lib/jasmine-2.1.3/boot');

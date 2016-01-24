@@ -1,9 +1,9 @@
-import { width, height } from '../prompt-form';
+import base from '../prompt-form';
 
 export default {
   options: {
-    width: width,
-    height: (height / 2),
+    width: base.width,
+    height: (base.height / 2),
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',

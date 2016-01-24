@@ -1,8 +1,9 @@
-var yargs = require('yargs');
+import yargs from 'yargs';
+import application from './application';
 
-var shellStartTime = Date.now();
+const shellStartTime = Date.now();
 
-process.on('uncaughtException', function (error) {
+process.on('uncaughtException', (error) => {
   if (!error) {
     error = {};
   }
@@ -14,17 +15,16 @@ process.on('uncaughtException', function (error) {
   }
 });
 
-var args = parseCommandLine();
-require('./application')(args);
+application(parseCommandLine());
 
 console.log('App load time: ' + (Date.now() - shellStartTime) + 'ms');
 
 function parseCommandLine() {
-  var options = yargs(process.argv.slice(1)).wrap(100);
+  const options = yargs(process.argv.slice(1)).wrap(100);
 
   options.alias('t', 'test').boolean('t').describe('t', 'Run the specs and exit with error code on failures.');
 
-  var argv = options.argv;
+  const argv = options.argv;
 
   return {
     test: argv.test

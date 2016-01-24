@@ -1,15 +1,15 @@
-import { height, margin } from '../prompt-form';
+import base from '../prompt-form';
 
 export default {
   container: {
-    minHeight: height,
+    minHeight: base.height,
     display: 'flex',
     flexDirection: 'column'
   },
   label: {
     fontSize: '18px',
-    padding: `0px ${margin}px`,
-    height: (height / 2),
+    padding: `0px ${base.margin}px`,
+    height: (base.height / 2),
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',

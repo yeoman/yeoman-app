@@ -1,5 +1,6 @@
 .DS_Store
 build/
 cache/
+.cache/
 node_modules
 npm-debug.log
