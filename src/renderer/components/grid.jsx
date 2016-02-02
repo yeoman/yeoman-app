@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 import { Card, CardTitle } from 'material-ui';
 import GridItem from './grid-item.jsx';
 
-
 export default React.createClass({
   propTypes: {
     selectedGenerator: PropTypes.object,

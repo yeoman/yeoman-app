@@ -17,5 +17,3 @@ export default {
     marginLeft: (base.margin / 2)
   }
 };
-
-
