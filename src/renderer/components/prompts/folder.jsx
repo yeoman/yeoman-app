@@ -5,7 +5,6 @@ import Container from '../prompt-form/container';
 import Label from '../prompt-form/label';
 import styles from '../../styles/components/prompts/folder';
 
-
 export default React.createClass({
   displayName: 'FolderPrompt',
 

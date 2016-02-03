@@ -4,7 +4,6 @@ import promptFormStyles from '../../styles/components/prompt-form';
 import GetComponentStyle from '../mixins/get-component-style';
 import QuestionRenderer from './question-renderer-mixin.jsx';
 
-
 export default React.createClass({
   displayName: 'PromptForm',
 

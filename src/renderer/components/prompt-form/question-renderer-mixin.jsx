@@ -5,7 +5,6 @@ import FolderPrompt from '../prompts/folder.jsx';
 import InputPrompt from '../prompts/input.jsx';
 import ListPrompt from '../prompts/list.jsx';
 
-
 export default {
 
   renderQuestion(question) {
@@ -97,4 +96,3 @@ export default {
     }
   }
 };
-

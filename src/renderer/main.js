@@ -24,7 +24,6 @@ style.type = 'text/css';
 style.href = 'fonts.css';
 document.head.appendChild(style);
 
-
 insight.init(function () {
   // React entry-point
 
