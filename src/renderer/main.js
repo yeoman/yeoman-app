@@ -1,6 +1,6 @@
-/*global React*/
 
 import insight from './utils/insight';
+import { render } from 'react-dom';
 import Root from './containers/root.jsx';
 
 const header = document.createElement('header');
@@ -27,5 +27,5 @@ document.head.appendChild(style);
 insight.init(function () {
   // React entry-point
 
-  React.render(<Root />, document.getElementById('content'));
+  render(<Root />, document.getElementById('content'));
 });
