@@ -8,6 +8,10 @@ import colors from '../utils/colors';
 import styles from '../styles/components/grid-item';
 import GetComponentStyle from './mixins/get-component-style';
 
+function getFormattedName(name) {
+  return humanize(name.replace('generator-', ''));
+}
+
 export default React.createClass({
   propTypes: {
     name: PropTypes.string,
@@ -64,7 +68,7 @@ export default React.createClass({
     // TODO: Investigate perf on this, checking clientHeight every render is expensive
     const contentHeight =
       window.document.getElementById('content').clientHeight + headerHeight;
-    const generatorName = humanize(this.props.name.replace('generator-', ''));
+    const generatorName = getFormattedName(this.props.name);
     let gridItemStyle = getStyle(
       styles.gridItem,
       Object.assign(
