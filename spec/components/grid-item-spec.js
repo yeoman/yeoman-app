@@ -16,14 +16,16 @@ function dismissContent() {
 }
 
 describe('Grid Item', () => {
+  let tree;
   let renderOutput;
 
   beforeEach(() => {
     mockContent();
-    renderOutput = createComponent(
+    tree = createComponent(
       GridItem,
       generatorsList[0]
     );
+    renderOutput = tree.getRenderOutput();
   });
 
   afterEach(dismissContent);

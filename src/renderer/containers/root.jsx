@@ -21,7 +21,7 @@ export default React.createClass({
   render() {
     return (
       <Provider store={store}>
-        {() => <App />}
+        <App />
       </Provider>
     );
   }
