@@ -2,18 +2,20 @@ import createComponent from '../../helpers/createComponent.js';
 import InputPrompt from '../../../src/renderer/components/prompts/input.jsx';
 
 describe('InputPrompt', function () {
+  let tree;
   let renderOutput;
   let labelComponent;
   let inputComponent;
 
   beforeEach(function () {
-    renderOutput = createComponent(InputPrompt, {
+    tree = createComponent(InputPrompt, {
       defaultAnswer: 'Sushi',
       type: 'input',
       name: 'food',
       color: '#dd002a',
       message: 'What is your favourite food'
     });
+    renderOutput = tree.getRenderOutput();
 
     labelComponent = renderOutput.props.children[0];
     inputComponent = renderOutput.props.children[1];

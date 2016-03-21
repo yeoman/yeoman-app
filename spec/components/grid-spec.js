@@ -5,14 +5,16 @@ import Grid from '../../src/renderer/components/grid.jsx';
 import generatorsList from '../fixtures/generators-list.js';
 
 describe('Grid', function () {
+  let tree;
   let renderOutput;
 
   beforeEach(function () {
-    renderOutput = createComponent(Grid, {
+    tree = createComponent(Grid, {
       selectedGenerator: {},
       generators: generatorsList,
       gridItemSelected: sinon.stub()
     });
+    renderOutput = tree.getRenderOutput();
   });
 
   it('should create all grid items from generator list', function () {
