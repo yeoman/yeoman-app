@@ -16,9 +16,9 @@ function AppWindow(options) {
   this.loadSettings = _.extend(this.loadSettings, options);
 
   var windowOpts = {
-    'web-preferences': {
-      'subpixel-font-scaling': true,
-      'direct-write': true
+    webPreferences: {
+      subpixelFontScaling: true,
+      directWrite: true
     }
   };
   windowOpts = _.extend(windowOpts, this.loadSettings);
