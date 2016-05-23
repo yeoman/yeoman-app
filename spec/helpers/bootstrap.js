@@ -2,14 +2,7 @@ var fs = require('fs-plus');
 var path = require('path');
 var electron = require('electron');
 var app = electron.remote.app;
-var pkgJson = require('../../package.json');
 var newLine = require('os').EOL;
-
-// Start the crash reporter before anything else
-electron.crashReporter.start({
-  productName: pkgJson.name,
-  companyName: pkgJson.author
-});
 
 var specRootPath = path.resolve(__dirname, '..');
 
