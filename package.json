@@ -44,7 +44,7 @@
     "babel-runtime": "^6.6.1",
     "electron-compilers": "^2.0.5",
     "electron-packager": "^5.2.0",
-    "electron-prebuilt": "0.36.4",
+    "electron-prebuilt": "0.37.8",
     "eslint": "^1.10.2",
     "eslint-plugin-react": "^3.10.0",
     "minimist": "^1.1.1",
