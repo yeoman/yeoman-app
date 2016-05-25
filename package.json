@@ -67,7 +67,11 @@
     "preinspector": "open http://127.0.0.1:8080/?ws=127.0.0.1:8080&port=5858",
     "inspector": "node-inspector",
     "lint": "eslint --ext=js --ext=jsx src spec",
-    "build": "electron-compile --appDir . ./src/ ./static/ && node scripts/build.js"
+    "build-cache": "electron-compile --appDir . ./src/ ./static/",
+    "package": "npm run pack-mac && npm run pack-win && npm run pack-linux",
+    "pack-mac": "npm run build-cache && electron-packager . --asar --overwrite --platform=darwin --arch=x64 --icon=resources/app.icns --prune=true --out=out",
+    "pack-win": "npm run build-cache && electron-packager . Yeoman --asar  --overwrite --platform=win32 --arch=ia32 --icon=resources/app.ico --prune=true --out=out",
+    "pack-linux": "npm run build-cache && electron-packager . --asar --overwrite --platform=linux --arch=x64 --icon=resources/png.png --prune=true --out=out"
   },
   "license": "MIT",
   "repository": {
