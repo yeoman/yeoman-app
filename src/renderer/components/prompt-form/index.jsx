@@ -17,7 +17,6 @@ export default React.createClass({
     type: PropTypes.string.isRequired,
     questions: PropTypes.arrayOf(PropTypes.object),
     selectedFolder: PropTypes.string,
-
     selectFolder: PropTypes.func,
     submitSelectedFolder: PropTypes.func,
     submitForm: PropTypes.func
