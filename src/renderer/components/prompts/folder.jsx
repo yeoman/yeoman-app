@@ -10,7 +10,6 @@ export default React.createClass({
 
   propTypes: {
     selectedFolder: PropTypes.string,
-
     selectFolder: PropTypes.func
   },
 
