@@ -6,7 +6,7 @@
 Yo, my friend. This is the first official Yeoman application with a fresh user interface from 2015. The app is unfortunately still in heavy development and **we are looking for help!** Let us know if something doesn't work like you expected by raising an issue or fix it straight away with a PR.
 
 
-![Screenshot](http://i.imgur.com/QHYXruQ.jpg)
+![Screenshot](https://raw.githubusercontent.com/yeoman/yeoman-app/master/resources/screenshot.png)
 
 
 ## Documentation
