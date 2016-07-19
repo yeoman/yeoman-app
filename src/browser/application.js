@@ -84,7 +84,8 @@ class Application extends EventEmitter {
       title: this.pkgJson.productName,
       icon: iconPath,
       width: 1024,
-      height: 700
+      height: 700,
+      titleBarStyle: 'hidden-inset'
     });
     this.menu = new AppMenu({
       pkg: this.pkgJson
