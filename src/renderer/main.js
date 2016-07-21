@@ -7,7 +7,8 @@ const header = document.createElement('header');
 Object.assign(header.style, {
   background: '#FFDE00 url("./img/header.png") no-repeat scroll top center',
   width: '100%',
-  height: '300px'
+  height: '300px',
+  webkitAppRegion: 'drag'
 });
 document.body.appendChild(header);
 
