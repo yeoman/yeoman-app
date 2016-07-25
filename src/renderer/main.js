@@ -8,13 +8,18 @@ Object.assign(header.style, {
   background: '#FFDE00 url("./img/header.png") no-repeat scroll top center',
   width: '100%',
   height: '300px',
-  webkitAppRegion: 'drag'
+  webkitAppRegion: 'drag',
+  boxShadow: '0px 15px 100px -20px rgba(0,0,0,0.5)',
+  position: 'fixed',
+  top: '0',
+  zIndex: '10'
 });
 document.body.appendChild(header);
 
 var main = document.createElement('main');
 Object.assign(main.style, {
-  marginTop: '45px'
+  marginTop: '330px',
+  position: 'absolute'
 });
 main.id = 'content';
 document.body.appendChild(main);
