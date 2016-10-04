@@ -18,7 +18,7 @@
     "flux": "^2.0.1",
     "fs-plus": "^2.3.1",
     "getmac": "^1.0.7",
-    "jasmine": "^2.1.1",
+    "jasmine": "2.1.1",
     "lodash": "^3.6.0",
     "material-ui": "^0.14.4",
     "node-uuid": "^1.4.7",
