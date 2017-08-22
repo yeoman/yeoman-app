@@ -3,6 +3,7 @@
 // Warning: You almost certainly do *not* want to edit this code - instead, you
 // want to edit src/renderer/main.js instead
 window.onload = function() {
+	require("babel-register")({"presets":["react","es2015","stage-0"],"plugins": ["transform-es2015-modules-commonjs"]});
   try {
     var startTime = Date.now();
 
