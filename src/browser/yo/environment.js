@@ -3,6 +3,7 @@ var yo = require('yeoman-environment');
 var Adapter = require('./adapter');
 
 var win32 = process.platform === 'win32';
+var nvm = process.env.NVM_HOME;
 
 var getNpmPaths = function () {
 
@@ -18,7 +19,9 @@ var getNpmPaths = function () {
   });
 
   // Default paths for each system
-  if (win32) {
+  if (nvm) {
+    paths.push(path.join(process.env.NVM_HOME, process.version, 'node_modules'));
+  } else if (win32) {
     paths.push(path.join(process.env.APPDATA, 'npm/node_modules'));
   } else {
     paths.push('/usr/lib/node_modules');
