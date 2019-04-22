@@ -11,7 +11,7 @@ Yo, my friend. This is the first official Yeoman application with a fresh user i
 
 ## Documentation
 
-The project is based mainly on [electron](http://electron.atom.io) and [Material UI](http://material-ui.com/). For a Getting started guide, API docs etc. see the [documentation page](./docs). If something is missing, wrong or unclear, please open an issue. Thank you!
+The project is based mainly on [electron](https://electronjs.org/) and [Material UI](http://material-ui.com/). For a Getting started guide, API docs etc. see the [documentation page](./docs). If something is missing, wrong or unclear, please open an issue. Thank you!
 
 
 ## Contributing
@@ -21,7 +21,7 @@ We love contributors! See our [contribution guideline](http://yeoman.io/contribu
 
 ## Google analytics
 
-To understand how the app is being used we will report usage information to [Google Analytics](http://www.google.com/analytics). If you do not want this information reported, you can disable it. Open the devtools with <kbd>CMD</kbd>+<kbd>OPT</kbd>+<kbd>I</kbd> (or <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>I</kbd> on Windows) and execute following snippet in the console `localStorage.setItem('insight.disabled', true)`.
+To understand how the app is being used we will report usage information to [Google Analytics](http://www.google.com/analytics). If you do not want this information reported, you can disable it. Open the devtools with <kbd>CMD</kbd>+<kbd>OPT</kbd>+<kbd>I</kbd> (or <kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>I</kbd> on Windows) and execute the  following snippet in the console `localStorage.setItem('insight.disabled', true)`.
 
 
 ### Collected Data
