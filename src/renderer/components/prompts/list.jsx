@@ -37,9 +37,9 @@ export default React.createClass({
         <RadioButton
           key={key}
           name={this.props.name}
-          value={choice.value}
+          value={choice.value || choice}
           label={name}
-          onClick={() => this._onClick(choice.value)}
+          onClick={() => this._onClick(choice.value || choice)}
           style={styles.listItem}
         />
       );
