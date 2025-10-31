@@ -1,3 +1,14 @@
+-------
+
+> [!CAUTION]
+> **This repository is archived and no longer actively maintained.**
+>
+> We are no longer accepting issues, feature requests, or pull requests.
+> For additional support or questions, please visit the [Maintenance Reboot plan](https://github.com/yeoman/yeoman/issues/1779).
+
+-------
+
+
 # Yeoman App [![Build Status](https://travis-ci.org/yeoman/yeoman-app.svg)](https://travis-ci.org/yeoman/yeoman-app) [![Gitter](https://img.shields.io/badge/Gitter-Join_the_Yeoman_chat_%E2%86%92-00d06f.svg)](https://gitter.im/yeoman/yeoman)
 
 
